@@ -1,0 +1,6 @@
+Line 33: Class rdActiveText.ActiveText of control txtEmails was not a loaded control class.
+Line 114: Class MSComctlLib.ListView of control lstMail was not a loaded control class.
+Line 164: Class rdActiveText.ActiveText of control txtUsuario was not a loaded control class.
+Line 187: Class rdActiveText.ActiveText of control datData was not a loaded control class.
+Line 213: Class rdActiveText.ActiveText of control txtEmail was not a loaded control class.
+Line 236: Class MSComctlLib.ProgressBar of control pgBar was not a loaded control class.

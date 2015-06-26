@@ -1,0 +1,33 @@
+Public Function StoredProcedure(ByVal Nome As String, ParamArray Parametros()) As Boolean
+   Dim ComandoSQL As String
+   Dim intF As Integer, intI As Integer
+   
+   StoredProcedure = False
+   
+   ComandoSQL = "{CALL " & Nome
+   
+   intF = UBound(Parametros, 1) + 1
+
+   If intF > 0 Then ComandoSQL = ComandoSQL & " ("
+   For intI = 1 To intF
+      ComandoSQL = ComandoSQL & Parametros(intI - 1)
+      If intI <> intF Then ComandoSQL = ComandoSQL & ", "
+   Next
+   
+   If intF > 0 Then ComandoSQL = ComandoSQL & ")"
+   ComandoSQL = ComandoSQL & " }"
+
+   
+   If Not clsConexaoADO.Executar(ComandoSQL) Then
+	 clsErro.Transferir = clsConexaoADO.TransferirErro
+	 clsErro.ModRotina = "StoredProcedure"
+	 Logar "StoredProcedure", "Erro: " & clsErro.Transferir.DscVB
+	 Me.RollBack
+	 Exit Function
+End If
+   
+   End Select
+   
+   StoredProcedure = True
+   
+End Function

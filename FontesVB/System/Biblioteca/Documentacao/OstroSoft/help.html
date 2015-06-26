@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<style>
+BODY, TH, TD {font-size: 12px; font-family: arial, helvetica, clean, sans-serif;}
+
+H1 { font-weight: normal; font-size: 22px;}
+H2 { font-weight: normal; font-size: 20px;}
+H3 { font-weight: normal; font-size: 18px; color: navy;}
+H4 { font-weight: normal; font-size: 16px;}
+H5 { font-weight: normal; font-size: 14px;}
+
+LI { padding: 3px;}
+
+TABLE, TR, TD {border: 0; padding: 0; margin: 0;}
+A {text-decoration: none; color: blue;}
+A:hover {text-decoration: underline; color: blue;}
+
+#tblPage {width: 980px; float: left; background-color: white; padding: 10px; border: solid 1px #f3f3f3;}
+#tdLogo { border: solid 1px #6799BD; width: 200px; height: 50px; text-align: center; padding: 7px;}
+
+#tblTopnav {margin-left: 7px;}
+#tblTopnav TD {font-size: 14px; padding-right: 30px;}
+#tdTopnav { width: 100%; border-bottom: solid 1px #6799BD; }
+#tdTopnavBottom{height: 5px; }
+
+#tdLeftnav, #tdContent {padding-top: 10px; padding-left: 3px; vertical-align: top;}
+#tdDivider {border-left: solid 1px #6799BD; width: 7px;}
+#tdFooter {border-top: solid 1px #6799BD; text-align: center; font-size: 11px; padding-top: 3px;}
+
+.divItemHeader {margin-top: 10px; font-weight: bold; color: Navy; margin-bottom: 3px;}
+.divItem {margin-bottom: 20px;}
+
+.tdGoogleAds {padding-top: 10px;}
+
+#tblMenu { width: 100%; margin-top: 20px; margin-left: 0;}
+.mi1 {padding: 3px; padding-left: 0; margin: 0; font-size: 14px;}
+.mi2 {padding: 3px; padding-left: 10px; margin: 0; font-size: 12px;}
+.mi3 {padding: 3px; padding-left: 20px; margin: 0; font-size: 11px;}
+HR {display: block; height: 1px; border: 0; border-top: 1px solid #6799BD; margin: 0; padding: 0;}
+
+#tblProducts TD { text-align: center; font-size: 12px; }
+#tblProducts IMG { height: 120px; width: 160px; margin: 12px; margin-bottom: 3px; vertical-align: middle;}
+
+#tblProductTable TD {vertical-align: top; }
+#tblProductTable HR { margin-bottom: 20px;}
+#tblProductTable BR { margin-bottom: 8px;}
+.tdCenterTop { text-align: center; padding-right: 7px;}
+.tdCenterTop A { font-size: 18px;}
+.tdCenterTop IMG { height: 120px; width: 160px; margin: 0px; margin-top: 5px; vertical-align: middle;}
+.tdNW { white-space: nowrap;}
+.tdNWR { white-space: nowrap; text-align: right;}
+
+#divContact { padding-left: 150px;}
+#divContact INPUT, TEXTAREA {width: 264px;}
+#divContact TD { padding: 5px;}
+
+.dsp {border: 1px solid silver; margin: 0px; margin-bottom: 8px; padding: 3px;}
+.pHeading { font-weight: bold; margin-top: 3px;}
+#tblObjectReference {border-spacing: 5px; border-collapse: separate; float: right; border: solid 1px silver; background-color: white;}
+#tblObjectReference TD {width: 40px; padding: 3px;}
+.om_obj {font-family: arial, helvetica, sans-serif; font-size: 8pt; background-color: #ffffff; border: 1px solid silver; text-align: center; cursor: default;}
+.om_col {font-family: arial, helvetica, sans-serif; font-size: 8pt; background-color: #c0c0c0; border: 1px solid gray; text-align: center; cursor: default;}
+#tblLicensing TH, #tblLicensing TD { white-space: nowrap; padding: 3px;}
+#tblLicensing HR { margin: 7px;}
+.tblRef { border-collapse: collapse;}
+.tblRef TD { border: solid 1px silver; padding: 3px; }
+.tdHeader { font-size: 16px; font-weight: bold; padding: 3px; }
+
+div.divFAQ { border: solid 1px silver; padding: 5px; margin-bottom: 12px; }
+div.divFAQm { color: #181818; font-family: "Georgia", "Times New Roman", serif; font-weight: normal; font-size: 28px; line-height: 34px; margin-bottom: 8px; }
+div.divFAQq { font-weight: bold; }
+div.divFAQa {  }
+
+div.divHelpSU { font-weight: bold; text-decoration: underline; margin-bottom: 5px; margin-top: 15px; }
+div.divHelpT { line-height: 17px; margin-bottom: 5px; }
+
+.code {margin-bottom: 1.0em; background-color: #ededed; padding: 3px; font-family: monospace; white-space: pre;}
+</style>
+	<title>OstroSoft POP3 Component (OSPOP3.dll)</title>
+</head>
+
+<body>
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="right" nowrap><a href="http://www.ostrosoft.com/" target="_blank" title="Visit our website">OstroSoft - Home of Internet Tools</a></td></tr></table>
+<h1 id="pageTitle">OstroSoft POP3 Component (OSPOP3.dll)</h1>
+
+<table id="tblObjectReference">
+<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="2" class="om_obj">Session</td></tr>
+<tr><td></td><td colspan="2" class="om_col">MessageList</td></tr>
+<tr><td></td><td></td><td colspan="2" class="om_obj">MessageListEntry</td></tr>
+<tr><td></td><td colspan="2" class="om_obj">Message</td></tr>
+<tr><td></td><td></td><td colspan="2" class="om_col">Recipients</td></tr>
+<tr><td></td><td></td><td></td><td colspan="2" class="om_obj">Email</td></tr>
+<tr><td></td><td></td><td colspan="2" class="om_col">Attachments</td></tr>
+<tr><td></td><td></td><td></td><td colspan="2" class="om_obj">Attachment</td></tr>
+<tr><td></td><td></td><td colspan="2" class="om_col">Headers</td></tr>
+<tr><td></td><td></td><td></td><td colspan="2" class="om_obj">Header</td></tr>
+<tr><td></td><td></td><td></td><td></td><td colspan="2" class="om_col">Values</td></tr>
+<tr><td colspan="6" align="center"><small>Component object model</small></td></tr>
+</table>
+
+<div class="dsp"><p class="pHeading">Description</p>
+<p>A software library for retrieving email messages from POP3 mailserver.</p>
+<p>Works with programming and scripting languages supporting .NET or COM</p>
+<p>Supports secure email(SSL), complete and partial message retrieval, email (MIME) attachments, mailbox status check and reset</p>
+</div>
+
+<div class="dsp"><p class="pHeading">Installation</p>
+<p>1. download <a href="/download/full/OSPOP3.zip">OSPOP3.zip</a></p>
+<p>2. unzip downloaded file to a temporary directory</p>
+<p>3. copy OSPOP3_Plus.dll to a root directory of your .NET project</p>
+<p>* if you are using the component from VB6 or other COM language copy both OSPOP3_Plus.dll and OSPOP3_Plus.tlb to a system directory, then register OSPOP3_Plus.tlb</p>
+</div>
+
+<div class="dsp"><table cellspacing="0" cellpadding="0" border="0" id="tblLicensing">
+<tr><th>License type</th><th align="right">Price</th><td></td></tr>
+<tr><td colspan="3"><hr /></td></tr>
+<tr><td><a href="/ospop3/pop3_license.txt" target="license">Non-commercial license</a></td>
+<td align="right">free</td><td></td></tr>
+<tr><td colspan="3">Unlimited usage for developing non-commercial applications.</td></tr>
+<tr><td colspan="3"><hr /></td></tr>
+<tr><td><a href="/ospop3/pop3_license_Developer.txt" target="license">Developer license</a></td>
+<td align="right">$19.00</td><td>(<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNWQ4A6H8664A" target="paypal">purchase</a>)</td></tr>
+<tr><td colspan="3">For a single programmer to develop and distribute a single commercial application.</td></tr>
+<tr><td colspan="3"><hr /></td></tr>
+<tr><td><a href="/ospop3/pop3_license_Server.txt" target="license">Server license</a></td>
+<td align="right">$59.00</td><td>(<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBZ2ZGGZT2YZY" target="paypal">purchase</a>)</td></tr>
+<tr><td colspan="3">For use in a commercial application, installed on a single server.</td></tr>
+<tr><td colspan="3"><hr /></td></tr>
+<tr><td><a href="/ospop3/pop3_license_Enterprise.txt" target="license">Enterprise license</a></td>
+<td align="right">$139.00</td><td>(<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AQHQZH4A87SUW" target="paypal">purchase</a>)</td></tr>
+<tr><td colspan="3">For programmers within a company to develop and distribute an unlimited number of commercial applications.</td></tr>
+</table>
+</div>
+
+<table width="100%"><tr><td width="49%"><hr></td><td nowrap><b>Object reference</b></td><td width="49%"><hr></td></tr></table>
+<div class="tdHeader">Session object</div>
+<div class="divHelpT">Top object in component hierarchy: maintains connection to the mailserver, retrieves mailbox statistics and list of messages, retrieves and deletes messages</div>
+
+<div class="divHelpSU">Methods:</div>
+<div class="divHelpT"><em>object</em>.<strong>Base64Decode</strong>(ByVal s As String) As String<br>Decode Base64-encoded string</div>
+<div class="divHelpT"><em>object</em>.<strong>ClosePOP3</strong>()<br>Close POP3 session, disconnect from the server</div>
+<div class="divHelpT"><em>object</em>.<strong>DeleteMessage</strong>(MessageId As Long) As Boolean<br>Delete specified message from the server</div>
+<div class="divHelpT"><em>object</em>.<strong>GetMailboxSize</strong>() As Long<br>Get total size of the messages in mailbox, in octets (bytes)</div>
+<div class="divHelpT"><em>object</em>.<strong>GetMessageCount</strong>() As Long<br>Get number of messages in mailbox</div>
+<div class="divHelpT"><em>object</em>.<strong>GetMessage</strong>(MessageId As Long, [RemoveFromServer As Boolean = False]) As Message<br>Retrieve specified (by message ID) message from the server, optionally delete it after retrieval</div>
+<div class="divHelpT"><em>object</em>.<strong>GetMessageHeaders</strong>(MessageId As Long, [NumberOfLines As Long]) As Message<br>Get email headers for specified message, optionally retrieve specified number of lines from the top of the message body</div>
+<div class="divHelpT"><em>object</em>.<strong>GetMessageList</strong>() As Collection<br>Retrieve list of available messages (collection of MessageListEntry objects)</div>
+<div class="divHelpT"><em>object</em>.<strong>OpenPOP3</strong>([ServerName As String], [PortNumber As Long], [Login As String], [Password As String]) As Boolean<br>Connect to server, authenticate and establish POP3 session</div>
+<div class="divHelpT"><em>object</em>.<strong>QuotedPrintableDecode</strong>(ByVal s As String) As String<br>Decode quoted-printable string</div>
+<div class="divHelpT"><em>object</em>.<strong>ResetSession</strong>() As Boolean<br>Reset POP3 session (restore messages, deleted during current session)</div>
+
+<div class="divHelpSU">Events:</div>
+<div class="divHelpT"><em>object_</em><strong>Closed</strong>()<br>POP3 session closed</div>
+<div class="divHelpT"><em>object_</em><strong>Connected</strong>()<br>Connected (and authenticated) to POP3 server</div>
+<div class="divHelpT"><em>object_</em><strong>ErrorPOP3</strong>(<em>Number As Long, Description As String</em>)<br>Error occured</div>
+<div class="divHelpT"><em>object_</em><strong>StateChanged</strong>(<em>SESSION_STATE As StateConstants</em>)<br>Connection state changed </div>
+<div class="divHelpT"><em>object_</em><strong>StatusChanged</strong>(<em>Status As String, StatusType As StatusTypeConstants</em>)<br>Status property changed</div>
+
+<div class="divHelpSU">Properties:</div>
+<div class="divHelpT"><em>object.</em><strong>Login</strong> As String<br>User login (username) for authenticating to mailserver</div>
+<div class="divHelpT"><em>object.</em><strong>MailboxSize</strong> As Long<br>Total size of the messages in mailbox, in octets (bytes) (read-only)</div>
+<div class="divHelpT"><em>object.</em><strong>MessageCount</strong> As Long<br>Number of messages in mailbox (read-only)</div>
+<div class="divHelpT"><em>object.</em><strong>MessageList</strong> As Collection<br>List of messages (collection of MessageListEntry objects) in mailbox</div>
+<div class="divHelpT"><em>object.</em><strong>Password</strong> As String<br>User password for authenticating to mailserver</div>
+<div class="divHelpT"><em>object.</em><strong>PortNumber</strong> As Long<br>POP3 server port number (by default - 110)</div>
+<div class="divHelpT"><em>object.</em><strong>RaiseError</strong> As Boolean<br> Defines the component behavior when error occurs. When set to True, raises an error, otherwise - fires ErrorPOP3 event</div>
+<div class="divHelpT"><em>object.</em><strong>SelectedMessage</strong> As Message<br> Last message, retrieved by GetMessage or GetMessageHeaders methods</div>
+<div class="divHelpT"><em>object.</em><strong>ServerName</strong> As String<br>POP3 server name or IP address</div>
+<div class="divHelpT"><em>object.</em><strong>State</strong> As StateConstants (Long)<br>State of POP3 session. The following session state constants are defined:
+<table class="tblRef">
+<tr><th>value</th><th>name</th><th>description</th></tr>
+<tr><td>0</td><td>popClosed</td><td>connection closed</td></tr>
+<tr><td>1</td><td>popResolvingHost</td><td>resolving mailserver name</td></tr>
+<tr><td>2</td><td>popHostResolved</td><td>mailserver name successfully resolved</td></tr>
+<tr><td>3</td><td>popConnecting</td><td>connecting to mailserver</td></tr>
+<tr><td>4</td><td>popConnected</td><td>connected to mailserver</td></tr>
+<tr><td>5</td><td>popAuthenticating</td><td>authenticating to mailserver</td></tr>
+<tr><td>6</td><td>popAuthenticated</td><td>successfully authenticated to mailserver</td></tr>
+<tr><td>7</td><td>popClosing</td><td>connection is closing</td></tr>
+<tr><td>8</td><td>popError</td><td>error occured</td></tr>
+</table>
+</div>
+<div class="divHelpT"><em>object.</em><strong>Status</strong> As String<br>Last status of POP3 component, returned by StatusChanged event</div>
+<div class="divHelpT"><em>object.</em><strong>StatusOption</strong> As StatusOptionConstants (Long)<br>Instructs POP3 Component what status changes to report. The following status option constants are defined:
+<table class="tblRef">
+<tr><th>value</th><th>name</th><th>description</th></tr>
+<tr><td>0</td><td>soNone</td><td>do not report any status changes</td></tr>
+<tr><td>1</td><td>soPOP3Requests</td><td>report POP3 Requests</td></tr>
+<tr><td>2</td><td>soPOP3Responses</td><td>report POP3 Responses</td></tr>
+<tr><td>4</td><td>soStates</td><td>report POP3 session states</td></tr>
+<tr><td>8</td><td>soError</td><td>report errors</td></tr>
+<tr><td>15</td><td>soAll</td><td>report everything</td></tr>
+</table>
+You can also use OR expressions.<br>For example: (soPOP3Requests OR soPOP3Responses) will report both POP3 Requests and Responses</div>
+<div class="divHelpT"><em>object.</em><strong>StatusType</strong> As StatusTypeConstants<br>Type of the last status, returned by StatusChanged event. The following status option constants are defined:
+<table class="tblRef">
+<tr><th>value</th><th>name</th><th>description</th></tr>
+<tr><td>1</td><td>stPOP3Requests</td><td>POP3 Request</td></tr>
+<tr><td>2</td><td>stPOP3Responses</td><td>POP3 Response</td></tr>
+<tr><td>4</td><td>stStates</td><td>POP3 session state</td></tr>
+<tr><td>8</td><td>stError</td><td>Error</td></tr>
+</table>
+</div>
+<div class="divHelpT"><em>object.</em><strong>Timeout</strong> As Long<br>Connection timeout in milliseconds (default - 10000)</div>
+<div class="divHelpT"><em>object.</em><strong>UseSSL</strong> As Boolean<br>When set to true, uses POP3 over secure connection (TLS/SSL)</div>
+<hr />
+
+<div class="tdHeader">MessageListEntry object</div>
+<div class="divHelpT">Item in MessageList collection of Session</div>
+<div class="divHelpSU">Properties:</div>
+<div class="divHelpT"><em>object.</em><strong>ID</strong> As Long<br>Message ID</div>
+<div class="divHelpT"><em>object.</em><strong>Size</strong> As Long<br>Message size in octets (bytes)</div>
+<div class="divHelpT"><em>object.</em><strong>UIDL</strong> As String<br>Message UIDL (if supported by server) - unique identifier assigned to message by mailserver </div>
+<hr />
+
+<div class="tdHeader">Message object</div>
+<div class="divHelpT">Returned by GetMessage or GetMessageHeaders functions, contains parsed email message</div>
+<div class="divHelpSU">Methods:</div>
+<div class="divHelpT"><em>object</em>.<strong>Save</strong>(FILE_NAME As String)<br>Save message to a specified location</div>
+
+<div class="divHelpSU">Properties:</div>
+<div class="divHelpT"><em>object.</em><strong>All</strong> As String<br> Entire message (including headers, all body parts and attachments) in original (.eml) format</div>
+<div class="divHelpT"><em>object.</em><strong>Attachments</strong> As Collection<br>Collection of message attachments (Attachment objects)</div>
+<div class="divHelpT"><em>object.</em><strong>Body</strong> As String<br>Message body</div>
+<div class="divHelpT"><em>object.</em><strong>Charset</strong> As String<br>Message charset</div>
+<div class="divHelpT"><em>object.</em><strong>ContentTransferEncoding</strong> As String<br>Message content-transfer-encoding</div>
+<div class="divHelpT"><em>object.</em><strong>ContentType</strong> As String<br>Message content type</div>
+<div class="divHelpT"><em>object.</em><strong>DateSent</strong> As String<br>Message timestamp</div>
+<div class="divHelpT"><em>object.</em><strong>Headers</strong> As Collection<br>Collection of message headers (Header objects)</div>
+<div class="divHelpT"><em>object.</em><strong>HTMLBody</strong> As String<br>HTML part of message body</div>
+<div class="divHelpT"><em>object.</em><strong>Recipients</strong> As Collection<br>Collection of message recipients (Email objects)</div>
+<div class="divHelpT"><em>object.</em><strong>RecipientsCC</strong> As Collection<br>Collection of message CC recipients (Email objects)</div>
+<div class="divHelpT"><em>object.</em><strong>Sender</strong> As Email<br>Message sender</div>
+<div class="divHelpT"><em>object.</em><strong>Subject</strong> As String<br>Message subject</div>
+<div class="divHelpT"><em>object.</em><strong>UIDL</strong> As String<br>Message UIDL (if supported by server)</div>
+<hr />
+
+<div class="tdHeader">Header object</div>
+<div class="divHelpT">Item in Headers collection of Message</div>
+<div class="divHelpSU">Properties:</div>
+<div class="divHelpT"><em>object.</em><strong>Name</strong> As String<br>Header name</div>
+<div class="divHelpT"><em>object.</em><strong>Values</strong> As Collection<br>Collection of string values, associated with header</div>
+<hr />
+
+<div class="tdHeader">Email object</div>Pair of name and email address assigned to message sender and recipients
+<div class="divHelpSU">Properties:</div>
+<div class="divHelpT"><em>object.</em><strong>Address</strong> As String<br>Email address</div>
+<div class="divHelpT"><em>object.</em><strong>Name</strong> As String<br>Name, assigned to email address (optional)</div>
+<hr />
+
+<div class="tdHeader">Attachment object</div>Item in Attachments collection of Message
+<div class="divHelpSU">Methods:</div>
+<div class="divHelpT"><em>object</em>.<strong>Save</strong>(FILE_NAME As String)<br>Saves attachment to a specified location. If attachment is Base64 encoded, it will be decoded before saving</div>
+
+<div class="divHelpSU">Properties:</div>
+<div class="divHelpT"><em>object.</em><strong>AttachmentName</strong> As String<br>Attachment name</div>
+<div class="divHelpT"><em>object.</em><strong>Body</strong> As String<br>Attachment body</div>
+<div class="divHelpT"><em>object.</em><strong>ContentDisposition</strong> As String<br>Content disposition header of attachment</div>
+<div class="divHelpT"><em>object.</em><strong>ContentTransferEncoding</strong> As String<br>Type of attachment encoding</div>
+<div class="divHelpT"><em>object.</em><strong>ContentType</strong> As String<br>MIME type of attachment</div>
+<div class="divHelpT"><em>object.</em><strong>Filename</strong> As String<br>Attachment filename</div>
+
+</body>
+</html>

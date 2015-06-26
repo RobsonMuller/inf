@@ -1,0 +1,17 @@
+C:\Users\Robson\AppData\Local\Temporary Projects\Infinity\bin\Debug\Infinity.exe.config
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\Infinity\bin\Debug\Infinity.exe.config
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\bin\Debug\Infinity.exe.config
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Interop.ADODB.dll
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.vbproj.ResolveComReference.cache
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.Resources.resources
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.vbproj.GenerateResource.Cache
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\bin\Debug\Infinity.exe
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\bin\Debug\Infinity.pdb
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\bin\Debug\Infinity.xml
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.exe
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.xml
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.pdb
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.frmLogin.resources
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.frmSQLConnection.resources
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.MenuPrincipal.resources
+C:\Users\Robson\Desktop\_Infinity\Fontes\Cong\obj\Debug\Infinity.frmUsuarios.resources

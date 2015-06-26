@@ -1,0 +1,24 @@
+Line 65: Class rdActiveText.ActiveText of control txtNovaSenha was not a loaded control class.
+Line 88: Class rdActiveText.ActiveText of control txtConfirmaSenha was not a loaded control class.
+Line 135: Class rdActiveText.ActiveText of control txtNome was not a loaded control class.
+Line 158: Class rdActiveText.ActiveText of control txtSenha was not a loaded control class.
+Line 71: The property name _ExtentX in txtNovaSenha is invalid.
+Line 72: The property name _ExtentY in txtNovaSenha is invalid.
+Line 82: The property name MaxLength in txtNovaSenha is invalid.
+Line 83: The property name PasswordChar in txtNovaSenha is invalid.
+Line 84: The property name RawText in txtNovaSenha is invalid.
+Line 94: The property name _ExtentX in txtConfirmaSenha is invalid.
+Line 95: The property name _ExtentY in txtConfirmaSenha is invalid.
+Line 105: The property name MaxLength in txtConfirmaSenha is invalid.
+Line 106: The property name PasswordChar in txtConfirmaSenha is invalid.
+Line 107: The property name RawText in txtConfirmaSenha is invalid.
+Line 141: The property name _ExtentX in txtNome is invalid.
+Line 142: The property name _ExtentY in txtNome is invalid.
+Line 153: The property name RawText in txtNome is invalid.
+Line 156: The property name Locked in txtNome is invalid.
+Line 164: The property name _ExtentX in txtSenha is invalid.
+Line 165: The property name _ExtentY in txtSenha is invalid.
+Line 175: The property name MaxLength in txtSenha is invalid.
+Line 176: The property name PasswordChar in txtSenha is invalid.
+Line 177: The property name RawText in txtSenha is invalid.
+Line 180: The property name Locked in txtSenha is invalid.

@@ -1,0 +1,10 @@
+IF OBJECT_ID('dbo.GLBParametros') IS NOT NULL
+	DROP TABLE dbo.GLBParametros
+GO
+
+CREATE TABLE dbo.GLBParametros (
+		Empresa CHAR(2) NOT NULL,
+		PathReport VARCHAR(255) NOT NULL
+)
+ALTER TABLE dbo.GLBParametros ADD CONSTRAINT PK_GLBPARAMETROS PRIMARY KEY (Empresa)
+GO

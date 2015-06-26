@@ -1,0 +1,16 @@
+[History]
+B0=INF_Cong/frmEnvioEmail/cmdEnviar_Click
+B1=INF_Cong/mInfinity/Exibir
+B2=INF_Cong/frmConfigEmail/cmdSalvar_Click
+B3=INF_Cong/frmEnvioEmail/cmdLimpar_Click
+B4=INF_Cong/frmConfigEmail/Command1_Click
+B5=INF_Cong/frmEnvioEmail/cmdAdicionar_Click
+B6=INF_Cong/frmEnvioEmail/Form_Load
+B7=INF_Cong/frmEnvioEmail/cmdFechar_Click
+B8=INF_Cong/frmEnvioEmail/txtRemetente_Change
+B9=INF_Cong/frmConfigEmail/Form_Load
+B10=INF_Cong/sPermissoes/CarregaPermissoesUsuario
+B11=INF_Cong/frmConfigEmail/Form_Unload
+B12=INF_Cong/mInfinity/HabilitarBotao
+B13=INF_Cong/frmPermissoes/cmdConsultar_Click
+B14=INF_Cong/sContainerPermissoes/Key

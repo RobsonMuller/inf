@@ -1,0 +1,5 @@
+Line 68: Class MSComctlLib.ListView of control lstAnexos was not a loaded control class.
+Line 110: Class rdActiveText.ActiveText of control txtAssunto was not a loaded control class.
+Line 155: Class rdActiveText.ActiveText of control txtRemetente was not a loaded control class.
+Line 176: Class rdActiveText.ActiveText of control txtDestinatario was not a loaded control class.
+Line 197: Class rdActiveText.ActiveText of control txtComCopia was not a loaded control class.
