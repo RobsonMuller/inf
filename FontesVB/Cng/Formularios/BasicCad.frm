@@ -206,6 +206,12 @@ Private clsErro As INF_Erro.Funcoes
 Private Sub cmdNovo_Click()
    Me.fraIdentificacao.Enabled = False
    Me.fraParametros.Enabled = True
+   
+   Me.cmdSalvar.Enabled = False
+   Me.cmdSalvar.Caption = "&Salvar"
+   Me.cmdExcluir.Enabled = False
+   
+   If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "cmdNovo_Click"
 End Sub
 
 Private Sub Form_Load()
