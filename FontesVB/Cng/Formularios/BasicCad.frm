@@ -214,3 +214,7 @@ Private Sub Form_Load()
    f1.CmbAdd Me.cmbSituacao, "Ativado", 1
    f1.CmbAdd Me.cmbSituacao, "Desativado", 2
 End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+   Set clsErro = Nothing
+End Sub
