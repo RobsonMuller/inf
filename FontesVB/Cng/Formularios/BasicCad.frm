@@ -199,3 +199,18 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
+
+Private clsErro As INF_Erro.Funcoes
+
+Private Sub cmdNovo_Click()
+   Me.fraIdentificacao.Enabled = False
+   Me.fraParametros.Enabled = True
+End Sub
+
+Private Sub Form_Load()
+   Set clsErro = New INF_Erro.Funcoes
+   
+   f1.CmbAdd Me.cmbSituacao, "Ativado", 1
+   f1.CmbAdd Me.cmbSituacao, "Desativado", 2
+End Sub
