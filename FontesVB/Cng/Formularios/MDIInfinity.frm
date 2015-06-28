@@ -210,6 +210,7 @@ End Sub
 Private Sub ID_02_01_01_C_Click()
    Dim frmModal As New frmBasicCad
    
+   frmModal.BaseForm enMarca
    frmModal.Show
 End Sub
 
