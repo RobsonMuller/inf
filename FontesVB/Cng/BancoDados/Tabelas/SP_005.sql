@@ -24,3 +24,31 @@ INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20101, 'Cadas
 INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20101, 'Cadastro de Marcas', 4)
 INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20101, 'Cadastro de Marcas', 6)
 GO
+
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20102, 'Cadastro de Modelos', 1)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20102, 'Cadastro de Modelos', 2)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20102, 'Cadastro de Modelos', 3)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20102, 'Cadastro de Modelos', 4)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20102, 'Cadastro de Modelos', 6)
+GO
+
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20103, 'Cadastro de Unidades', 1)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20103, 'Cadastro de Unidades', 2)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20103, 'Cadastro de Unidades', 3)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20103, 'Cadastro de Unidades', 4)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20103, 'Cadastro de Unidades', 6)
+GO
+
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20104, 'Cadastro de Grupos', 1)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20104, 'Cadastro de Grupos', 2)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20104, 'Cadastro de Grupos', 3)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20104, 'Cadastro de Grupos', 4)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20104, 'Cadastro de Grupos', 6)
+GO
+
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadastro de SubGrupos', 1)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadastro de SubGrupos', 2)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadastro de SubGrupos', 3)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadastro de SubGrupos', 4)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadastro de SubGrupos', 6)
+GO

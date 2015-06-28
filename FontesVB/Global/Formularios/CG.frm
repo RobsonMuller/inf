@@ -146,8 +146,8 @@ Public Enum DefineConsulta
    enUnidades = 4
    enFornecedores = 5
    enModelos = 6
-   enGrupo = 7
-   enSubGrupo = 8
+   enGrupos = 7
+   enSubGrupos = 8
    
    'Acima do 100, são tabelas que não possuem o campo empresa "Tabelas Globais"
    enMunicipios = 100
@@ -212,12 +212,12 @@ Private Sub cmdPesquisar_Click()
             strDesc = "Descricao"
             strTable = "Modelos"
          
-         Case enGrupo
+         Case enGrupos
             strCod = "Codigo"
             strDesc = "Descricao"
             strTable = "Grupos"
          
-         Case enSubGrupo
+         Case enSubGrupos
             strCod = "Codigo"
             strDesc = "Descricao"
             strTable = "SubGrupos"

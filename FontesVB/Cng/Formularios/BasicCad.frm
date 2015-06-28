@@ -7,11 +7,11 @@ Begin VB.Form frmBasicCad
    ClientLeft      =   45
    ClientTop       =   390
    ClientWidth     =   6960
+   Icon            =   "BasicCad.frx":0000
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
-   MinButton       =   0   'False
    ScaleHeight     =   2400
    ScaleWidth      =   6960
    Begin VB.CommandButton cmdFechar 
@@ -159,6 +159,16 @@ Begin VB.Form frmBasicCad
       TabIndex        =   0
       Top             =   0
       Width           =   5430
+      Begin VB.CommandButton cmdPesq 
+         Caption         =   "..."
+         Enabled         =   0   'False
+         Height          =   255
+         Left            =   2010
+         TabIndex        =   16
+         TabStop         =   0   'False
+         Top             =   300
+         Width           =   255
+      End
       Begin rdActiveText.ActiveText vlrCod 
          Height          =   315
          Left            =   780
@@ -204,6 +214,9 @@ Option Explicit
 Enum EnForm
    enMarca = 0
    enModelo = 1
+   enUnidade = 2
+   enGrupo = 3
+   enSubGrupo = 4
 End Enum
 
 Private strTable As String
@@ -271,6 +284,67 @@ DestruirObjetos:
    Set clsCursor = Nothing
 End Sub
 
+Private Sub cmdExcluir_Click()
+   On Error GoTo cmdExcluir_Click_E
+   
+   Dim clsCursor As INF_Cursor.Cursor
+   
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   With clsCursor
+      .Inicializar clsConexao
+      
+      .SQL.Limpar
+      .SQL.Mais " SELECT Codigo, Descricao "
+      .SQL.Mais " FROM Produtos "
+      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND CodMarca = " & .Vlr(Me.vlrCod)
+      
+      If Not .Abrir(.SQL.Texto) Then
+         clsErro.Transferir = .TransferirErro
+         Exibir clsErro, "cmdExcluir_Click"
+         GoTo DestruirObjetos
+      End If
+      
+      If Not .EOF Then
+         mMsgInfo "O registro esta sendo utilizado por algum Produto! Exclusão cancelada."
+         mFocus Me.cmdExcluir
+         GoTo DestruirObjetos
+      End If
+      
+      .Fechar
+   End With
+   
+   clsConexao.Begin
+   With clsConexao
+      .SQL.Limpar
+      .SQL.Mais " DELETE FROM " & strTable
+      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND Codigo = " & .Vlr(Me.vlrCod)
+      
+      If Not .Executar(.SQL.Texto) Then
+         clsErro.Transferir = .TransferirErro
+         clsConexao.RollBack
+         Exibir clsErro, "cmdSalvar_Click"
+         GoTo DestruirObjetos
+      End If
+   End With
+   clsConexao.Commit
+   
+   mMsgInfo "Registro excluido com sucesso!"
+   cmdLimpar_Click
+   
+   GoTo DestruirObjetos
+   
+cmdExcluir_Click_E:
+   clsErro.Salvar Err
+   clsConexao.RollBack
+   Exibir clsErro, "cmdExcluir_Click"
+
+DestruirObjetos:
+   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
+   Set clsCursor = Nothing
+End Sub
+
 Private Sub cmdFechar_Click()
    Unload Me
 End Sub
@@ -289,7 +363,7 @@ Private Sub cmdLimpar_Click()
    
    If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "cmdNovo_Click"
    If Not HabilitarBotao(clsErro, Me, Me.cmdConsultar) Then Exibir clsErro, "Form_Load"
-   
+   Me.cmdPesq.Enabled = Me.cmdConsultar.Enabled
 End Sub
 
 Private Sub cmdNovo_Click()
@@ -420,10 +494,26 @@ Public Sub BaseForm(CodForm As EnForm)
    Case EnForm.enMarca
       strTable = "Marcas"
       Me.Tag = "020101"
-      
+   
+   Case EnForm.enModelo
+      strTable = "Modelos"
+      Me.Tag = "020102"
+   
+   Case EnForm.enUnidade
+      strTable = "Unidades"
+      Me.Tag = "020103"
+   
+   Case EnForm.enGrupo
+      strTable = "Grupos"
+      Me.Tag = "020104"
+
+   Case EnForm.enSubGrupo
+      strTable = "SubGrupos"
+      Me.Tag = "020105"
    End Select
    
    Me.Caption = "Cadastro de " & strTable
    If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "Form_Load"
    If Not HabilitarBotao(clsErro, Me, Me.cmdConsultar) Then Exibir clsErro, "Form_Load"
+   Me.cmdPesq.Enabled = Me.cmdConsultar.Enabled
 End Sub

@@ -125,7 +125,7 @@ Public Function CurBasicCad() As Boolean
    
    GoTo DestruirObjetos
 
-CurBasicCad_E
+CurBasicCad_E:
    clsErro.Salvar Err
    clsErro.ModRotina = "CurBasicCad"
 

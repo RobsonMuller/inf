@@ -215,15 +215,31 @@ Private Sub ID_02_01_01_C_Click()
 End Sub
 
 Private Sub ID_02_01_02_C_Click()
-   'frmModelos.Show
+   Dim frmModal As New frmBasicCad
+   
+   frmModal.BaseForm enModelo
+   frmModal.Show
+End Sub
+
+Private Sub ID_02_01_03_C_Click()
+   Dim frmModal As New frmBasicCad
+   
+   frmModal.BaseForm enUnidade
+   frmModal.Show
 End Sub
 
 Private Sub ID_02_01_04_C_Click()
-   'frmGrupo.Show
+   Dim frmModal As New frmBasicCad
+   
+   frmModal.BaseForm enGrupo
+   frmModal.Show
 End Sub
 
 Private Sub ID_02_01_05_C_Click()
-   'frmSubGrupos.Show
+   Dim frmModal As New frmBasicCad
+   
+   frmModal.BaseForm enSubGrupo
+   frmModal.Show
 End Sub
 
 Private Sub ID_02_02_00_C_Click()
