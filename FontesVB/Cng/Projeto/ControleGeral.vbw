@@ -16,3 +16,5 @@ frmUsuarios = 182, 182, 1146, 557, C, 156, 156, 1027, 592, C
 mVerifica = 182, 182, 1146, 557, C
 clsBasicCad = 26, 26, 861, 478, C
 frmBasicCad = 104, 104, 939, 556, C, 52, 52, 887, 504, C
+frmProdutos = 130, 130, 965, 582, Z, 52, 52, 887, 504, C
+frmProdutosFornMod = 0, 0, 0, 0, C, 0, 0, 0, 0, C

@@ -1,0 +1,46 @@
+IF object_id('dbo.Produtos') IS NOT NULL
+	DROP TABLE dbo.Produtos
+GO
+
+CREATE TABLE dbo.Produtos (
+	Empresa CHAR(2) NOT NULL,
+	Codigo NUMERIC(10) NOT NULL,
+	DtCad DATE NOT NULL,
+	CodUsuarioCad NUMERIC(10) NOT NULL,
+	DtUltAlt DATE NULL,
+	CodUsuarioAlt NUMERIC(10) NULL,
+	CodBarras CHAR(13) NOT NULL,
+	Descricao VARCHAR(80) NOT NULL,
+	Abreviatura VARCHAR(40) NULL,
+	CodGrupo NUMERIC(10) NULL,
+	CodSubGrupo NUMERIC(10) NULL,
+	CodMarca NUMERIC(10) NULL,
+	CodModelo NUMERIC(10) NULL,
+	CodUnidade NUMERIC(10) NULL,
+	Observacao VARCHAR(255) NULL,
+	Situacao CHAR(1) NOT NULL,
+	LucroMinimo NUMERIC(13,2) NOT NULL,
+	TpLucroMinimo CHAR(1) NOT NULL,
+	ControlarEst CHAR(1) NOT NULL,
+	VenderSemEst CHAR(1) NOT NULL,
+	ICMS NUMERIC(13,2) NULL,
+	TpICMS CHAR(1) NOT NULL,
+	PISCOFINS NUMERIC(13,2) NULL,
+	TpPISCOFINS CHAR(1) NOT NULL,
+	IPIVenda NUMERIC(13,2) NULL,
+	TpIPIVenda CHAR(1) NOT NULL,
+	Tributos NUMERIC(13,2) NULL,
+	Frete NUMERIC(13,2) NULL,
+	TpFrete CHAR(1) NOT NULL,
+	Comissao NUMERIC(13,2) NULL,
+	TpComissao CHAR(1) NOT NULL,
+	Margem NUMERIC(13,2) NULL,
+	TpMargem CHAR(1) NOT NULL,
+	Custos NUMERIC(13,2) NULL,
+	TpCustos CHAR(1) NOT NULL,
+	ValorVenda NUMERIC(13,2) NOT NULL,
+	TpTributacao CHAR(1) NOT NULL
+)
+
+ALTER TABLE dbo.Produtos ADD CONSTRAINT PK_PRODUTOS PRIMARY KEY (Empresa, Codigo)
+GO
