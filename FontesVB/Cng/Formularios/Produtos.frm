@@ -1674,8 +1674,13 @@ Private Sub cmdAdicionar_Click()
    Dim curLucroPerc As Currency
    Dim curLucroVlr As Currency
    Dim frmModal As frmProdutosFornMod
-   
    Dim ContainerProdForn As clsContainerProdutosForn
+   
+   If Me.vlrLucroMin = 0 Then
+      mMsgInfo "O valor do lucro mínimo deve ser informado! Verifique."
+      mFocus Me.vlrLucroMin
+      Exit Sub
+   End If
    
    Set frmModal = New frmProdutosFornMod
    With frmModal
@@ -1905,6 +1910,10 @@ DestruirObjetos:
    Set frmModal = Nothing
 End Sub
 
+Private Sub cmdConsultar_Click()
+
+End Sub
+
 Private Sub cmdConsUnidade_Click()
    Dim frmModal As frmCG
    
@@ -2019,3 +2028,4 @@ End Sub
 Private Sub vlrCodUnidade_LostFocus()
    If Not VerificaUnidade(clsErro, Me.vlrCodUnidade, Me.txtDescUnidade, "1") Then Exibir clsErro, "vlrCodUnidade_LostFocus"
 End Sub
+

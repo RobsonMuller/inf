@@ -255,7 +255,7 @@ Private Sub ID_02_03_01_C_Click()
 End Sub
 
 Private Sub ID_02_04_01_C_Click()
-   'frmFornecedores.Show
+   frmFornecedores.Show
 End Sub
 
 Private Sub ID_02_04_02_C_Click()

@@ -1,0 +1,15 @@
+IF object_id('dbo.Grupos') IS NOT NULL
+	DROP TABLE dbo.Marcas 
+GO
+
+CREATE TABLE dbo.Grupos (
+	Empresa CHAR(2) NOT NULL,
+	Codigo NUMERIC(10) NOT NULL,
+	Descricao VARCHAR(40) NOT NULL,
+	Abreviatura VARCHAR(20) NOT NULL,
+	Situacao CHAR(1) NOT NULL
+)
+
+ALTER TABLE dbo.Grupos ADD CONSTRAINT PK_GRUPOS PRIMARY KEY (Empresa, Codigo)
+ALTER TABLE dbo.Grupos ADD CONSTRAINT CK_GRUPOS_SITUACAO CHECK (Situacao IN ('1', '2'))
+GO

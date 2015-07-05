@@ -26,7 +26,7 @@ Public Function VerificaUsuario(objErro As Object, ID As ActiveText, Dsc As Acti
       If Len(Trim(Situacao)) > 0 Then .SQL.Mais " AND Situacao  = " & .Txt(Situacao)
       
       If Not .Abrir(.SQL.Texto) Then
-         objErro.TransferirErro = .TransferirErro
+         objErro.Transferir = .TransferirErro
          objErro.ModRotina = "VerificaUsuario"
          GoTo DestruirObjetos
       End If
@@ -80,7 +80,7 @@ Public Function VerificaGrupo(objErro As Object, ID As ActiveText, Dsc As Active
       If Len(Trim(Situacao)) > 0 Then .SQL.Mais " AND Situacao  = " & .Txt(Situacao)
       
       If Not .Abrir(.SQL.Texto) Then
-         objErro.TransferirErro = .TransferirErro
+         objErro.Transferir = .TransferirErro
          objErro.ModRotina = "VerificaGrupo"
          GoTo DestruirObjetos
       End If
@@ -134,7 +134,7 @@ Public Function VerificaSubGrupo(objErro As Object, ID As ActiveText, Dsc As Act
       If Len(Trim(Situacao)) > 0 Then .SQL.Mais " AND Situacao  = " & .Txt(Situacao)
       
       If Not .Abrir(.SQL.Texto) Then
-         objErro.TransferirErro = .TransferirErro
+         objErro.Transferir = .TransferirErro
          objErro.ModRotina = "VerificaSubGrupo"
          GoTo DestruirObjetos
       End If
@@ -188,7 +188,7 @@ Public Function VerificaMarca(objErro As Object, ID As ActiveText, Dsc As Active
       If Len(Trim(Situacao)) > 0 Then .SQL.Mais " AND Situacao  = " & .Txt(Situacao)
       
       If Not .Abrir(.SQL.Texto) Then
-         objErro.TransferirErro = .TransferirErro
+         objErro.Transferir = .TransferirErro
          objErro.ModRotina = "VerificaMarca"
          GoTo DestruirObjetos
       End If
@@ -242,7 +242,7 @@ Public Function VerificaModelo(objErro As Object, ID As ActiveText, Dsc As Activ
       If Len(Trim(Situacao)) > 0 Then .SQL.Mais " AND Situacao  = " & .Txt(Situacao)
       
       If Not .Abrir(.SQL.Texto) Then
-         objErro.TransferirErro = .TransferirErro
+         objErro.Transferir = .TransferirErro
          objErro.ModRotina = "VerificaModelo"
          GoTo DestruirObjetos
       End If
@@ -296,7 +296,7 @@ Public Function VerificaUnidade(objErro As Object, ID As ActiveText, Dsc As Acti
       If Len(Trim(Situacao)) > 0 Then .SQL.Mais " AND Situacao  = " & .Txt(Situacao)
       
       If Not .Abrir(.SQL.Texto) Then
-         objErro.TransferirErro = .TransferirErro
+         objErro.Transferir = .TransferirErro
          objErro.ModRotina = "VerificaUnidade"
          GoTo DestruirObjetos
       End If
@@ -325,3 +325,56 @@ DestruirObjetos:
    Set clsCursor = Nothing
 End Function
 
+Public Function VerificaFornecedor(objErro As Object, ID As ActiveText, Dsc As ActiveText, Optional Situacao As String = "") As Boolean
+   On Error GoTo VerificaFornecedor_E
+   
+   Dim clsCursor As INF_Cursor.Cursor
+   
+   VerificaFornecedor = False
+   
+   If ID = 0 Then
+      VerificaFornecedor = True
+      GoTo DestruirObjetos
+   End If
+   
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   With clsCursor
+      .Inicializar clsConexao
+      
+      .SQL.Limpar
+      .SQL.Mais " SELECT RazaoSocial "
+      .SQL.Mais " FROM Fornecedores "
+      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND Codigo = " & .Vlr(ID)
+      
+      If Len(Trim(Situacao)) > 0 Then .SQL.Mais " AND Situacao  = " & .Txt(Situacao)
+      
+      If Not .Abrir(.SQL.Texto) Then
+         objErro.Transferir = .TransferirErro
+         objErro.ModRotina = "VerificaFornecedor"
+         GoTo DestruirObjetos
+      End If
+      
+      If Not .EOF Then
+         Dsc = .Valor("RazaoSocial")
+      Else
+         objErro.Salvar Err, 1, "Fornecedor não localizado! Verifique."
+         objErro.ModRotina = "VerificaFornecedor"
+         mFocus ID
+         GoTo DestruirObjetos
+      End If
+      .Fechar
+   End With
+   
+   VerificaFornecedor = True
+   
+   GoTo DestruirObjetos
+   
+VerificaFornecedor_E:
+   objErro.Salvar Err
+   objErro.ModRotina = "VerificaFornecedor"
+
+DestruirObjetos:
+   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
+   Set clsCursor = Nothing
+End Function

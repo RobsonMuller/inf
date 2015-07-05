@@ -201,6 +201,24 @@ Private Sub cmdOk_Click()
    Me.Hide
 End Sub
 
+Private Sub cmdPesqForn_Click()
+   Dim frmModal As frmCG
+   
+   Set frmModal = New frmCG
+   With frmModal
+      .Codigo = Me.vlrCod
+      .TpDefinicao = enFornecedores
+      .Ativo = True
+      .Show vbModal
+      
+      If Not .Cancelado Then Me.vlrCod = .Codigo
+   End With
+   
+DestruirObjetos:
+   If Not (frmModal Is Nothing) Then Unload frmModal
+   Set frmModal = Nothing
+End Sub
+
 Private Sub Form_Load()
    Set clsErro = CreateObject("INF_Erro.Funcoes")
 End Sub
@@ -228,4 +246,50 @@ End Property
 Private Sub Form_Unload(Cancel As Integer)
    blnCancelado = True
    Me.Hide
+End Sub
+
+Private Sub vlrCod_LostFocus()
+   On Error GoTo vlrCod_LostFocus_E
+   
+   Dim clsCursor As INF_Cursor.Cursor
+   
+   If Me.vlrCod = 0 Then GoTo DestruirObjetos
+   
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   With clsCursor
+      .Inicializar clsConexao
+      
+      .SQL.Limpar
+      .SQL.Mais " SELECT RazaoSocial, Telefone "
+      .SQL.Mais " FROM Fornecedores "
+      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND Codigo = " & .Vlr(Me.vlrCod)
+      .SQL.Mais " AND Situacao  = " & .Txt("1")
+      
+      If Not .Abrir(.SQL.Texto) Then
+         clsErro.Transferir = .TransferirErro
+         clsErro.ModRotina = "VerificaFornecedor"
+         GoTo DestruirObjetos
+      End If
+      
+      If Not .EOF Then
+         Me.txtDescricao = .Valor("RazaoSocial")
+         Me.txtFone = .Valor("Telefone")
+         mFocus Me.vlrCompra
+      Else
+         mMsgInfo "Fornecedor não localizado! Verifique."
+         mFocus Me.vlrCod
+      End If
+      .Fechar
+   End With
+   
+   GoTo DestruirObjetos
+   
+vlrCod_LostFocus_E:
+   clsErro.Salvar Err
+   Exibir clsErro, "vlrCod_LostFocus"
+
+DestruirObjetos:
+   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
+   Set clsCursor = Nothing
 End Sub

@@ -1,0 +1,27 @@
+IF object_id('dbo.Fornecedores') IS NOT NULL
+	DROP TABLE dbo.Fornecedores
+GO
+
+CREATE TABLE dbo.Fornecedores (
+	Empresa CHAR(2) NOT NULL,
+	Codigo NUMERIC(10) NOT NULL,
+	RazaoSocial VARCHAR(80) NOT NULL,
+	DataCad DATE NOT NULL,
+	CPFCNPJ CHAR(15) NULL,
+	RGIE CHAR(11) NULL,
+	CEP CHAR(8) NULL,
+	Endereco VARCHAR(80) NULL,
+	Numeroc NUMERIC(10) NULL,
+	Bairro VARCHAR(60) NULL,
+	Estado CHAR(2) NULL,
+	CodCidade NUMERIC(10) NULL,
+	Fone CHAR(11) NULL,
+	Fax CHAR(11) NULL,
+	Cel CHAR(11) NULL,
+	Email VARCHAR(255) NULL,
+	Site VARCHAR(255) NULL,
+	TpPessoa CHAR(1) NOT NULL,
+	Situacao CHAR(1) NOT NULL
+)
+ALTER TABLE dbo.Fornecedores ADD CONSTRAINT PK_FORNECEDORES PRIMARY KEY (Empresa, Codigo)
+GO
