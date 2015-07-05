@@ -1,7 +1,7 @@
 VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{4E6B00F6-69BE-11D2-885A-A1A33992992C}#2.5#0"; "InfinityControl.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmProdutos 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Cadastro de Produtos"
@@ -16,7 +16,7 @@ Begin VB.Form frmProdutos
    MDIChild        =   -1  'True
    ScaleHeight     =   7200
    ScaleWidth      =   14490
-   Tag             =   "020200"
+   Tag             =   "20200"
    Begin MSComDlg.CommonDialog CommonDialog 
       Left            =   13140
       Top             =   2475
@@ -147,6 +147,7 @@ Begin VB.Form frmProdutos
          Height          =   255
          Left            =   2115
          TabIndex        =   2
+         TabStop         =   0   'False
          Top             =   315
          Width           =   270
       End
@@ -1158,6 +1159,7 @@ Begin VB.Form frmProdutos
          Height          =   255
          Left            =   2340
          TabIndex        =   21
+         TabStop         =   0   'False
          Top             =   2925
          Width           =   270
       End
@@ -1166,6 +1168,7 @@ Begin VB.Form frmProdutos
          Height          =   255
          Left            =   2340
          TabIndex        =   18
+         TabStop         =   0   'False
          Top             =   2550
          Width           =   270
       End
@@ -1174,6 +1177,7 @@ Begin VB.Form frmProdutos
          Height          =   255
          Left            =   2340
          TabIndex        =   15
+         TabStop         =   0   'False
          Top             =   2175
          Width           =   270
       End
@@ -1182,6 +1186,7 @@ Begin VB.Form frmProdutos
          Height          =   255
          Left            =   2340
          TabIndex        =   12
+         TabStop         =   0   'False
          Top             =   1800
          Width           =   270
       End
@@ -1213,6 +1218,7 @@ Begin VB.Form frmProdutos
          Height          =   255
          Left            =   2340
          TabIndex        =   9
+         TabStop         =   0   'False
          Top             =   1425
          Width           =   270
       End
@@ -1655,31 +1661,21 @@ Option Explicit
 Private clsErro As INF_Erro.Funcoes
 Private colFornecedores As Collection
 
-'Lista fornecedor colunas
-Private Const LST_COL_CODFORN As Integer = 0
 Private Const LST_COL_DSCFORN As Integer = 1
 Private Const LST_COL_TELFORN As Integer = 2
-Private Const LST_cOL_VALORCOMPRA As Integer = 3
-Private Const LST_COL_LUCROFORN As Integer = 4
+Private Const LST_COL_LUCROFORN As Integer = 3
+Private Const LST_cOL_VALORCOMPRA As Integer = 4
 Private Const LST_COL_VALORLUCRO As Integer = 5
 
-Private Sub cmbControlaEst_Change()
-   If Left(Me.cmbControlaEst.Text, 1) = "S" Then
-      Me.lblEstMin.FontBold = True
-   Else
-      Me.lblEstMin.FontBold = False
-   End If
-End Sub
-
 Private Sub cmdAdicionar_Click()
-   On Error GoTo cmdAdicionar_Click_E:
-   
+   On Error GoTo cmdAdicionar_Click_E
+
    Dim itemX As ListItem
    Dim curLucroPerc As Currency
    Dim curLucroVlr As Currency
    Dim frmModal As frmProdutosFornMod
    
-   Dim ContainerProdForn As sContainerProdutosForn
+   Dim ContainerProdForn As clsContainerProdutosForn
    
    Set frmModal = New frmProdutosFornMod
    With frmModal
@@ -1695,7 +1691,7 @@ Private Sub cmdAdicionar_Click()
             End If
          Next
          
-         Set ContainerProdForn = New sContainerProdutosForn
+         Set ContainerProdForn = New clsContainerProdutosForn
          ContainerProdForn.CodFornecedor = .Codigo
          ContainerProdForn.DscFornecedor = .Descricao
          ContainerProdForn.Telefone = .Telefone
@@ -1718,623 +1714,6 @@ cmdAdicionar_Click_E:
    Exibir clsErro, "cmdAdicionar_Click"
 End Sub
 
-Private Sub cmdAdicionarImg_Click()
-   Me.CommonDialog.DialogTitle = "Infinity - Procura Arquivos .jpg" 'Titulo
-   Me.CommonDialog.InitDir = "C:\" 'Caminho inicial
-   Me.CommonDialog.Filter = "Imgs JPG(*.jpg)|*.jpg"
-   Me.CommonDialog.FilterIndex = 1
-   
-   ' --------------------------------------------------------------------------- '
-   ' cdlOFNFileMustExist: selecionar somente arquivos que existam                |
-   ' cdlOFNHideReadOnly : exibe arquivos que possuem o atributo: Somente Leitura |
-   ' cdlOFNLongNames    : exibe nome de arquivos longos                          |
-   ' cdlOFNExplorer     : usa a interface estilo do Explorer                     |
-   ' --------------------------------------------------------------------------- '
-
-   Me.CommonDialog.Flags = cdlOFNFileMustExist + cdlOFNHideReadOnly + cdlOFNLongNames + cdlOFNExplorer
-   'dipara um erro se nada for selecionado
-   'Me.CommonDialog.CancelError = True
-
-   Me.CommonDialog.ShowOpen
-
-   If Len(Trim(Me.CommonDialog.FileName)) <> 0 Then Me.img.Picture = LoadPicture(Me.CommonDialog.FileName)
-   
-End Sub
-
-
-
-
-
-Private Sub cmdConsultar_Click()
-   On Error GoTo cmdConsultar_Click_E
-   
-   Dim itemX As ListItem
-   Dim clsCursor As INF_Cursor.Cursor
-   Dim ContainerProdForn As sContainerProdutosForn
-   
-   If Not mCmpObrigatorio(clsErro, Me.vlrCod, "Código") Then
-      Exibir clsErro, "cmdConsultar_Click"
-      Exit Sub
-   End If
-   
-   'Verifica Cadastro do Produto
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
-   With clsCursor
-      .Inicializar clsConexao
-      
-      .SQL.Limpar
-      .SQL.Mais " SELECT Produtos.Empresa, Produtos.Codigo, Produtos.CodBarra, "
-      .SQL.Mais "    Produtos.Descricao, Produtos.Abreviatura, Produtos.CodGrupo, "
-      .SQL.Mais "    Produtos.CodSubGrupo, Produtos.CodMarca, Produtos.CodModelo, "
-      .SQL.Mais "    Produtos.CodUnidade, Produtos.Obs, Produtos.IdSituacao, "
-      .SQL.Mais "    Produtos.LucroMin, Produtos.IdLucroMin, Produtos.DtCad, "
-      .SQL.Mais "    Produtos.CodUsuario, Produtos.DtUltAlt, Produtos.CodUsuarioUltAlt, "
-      .SQL.Mais "    Produtos.IdControlaEst, Produtos.EstoqueMin, Produtos.IdVenderSemEst, "
-      .SQL.Mais "    Produtos.IdTributacao , Produtos.ICMS, Produtos.IdICMS, "
-      .SQL.Mais "    Produtos.PISCOFINS, Produtos.IdPISCOFINS, Produtos.IPI, "
-      .SQL.Mais "    Produtos.IdIPI, Produtos.Tributos, Produtos.Frete, Produtos.IdFrete, "
-      .SQL.Mais "    Produtos.Comissao, Produtos.IdComissao, Produtos.Margem, "
-      .SQL.Mais "    Produtos.IdMargem, Produtos.Custos, Produtos.IdCustos, "
-      .SQL.Mais "    Produtos.ValorVenda, "
-      
-      'Descrições
-      .SQL.Mais "    Marcas.Descricao AS DscMarca, "
-      .SQL.Mais "    Modelos.Descricao AS DscModelo, "
-      .SQL.Mais "    Unidades.Descricao AS DscUnidade, "
-      .SQL.Mais "    Grupos.Descricao AS DscGrupo, "
-      .SQL.Mais "    SubGrupos.Descricao AS DscSubGrupo, "
-      .SQL.Mais "    Usuarios.Usuario AS NmUsuario "
-      
-      .SQL.Mais " FROM Produtos "
-      .SQL.Mais " LEFT JOIN Grupos ON (" & rel_Grupos_Produtos & ")"
-      .SQL.Mais " LEFT JOIN SubGrupos ON (" & rel_SubGrupos_Produtos & ")"
-      .SQL.Mais " LEFT JOIN Marcas ON (" & rel_Marcas_Produtos & ")"
-      .SQL.Mais " LEFT JOIN Modelos ON (" & rel_Modelos_Produtos & ")"
-      .SQL.Mais " LEFT JOIN Unidades ON (" & rel_Unidades_Produtos & ")"
-      .SQL.Mais " LEFT JOIN Usuarios ON (" & rel_Usuarios_Produtos & ")"
-      
-      .SQL.Mais " WHERE Produtos.Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-      .SQL.Mais " AND Produtos.Codigo = " & .Vlr(Me.vlrCod)
-      
-      If Not .Abrir(.SQL.Texto) Then
-         clsErro.Transferir = .TransferirErro
-         Exibir clsErro, "cmdConsultar_Click"
-         GoTo DestruirObjetos
-      End If
-      
-      If Not .EOF Then
-         Me.txtCodBarras = .Valor("CodBarra")
-         Me.txtDescricao = .Valor("Descricao")
-         Me.txtAbreviatura = .Valor("Abreviatura")
-         Me.vlrCodGrupo = .Valor("CodGrupo")
-         Me.vlrCodSubGrupo = .Valor("CodSubGrupo")
-         Me.vlrCodMarca = .Valor("CodMarca")
-         Me.vlrCodModelo = .Valor("CodModelo")
-         Me.vlrCodUnidade = .Valor("CodUnidade")
-         Me.txtObservacao = .Valor("Obs")
-         Me.cmbSituacao.ListIndex = f1.CmbValor(Me.cmbSituacao, .Valor("IdSituacao"))
-         Me.vlrLucroMin = .Valor("LucroMin")
-         Me.cmbLucro.ListIndex = f1.CmbValor(Me.cmbLucro, .Valor("IdLucroMin"))
-         Me.datCad = .Valor("DtCad")
-         Me.txtUsuarioCad = .Valor("NmUsuario")
-'         Me.datUltCad = .Valor("DtUltAlt")
-'         me.txtUsuarioUltCad =
-         Me.cmbControlaEst.ListIndex = f1.CmbValor(Me.cmbControlaEst, .Valor("IdControlaEst"), enDescricao, 1)
-         Me.vlrEstMin = .Valor("EstoqueMin")
-         Me.cmbVenderSemEst.ListIndex = f1.CmbValor(Me.cmbVenderSemEst, .Valor("IdVenderSemEst"), enDescricao, 1)
-         Me.cmbTributacao.ListIndex = f1.CmbValor(Me.cmbTributacao, .Valor("IdTributacao"))
-         Me.vlrICMS = .Valor("ICMS")
-         Me.cmbICMS.ListIndex = f1.CmbValor(Me.cmbICMS, .Valor("IdICMS"))
-         Me.vlrPISCOFINS = .Valor("PISCOFINS")
-         Me.cmbPISCOFINS.ListIndex = f1.CmbValor(Me.cmbPISCOFINS, .Valor("IdPISCOFINS"))
-         Me.vlrIPI = .Valor("IPI")
-         
-         Me.cmdSalvar.Caption = "&Alterar"
-         If Not HabilitarBotao(clsErro, Me, Me.cmdSalvar) Then Exibir clsErro, "cmdConsultar_Click"
-         If Not HabilitarBotao(clsErro, Me, Me.cmdExcluir) Then Exibir clsErro, "cmdConsultar_Click"
-         
-         Me.fraIdentificacao.Enabled = False
-         Me.fraCadastro.Enabled = True
-         Me.fraEstoque.Enabled = True
-         Me.fraImagem.Enabled = True
-         Me.fraFornecedor.Enabled = True
-         Me.fraParametros.Enabled = True
-         Me.fraTributacao.Enabled = True
-         Me.fraValores.Enabled = True
-         
-      Else
-         mMsgInfo "Produto não localizado! Verifique."
-         mFocus Me.vlrCod
-         GoTo DestruirObjetos
-      End If
-      .Fechar
-   End With
-   
-'   'Verifica o Estoque do Produto
-'   With clsCursor
-'      .SQL.Limpar
-'      .SQL.Mais " SELECT EstEntrada, EstSaida, EstAtual "
-'      .SQL.Mais " FROM VW_ProdutoEst "
-'      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-'      .SQL.Mais " AND Codigo = " & .Vlr(Me.vlrCod)
-'
-'      If Not .Abrir(.SQL.Texto) Then
-'         clsErro.Transferir = .TransferirErro
-'         Exibir clsErro, "cmdConsultar_Click"
-'         GoTo DestruirObjetos
-'      End If
-'
-'      If Not .EOF Then
-'         Me.vlrEstEntrada = .Valor("EstEntrada")
-'         Me.vlrEstSaida = .Valor("EstSaida")
-'         Me.vlrEstAtual = .Valor("EstAtual")
-'      End If
-'   End With
-   
-   'Verifica Fornecedores do Produto
-   With clsCursor
-      .SQL.Limpar
-      .SQL.Mais " SELECT ProdutosForn.CodFornecedor, ProdutosForn.Lucro, "
-      .SQL.Mais "    ProdutosForn.ValorCompra, ProdutosForn.ValorLucro, "
-      .SQL.Mais "    Fornecedores.RazaoSocial, ISNULL(Fornecedores.Telefone, 0) AS Telefone "
-      .SQL.Mais " FROM ProdutosForn "
-      .SQL.Mais " INNER JOIN Fornecedores ON (" & rel_Fornecedores_ProdutosForn & ")"
-      .SQL.Mais " WHERE ProdutosForn.Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-      .SQL.Mais " AND ProdutosForn.CodProduto = " & .Vlr(Me.vlrCod)
-   
-      If Not .Abrir(.SQL.Texto) Then
-         clsErro.Transferir = .TransferirErro
-         Exibir clsErro, "cmdConsultar_Click"
-         GoTo DestruirObjetos
-      End If
-      
-      Do Until .EOF
-         'Armazena no container
-         Set ContainerProdForn = New sContainerProdutosForn
-         ContainerProdForn.CodFornecedor = .Valor("CodFornecedor")
-         ContainerProdForn.DscFornecedor = .Valor("RazaoSocial")
-         ContainerProdForn.Telefone = .Valor("Telefone")
-         ContainerProdForn.Situacao = "G" 'Gravado
-         colFornecedores.Add ContainerProdForn, ContainerProdForn.Key
-      
-         'Armazena na lista
-         Set itemX = Me.lstFornecedor.ListItems.Add(, ContainerProdForn.Key, ContainerProdForn.CodFornecedor)
-         itemX.SubItems(LST_COL_DSCFORN) = ContainerProdForn.DscFornecedor
-         itemX.SubItems(LST_COL_TELFORN) = ContainerProdForn.Telefone
-         itemX.SubItems(LST_COL_LUCROFORN) = ContainerProdForn.Lucro
-         itemX.SubItems(LST_cOL_VALORCOMPRA) = ContainerProdForn.ValorCompra
-         itemX.SubItems(LST_COL_VALORLUCRO) = ContainerProdForn.LucroValor
-         itemX.SmallIcon = LST_ICO_GRAVADO
-         itemX.Selected = True
-         
-         .ProximoRegistro
-      Loop
-      
-      .Fechar
-   End With
-   
-   'Verifica Imagem do Produto
-   With clsCursor
-      .SQL.Limpar
-      .SQL.Mais " SELECT Empresa, CodProduto, PathImg "
-      .SQL.Mais " FROM ProdutosPathImg "
-      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-      .SQL.Mais " AND CodProduto = " & .Vlr(Me.vlrCod)
-      
-      If Not .Abrir(.SQL.Texto) Then
-         clsErro.Transferir = .TransferirErro
-         Exibir clsErro, "cmdConsultar_Click"
-         GoTo DestruirObjetos
-      End If
-      
-      If Not .EOF Then Me.img.Picture = LoadPicture(.Valor("PathImg"))
-
-      .Fechar
-   End With
-      
-   GoTo DestruirObjetos
-
-cmdConsultar_Click_E:
-   clsErro.Salvar Err
-   Exibir clsErro, "cmdConsultar_Click"
-
-DestruirObjetos:
-   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
-   Set clsCursor = Nothing
-End Sub
-
-
-
-Private Sub cmdFechar_Click()
-   Unload Me
-End Sub
-
-Private Sub cmdLimpar_Click()
-   f1.Limpar Me
-   
-   Me.fraIdentificacao.Enabled = True
-   Me.fraCadastro.Enabled = False
-   Me.fraEstoque.Enabled = False
-   Me.fraImagem.Enabled = False
-   Me.fraFornecedor.Enabled = False
-   Me.fraParametros.Enabled = False
-   Me.fraTributacao.Enabled = False
-   Me.fraValores.Enabled = False
-   
-   f1.CollectionLimpar colFornecedores
-   Me.lstFornecedor.ListItems.Clear
-   Me.img.Picture = LoadPicture(PATH_IMG & "SEM_IMG.JPG")
-   DoEvents
-   
-   Me.cmdSalvar.Caption = "&Salvar"
-   Me.cmdSalvar.Enabled = False
-   Me.cmdExcluir.Enabled = False
-   
-   If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "cmdNovo_Click"
-   If Not HabilitarBotao(clsErro, Me, Me.cmdConsultar) Then Exibir clsErro, "cmdNovo_Click"
-   
-   mFocus Me.vlrCod
-End Sub
-
-Private Sub cmdNovo_Click()
-   On Error GoTo cmdNovo_Click_E
-   
-   Me.fraIdentificacao.Enabled = False
-   Me.fraCadastro.Enabled = True
-   Me.fraEstoque.Enabled = True
-   Me.fraImagem.Enabled = True
-   Me.fraFornecedor.Enabled = True
-   Me.fraParametros.Enabled = True
-   Me.fraTributacao.Enabled = True
-   Me.fraValores.Enabled = True
-   
-   Me.cmdNovo.Enabled = False
-   Me.cmdConsultar.Enabled = False
-   
-   Me.cmdSalvar.Caption = "&Inserir"
-   If Not HabilitarBotao(clsErro, Me, Me.cmdSalvar) Then Exibir clsErro, "cmdNovo_Click"
-      
-   Exit Sub
-
-cmdNovo_Click_E:
-   clsErro.Salvar Err
-   Exibir clsErro, "cmdNovo_Click"
-End Sub
-
-Private Sub cmdRemoverImg_Click()
-   If Len(Trim(Me.img.Picture)) > 0 Then
-      If mMsgPerg("Você deseja realmente remover a imagem do produto?") Then
-         Me.img.Picture = LoadPicture(PATH_IMG & "SEM_IMG.JPG")
-         DoEvents
-      End If
-   End If
-End Sub
-
-Private Sub cmdSalvar_Click()
-   On Error GoTo cmdSalvar_Click_E
-   
-   Dim strMsg As String
-   Dim curSeqCod As Currency
-   Dim clsCursor As INF_Cursor.Cursor
-   Dim ContainerForn As sContainerProdutosForn
-   
-   Ampulheta True
-   
-   If Not mCmpObrigatorio(clsErro, Me.txtCodBarras, "Código de Barras") Then GoTo CmpObrig
-   If Not mCmpObrigatorio(clsErro, Me.txtDescricao, "Descrição") Then GoTo CmpObrig
-   If Not mCmpObrigatorio(clsErro, Me.vlrCodUnidade, "Código da Unidade") Then GoTo CmpObrig
-   If Not mCmpObrigatorio(clsErro, Me.vlrLucroMin, "Lucro Mínimo") Then GoTo CmpObrig
-   
-   If Left(Me.cmbControlaEst.Text, 1) = "S" Then
-      If Not mCmpObrigatorio(clsErro, Me.vlrEstMin, "Estoque Mínimo") Then GoTo CmpObrig
-   End If
-         
-   'Verifica Tipo de Ação
-   Select Case Me.cmdSalvar.Caption
-   Case "&Inserir"
-      
-      'Busca um novo código para o produto
-      Set clsCursor = CreateObject("INF_Cursor.Cursor")
-      With clsCursor
-         .Inicializar clsConexao
-         
-         .SQL.Limpar
-         .SQL.Mais " SELECT (ISNULL(MAX(Codigo), 0) + 1) AS MaxSeq "
-         .SQL.Mais " FROM Produtos "
-         .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-         
-         If Not .Abrir(.SQL.Texto) Then
-            clsErro.Transferir = .TransferirErro
-            Exibir clsErro, "cmdSalvar_Click"
-            GoTo DestruirObjetos
-         End If
-         
-         curSeqCod = .Valor("MaxSeq")
-         
-         .Fechar
-      End With
-      
-      clsConexao.Begin
-      
-      'Produto
-      With clsConexao
-         .SQL.Limpar
-         .SQL.Mais " INSERT INTO Produtos "
-         .SQL.Mais " ( "
-         .SQL.Mais "    Empresa, Codigo, CodBarra, Descricao, Abreviatura, CodGrupo, "
-         .SQL.Mais "    CodSubGrupo, CodMarca, CodModelo, CodUnidade, Obs, IdSituacao, "
-         .SQL.Mais "    LucroMin, IdLucroMin, DtCad, CodUsuario, "
-         .SQL.Mais "    IdControlaEst, EstoqueMin, IdVenderSemEst, IdTributacao , ICMS, IdICMS, "
-         .SQL.Mais "    PISCOFINS, IdPISCOFINS, IPI, IdIPI, Tributos, Frete, IdFrete, "
-         .SQL.Mais "    Comissao, IdComissao, Margem, IdMargem, Custos, IdCustos, ValorVenda "
-         .SQL.Mais " ) VALUES ( "
-         .SQL.Mais .Txt(Prj.Sistema.IdEmpresa, True)
-         .SQL.Mais .Vlr(curSeqCod, True)
-         .SQL.Mais .Vlr(Me.txtCodBarras, True)
-         .SQL.Mais .Txt(Me.txtDescricao, True)
-         .SQL.Mais .Txt(Me.txtAbreviatura, True)
-         .SQL.Mais .Vlr(Me.vlrCodGrupo, True)
-         .SQL.Mais .Vlr(Me.vlrCodSubGrupo, True)
-         .SQL.Mais .Vlr(Me.vlrCodMarca, True)
-         .SQL.Mais .Vlr(Me.vlrCodModelo, True)
-         .SQL.Mais .Vlr(Me.vlrCodUnidade, True)
-         .SQL.Mais .Txt(Me.txtObservacao, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbSituacao), True)
-         .SQL.Mais .Vlr(Me.vlrLucroMin, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbLucro), True)
-         .SQL.Mais "GETDATE(), " 'Data do Servidor
-         .SQL.Mais .Vlr(Prj.Sistema.IdUsuario, True)
-         .SQL.Mais .Txt(Left(Me.cmbControlaEst, 1), True)
-         .SQL.Mais .Vlr(Me.vlrEstMin, True)
-         .SQL.Mais .Txt(Left(Me.cmbVenderSemEst, 1), True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbTributacao), True)
-         .SQL.Mais .Vlr(Me.vlrICMS, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbICMS), True)
-         .SQL.Mais .Vlr(Me.vlrPISCOFINS, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbPISCOFINS), True)
-         .SQL.Mais .Vlr(Me.vlrIPI, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbIPI), True)
-         .SQL.Mais .Vlr(Me.vlrTributacao, True)
-         .SQL.Mais .Vlr(Me.vlrFrete, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbFrete), True)
-         .SQL.Mais .Vlr(Me.vlrComissao, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbComissao), True)
-         .SQL.Mais .Vlr(Me.vlrMargem, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbMargem), True)
-         .SQL.Mais .Vlr(Me.vlrCusto, True)
-         .SQL.Mais .Vlr(f1.CmbIndex(Me.cmbCustos), True)
-         .SQL.Mais .Vlr(Me.vlrVenda)
-         .SQL.Mais " )"
-         
-         If Not .Executar(.SQL.Texto) Then
-            clsErro.Transferir = .TransferirErro
-            clsConexao.RollBack
-            Exibir clsErro, "cmdSalvar_Click"
-            GoTo DestruirObjetos
-         End If
-         
-         strMsg = "Registro inserido com sucesso!" & vbNewLine & "Código: " & curSeqCod
-      End With
-         
-   Case "&Alterar"
-      curSeqCod = Me.vlrCod
-      
-      With clsConexao
-         .SQL.Limpar
-         .SQL.Mais " UPDATE Produtos SET "
-         .SQL.Mais "    CodBarra = " & .Txt(Me.txtCodBarras, True)
-         .SQL.Mais "    Descricao = " & .Txt(Me.txtDescricao, True)
-         .SQL.Mais "    Abreviatura = " & .Txt(Me.txtAbreviatura, True)
-         .SQL.Mais "    CodGrupo = " & .Vlr(Me.vlrCodGrupo, True)
-         .SQL.Mais "    CodSubGrupo = " & .Vlr(Me.vlrCodSubGrupo, True)
-         .SQL.Mais "    CodMarca = " & .Vlr(Me.vlrCodMarca, True)
-         .SQL.Mais "    CodModelo = " & .Vlr(Me.vlrCodModelo, True)
-         .SQL.Mais "    CodUnidade = " & .Vlr(Me.vlrCodUnidade, True)
-         .SQL.Mais "    Obs = " & .Txt(Me.txtObservacao, True)
-         .SQL.Mais "    IdSituacao = " & .Vlr(f1.CmbIndex(Me.cmbSituacao), True)
-         .SQL.Mais "    LucroMin = " & .Vlr(Me.vlrLucroMin, True)
-         .SQL.Mais "    IdLucroMin = " & .Vlr(f1.CmbIndex(Me.cmbLucro), True)
-         .SQL.Mais "    DtUltAlt = GETDATE(), "
-         .SQL.Mais "    CodUsuarioUltAlt = " & .Vlr(Prj.Sistema.IdUsuario, True)
-         .SQL.Mais "    IdControlaEst = " & .Vlr(f1.CmbIndex(Me.cmbControlaEst), True)
-         .SQL.Mais "    EstoqueMin = " & .Vlr(Me.vlrEstMin, True)
-         .SQL.Mais "    IdVenderSemEst = " & .Vlr(f1.CmbIndex(Me.cmbVenderSemEst), True)
-         .SQL.Mais "    IdTributacao = " & .Vlr(f1.CmbIndex(Me.cmbTributacao), True)
-         .SQL.Mais "    ICMS = " & .Vlr(Me.vlrICMS, True)
-         .SQL.Mais "    IdICMS = " & .Vlr(f1.CmbIndex(Me.cmbICMS), True)
-         .SQL.Mais "    PISCOFINS = " & .Vlr(Me.vlrPISCOFINS, True)
-         .SQL.Mais "    IdPISCOFINS = " & .Vlr(f1.CmbIndex(Me.cmbPISCOFINS), True)
-         .SQL.Mais "    IPI = " & .Vlr(Me.vlrIPI, True)
-         .SQL.Mais "    IdIPI = " & .Vlr(f1.CmbIndex(Me.cmbIPI), True)
-         .SQL.Mais "    Tributos = " & .Vlr(Me.vlrTributacao, True)
-         .SQL.Mais "    Frete = " & .Vlr(Me.vlrFrete, True)
-         .SQL.Mais "    IdFrete = " & .Vlr(f1.CmbIndex(Me.cmbFrete), True)
-         .SQL.Mais "    Comissao = " & .Vlr(Me.vlrComissao, True)
-         .SQL.Mais "    IdComissao = " & .Vlr(f1.CmbIndex(Me.cmbComissao), True)
-         .SQL.Mais "    Margem = " & .Vlr(Me.vlrMargem, True)
-         .SQL.Mais "    IdMargem = " & .Vlr(f1.CmbIndex(Me.cmbMargem), True)
-         .SQL.Mais "    Custos = " & .Vlr(Me.vlrCusto, True)
-         .SQL.Mais "    IdCustos = " & .Vlr(f1.CmbIndex(Me.cmbCustos), True)
-         .SQL.Mais "    ValorVenda = " & .Vlr(Me.vlrVenda)
-         .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-         .SQL.Mais " AND Codigo = " & .Vlr(curSeqCod)
-         
-         If Not .Executar(.SQL.Texto) Then
-            clsErro.Transferir = .TransferirErro
-            clsConexao.RollBack
-            Exibir clsErro, "cmdSalvar_Click"
-            GoTo DestruirObjetos
-         End If
-         
-         strMsg = "Registro alterado com sucesso!"
-      End With
-   End Select
-   
-   'Imagem (Excluir)
-   With clsConexao
-      .SQL.Limpar
-      .SQL.Mais " DELETE FROM ProdutosPathImg "
-      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-      .SQL.Mais " AND CodProduto = " & .Vlr(curSeqCod)
-      
-      If Not .Executar(.SQL.Texto) Then
-         clsErro.Transferir = .TransferirErro
-         clsConexao.RollBack
-         Exibir clsErro, "cmdSalvar_Click"
-         GoTo DestruirObjetos
-      End If
-   End With
-   
-   'Imagem (Inserir)
-   With clsConexao
-      .SQL.Limpar
-      .SQL.Mais " INSERT INTO ProdutosPathImg ( "
-      .SQL.Mais "    Empresa, CodProduto, PathImg "
-      .SQL.Mais " ) VALUES ( "
-      .SQL.Mais .Txt(Prj.Sistema.IdEmpresa, True)
-      .SQL.Mais .Vlr(curSeqCod, True)
-      .SQL.Mais .Txt(Me.img.Picture)
-      .SQL.Mais " )"
-      
-      If Not .Executar(.SQL.Texto) Then
-         clsErro.Transferir = .TransferirErro
-         clsConexao.RollBack
-         Exibir clsErro, "cmdSalvar_Click"
-         GoTo DestruirObjetos
-      End If
-   End With
-      
-   'Atualiza a tabela de fornecedores
-   For Each ContainerForn In colFornecedores
-      With clsConexao
-         .SQL.Limpar
-         
-         'Faz os procedimentos conforme situação atual do registro
-         Select Case ContainerForn.Situacao
-         Case "I" 'Inserido
-            .SQL.Mais " INSERT INTO ProdutosForn ( "
-            .SQL.Mais "    Empresa, CodFornecedor, CodProduto, Lucro, ValorCompra, ValorLucro "
-            .SQL.Mais " ) VALUES ( "
-            .SQL.Mais .Txt(Prj.Sistema.IdEmpresa, True)
-            .SQL.Mais .Vlr(ContainerForn.CodFornecedor, True)
-            .SQL.Mais .Vlr(curSeqCod, True)
-            .SQL.Mais .Vlr(ContainerForn.Lucro, True)
-            .SQL.Mais .Vlr(ContainerForn.ValorCompra, True)
-            .SQL.Mais .Vlr(ContainerForn.LucroValor)
-            .SQL.Mais " )"
-            
-         Case "A" 'Alterado
-            .SQL.Mais " UPDATE ProdutosForn SET "
-            .SQL.Mais "    Lucro = " & .Vlr(ContainerForn.Lucro, True)
-            .SQL.Mais "    ValorCompra = " & .Vlr(ContainerForn.ValorCompra, True)
-            .SQL.Mais "    ValorLucro = " & .Vlr(ContainerForn.LucroValor)
-            .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-            .SQL.Mais " AND CodFornecedor = " & .Vlr(ContainerForn.CodFornecedor)
-            .SQL.Mais " AND CodProduto = " & .Vlr(curSeqCod)
-         
-         Case "E" 'Removido
-            .SQL.Mais " DELETE FROM ProdutosForn "
-            .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
-            .SQL.Mais " AND CodFornecedor = " & .Vlr(ContainerForn.CodFornecedor)
-            .SQL.Mais " AND CodProduto = " & .Vlr(curSeqCod)
-         
-         Case "G" 'Gravado
-            'Não realiza nenhuma ação para esta situação
-         End Select
-         
-         If .SQL.Tamanho > 0 Then
-            If Not .Executar(.SQL.Texto) Then
-               clsErro.Transferir = .TransferirErro
-               clsConexao.RollBack
-               Exibir clsErro, "cmdSalvar_Click"
-               GoTo DestruirObjetos
-            End If
-         End If
-     End With
-   Next
-   
-   clsConexao.Commit
-   
-   mMsgInfo strMsg
-
-   cmdLimpar_Click
-
-   GoTo DestruirObjetos
-
-cmdSalvar_Click_E:
-   clsErro.Salvar Err
-   clsConexao.RollBack
-   Exibir clsErro, "cmdSalvar_Click"
-   GoTo DestruirObjetos
-      
-CmpObrig:
-   Exibir clsErro, "cmdSalvar_Click"
-
-DestruirObjetos:
-   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
-   Set clsCursor = Nothing
-   Set ContainerForn = Nothing
-   Ampulheta False
-End Sub
-
-Private Sub Form_Load()
-   On Error GoTo Form_Load_E
-   
-   Ampulheta True
-   
-   Set clsErro = CreateObject("INF_Erro.Funcoes")
-   Set colFornecedores = New Collection
-   
-   f1.FormCentralizar Me
-   
-   If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "Form_Load"
-   If Not HabilitarBotao(clsErro, Me, Me.cmdConsultar) Then Exibir clsErro, "Form_Load"
-   
-   f1.CmbAdd Me.cmbSituacao, "Desativado", 0
-   f1.CmbAdd Me.cmbSituacao, "Ativado", 1
-   Me.cmbSituacao.ListIndex = f1.CmbValor(Me.cmbSituacao, 1)
-   
-   mCmbValorPerc Me.cmbLucro
-   mCmbSimNao Me.cmbControlaEst
-   mCmbSimNao Me.cmbVenderSemEst
-   
-   mCmbValorPerc Me.cmbICMS
-   mCmbValorPerc Me.cmbPISCOFINS
-   mCmbValorPerc Me.cmbIPI
-   
-   mCmbValorPerc Me.cmbFrete
-   mCmbValorPerc Me.cmbComissao
-   mCmbValorPerc Me.cmbMargem
-   mCmbValorPerc Me.cmbCustos
-   
-   f1.CmbAdd Me.cmbTributacao, "Isento", 0
-   f1.CmbAdd Me.cmbTributacao, "Tributado", 1
-   Me.cmbTributacao.ListIndex = f1.CmbValor(Me.cmbTributacao, 0)
-   
-   Me.img.Picture = LoadPicture(PATH_IMG & "SEM_IMG.JPG")
-   
-   Me.lstLegenda.ListItems.Clear
-   Me.lstLegenda.ListItems.Add , "K_1", "Gravado", , LST_ICO_GRAVADO
-   Me.lstLegenda.ListItems.Add , "K_2", "Inserido", , LST_ICO_INSERIDO
-   Me.lstLegenda.ListItems.Add , "K_3", "Alterado", , LST_ICO_ALTERADO
-   Me.lstLegenda.ListItems.Add , "K_4", "Removido", , LST_ICO_REMOVIDO
-      
-   GoTo DestruirObjetos
-
-Form_Load_E:
-   clsErro.Salvar Err
-   Exibir clsErro, "Form_Load"
-
-DestruirObjetos:
-   Ampulheta False
-End Sub
-
-Private Sub Form_Unload(Cancel As Integer)
-   Set clsErro = Nothing
-   f1.CollectionLimpar colFornecedores
-   Set colFornecedores = Nothing
-End Sub
-
 Private Sub AtualizaLista()
    On Error GoTo VerificaFornecedor_E
    
@@ -2342,7 +1721,7 @@ Private Sub AtualizaLista()
    Dim itemX As ListItem
    Dim curMaiorValor As Currency
    Dim clsCursor As INF_Cursor.Cursor
-   Dim clsContainer As sContainerProdutosForn
+   Dim clsContainer As clsContainerProdutosForn
    
    'Remove os itens da lista
    Me.lstFornecedor.ListItems.Clear
@@ -2449,4 +1828,194 @@ VerificaFornecedor_E:
 DestruirObjetos:
    If Not (clsCursor Is Nothing) Then clsCursor.Fechar
    Set clsCursor = Nothing
+End Sub
+
+Private Sub cmdConsGrupo_Click()
+   Dim frmModal As frmCG
+   
+   Set frmModal = New frmCG
+   With frmModal
+      .Codigo = Me.vlrCodGrupo
+      .TpDefinicao = enGrupos
+      .Ativo = True
+      .Show vbModal
+      
+      If Not .Cancelado Then Me.vlrCodGrupo = .Codigo
+   End With
+   
+DestruirObjetos:
+   If Not (frmModal Is Nothing) Then Unload frmModal
+   Set frmModal = Nothing
+End Sub
+
+Private Sub cmdConsMarca_Click()
+   Dim frmModal As frmCG
+   
+   Set frmModal = New frmCG
+   With frmModal
+      .Codigo = Me.vlrCodMarca
+      .TpDefinicao = enMarcas
+      .Ativo = True
+      .Show vbModal
+      
+      If Not .Cancelado Then Me.vlrCodMarca = .Codigo
+      mFocus Me.vlrCodMarca
+   End With
+   
+DestruirObjetos:
+   If Not (frmModal Is Nothing) Then Unload frmModal
+   Set frmModal = Nothing
+End Sub
+
+Private Sub cmdConsModelo_Click()
+   Dim frmModal As frmCG
+   
+   Set frmModal = New frmCG
+   With frmModal
+      .Codigo = Me.vlrCodModelo
+      .TpDefinicao = enModelos
+      .Ativo = True
+      .Show vbModal
+      
+      If Not .Cancelado Then Me.vlrCodModelo = .Codigo
+      mFocus Me.vlrCodModelo
+   End With
+   
+DestruirObjetos:
+   If Not (frmModal Is Nothing) Then Unload frmModal
+   Set frmModal = Nothing
+End Sub
+
+Private Sub cmdConsSubGrupo_Click()
+   Dim frmModal As frmCG
+   
+   Set frmModal = New frmCG
+   With frmModal
+      .Codigo = Me.vlrCodSubGrupo
+      .TpDefinicao = enSubGrupos
+      .Ativo = True
+      .Show vbModal
+      
+      If Not .Cancelado Then Me.vlrCodSubGrupo = .Codigo
+      mFocus Me.vlrCodSubGrupo
+   End With
+   
+DestruirObjetos:
+   If Not (frmModal Is Nothing) Then Unload frmModal
+   Set frmModal = Nothing
+End Sub
+
+Private Sub cmdConsUnidade_Click()
+   Dim frmModal As frmCG
+   
+   Set frmModal = New frmCG
+   With frmModal
+      .Codigo = Me.vlrCodUnidade
+      .TpDefinicao = enUnidades
+      .Ativo = True
+      .Show vbModal
+      
+      If Not .Cancelado Then Me.vlrCodUnidade = .Codigo
+      mFocus Me.vlrCodUnidade
+   End With
+   
+DestruirObjetos:
+   If Not (frmModal Is Nothing) Then Unload frmModal
+   Set frmModal = Nothing
+End Sub
+
+Private Sub cmdFechar_Click()
+   Unload Me
+End Sub
+
+Private Sub cmdNovo_Click()
+   Me.vlrCod = 0
+   Me.fraIdentificacao.Enabled = False
+   
+   Me.fraParametros.Enabled = True
+   Me.fraFornecedor.Enabled = True
+   Me.fraImagem.Enabled = True
+   Me.fraCadastro.Enabled = True
+   Me.fraEstoque.Enabled = True
+   Me.fraTributacao.Enabled = True
+   Me.fraValores.Enabled = True
+   
+   mFocus Me.txtCodBarras
+End Sub
+
+Private Sub Form_Load()
+   On Error GoTo Form_Load_E
+   
+   f1.FormCentralizar Me
+   Set colFornecedores = New Collection
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   
+   mCmbValorPerc Me.cmbLucro
+   mCmbValorPerc Me.cmbICMS
+   mCmbValorPerc Me.cmbPISCOFINS
+   mCmbValorPerc Me.cmbIPI
+   mCmbValorPerc Me.cmbFrete
+   mCmbValorPerc Me.cmbComissao
+   mCmbValorPerc Me.cmbMargem
+   mCmbValorPerc Me.cmbCustos
+   
+   mCmbSimNao Me.cmbControlaEst
+   mCmbSimNao Me.cmbVenderSemEst
+   
+   f1.CmbAdd Me.cmbSituacao, "Ativado", 1
+   f1.CmbAdd Me.cmbSituacao, "Desativado", 2
+   Me.cmbSituacao.ListIndex = f1.CmbValor(Me.cmbSituacao, 1)
+   
+   Me.lstLegenda.ListItems.Clear
+   Me.lstLegenda.ListItems.Add , "K_1", "Gravado", , LST_ICO_GRAVADO
+   Me.lstLegenda.ListItems.Add , "K_2", "Inserido", , LST_ICO_INSERIDO
+   Me.lstLegenda.ListItems.Add , "K_3", "Alterado", , LST_ICO_ALTERADO
+   Me.lstLegenda.ListItems.Add , "K_4", "Removido", , LST_ICO_REMOVIDO
+   
+   If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "Form_Load"
+   If Not HabilitarBotao(clsErro, Me, Me.cmdConsultar) Then Exibir clsErro, "Form_Load"
+   
+   mFocus Me.vlrCod
+   
+   Exit Sub
+
+Form_Load_E:
+   clsErro.Salvar Err
+   Exibir clsErro, "Form_Load"
+End Sub
+
+Private Sub vlrCodGrupo_LostFocus()
+   If Me.vlrCodGrupo = 0 Then Exit Sub
+   If Not VerificaGrupo(clsErro, Me.vlrCodGrupo, Me.txtDescGrupo, "1") Then
+      Exibir clsErro, "vlrCodGrupo_LostFocus"
+      mFocus Me.vlrCodGrupo
+   End If
+End Sub
+
+Private Sub vlrCodMarca_LostFocus()
+   If Me.vlrCodMarca = 0 Then Exit Sub
+   If Not VerificaMarca(clsErro, Me.vlrCodMarca, Me.txtDescMarca, "1") Then
+      Exibir clsErro, "vlrCodMarca_LostFocus"
+      mFocus Me.vlrCodMarca
+   End If
+End Sub
+
+Private Sub vlrCodModelo_LostFocus()
+   If Me.vlrCodModelo = 0 Then Exit Sub
+   If Not VerificaModelo(clsErro, Me.vlrCodModelo, Me.txtDescModelo, "1") Then
+      Exibir clsErro, "vlrCodModelo_LostFocus"
+      mFocus Me.vlrCodModelo
+   End If
+End Sub
+
+Private Sub vlrCodSubGrupo_LostFocus()
+   If Me.vlrCodSubGrupo = 0 Then Exit Sub
+   If Not VerificaSubGrupo(clsErro, Me.vlrCodSubGrupo, Me.txtDescSubGrupo, "1") Then
+      Exibir clsErro, "vlrCodSubGrupo_LostFocus"
+      mFocus Me.vlrCodSubGrupo
+   End If
+End Sub
+
+Private Sub vlrCodUnidade_LostFocus()
+   If Not VerificaUnidade(clsErro, Me.vlrCodUnidade, Me.txtDescUnidade, "1") Then Exibir clsErro, "vlrCodUnidade_LostFocus"
 End Sub

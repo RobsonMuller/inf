@@ -241,7 +241,7 @@ End Sub
 Private Sub Form_Load()
    On Error GoTo Form_Load_E
    
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
    
    mCmbSimNao Me.cmbSalvarSenha
    

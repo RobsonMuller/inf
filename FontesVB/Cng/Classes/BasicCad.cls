@@ -67,7 +67,7 @@ Public Property Get TransferirErro() As Object
 End Property
 
 Private Sub Class_Initialize()
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
 End Sub
 
 Private Sub Class_Terminate()
@@ -93,7 +93,7 @@ Public Function CurBasicCad() As Boolean
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       

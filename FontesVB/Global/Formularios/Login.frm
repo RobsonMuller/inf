@@ -356,7 +356,7 @@ Private Sub Form_Load()
    Set clsErro = CreateObject("INF_Erro.Funcoes")
    If ModoDesenvolvimento Then
       Me.txtNome = "master"
-      Me.txtSenha = "Master"
+      Me.txtSenha = "master"
       mFocus Me.cmdEntrar
    End If
 End Sub

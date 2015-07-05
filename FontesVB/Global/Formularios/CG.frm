@@ -1,5 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{4E6B00F6-69BE-11D2-885A-A1A33992992C}#2.5#0"; "InfinityControl.ocx"
 Begin VB.Form frmCG 
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Consulta Geral"
@@ -29,7 +30,7 @@ Begin VB.Form frmCG
       Caption         =   "&Pesquisar"
       Height          =   345
       Left            =   4230
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   4935
       Width           =   1320
    End
@@ -37,7 +38,7 @@ Begin VB.Form frmCG
       Caption         =   "&Cancelar"
       Height          =   345
       Left            =   5610
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   4935
       Width           =   1320
    End
@@ -45,32 +46,61 @@ Begin VB.Form frmCG
       Caption         =   "Parâmetros"
       Height          =   1095
       Left            =   90
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   3795
       Width           =   6825
-      Begin VB.PictureBox vlrCod 
+      Begin rdActiveText.ActiveText txtDesc 
          Height          =   315
          Left            =   960
-         ScaleHeight     =   255
-         ScaleWidth      =   1125
+         TabIndex        =   7
+         Top             =   630
+         Width           =   5745
+         _ExtentX        =   10134
+         _ExtentY        =   556
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MaxLength       =   40
+         RawText         =   0
+         FontName        =   "MS Sans Serif"
+         FontSize        =   8,25
+      End
+      Begin rdActiveText.ActiveText vlrCod 
+         Height          =   315
+         Left            =   960
          TabIndex        =   1
          Top             =   240
-         Width           =   1185
-      End
-      Begin VB.PictureBox txtDesc 
-         Height          =   315
-         Left            =   960
-         ScaleHeight     =   255
-         ScaleWidth      =   5670
-         TabIndex        =   2
-         Top             =   630
-         Width           =   5730
+         Width           =   1380
+         _ExtentX        =   2434
+         _ExtentY        =   556
+         Alignment       =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MaxLength       =   10
+         Text            =   "0"
+         TextMask        =   3
+         RawText         =   3
+         FontName        =   "MS Sans Serif"
+         FontSize        =   8,25
       End
       Begin VB.Label lblDesc 
          Caption         =   "Descrição:"
          Height          =   225
          Left            =   120
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   705
          Width           =   1290
       End
@@ -78,7 +108,7 @@ Begin VB.Form frmCG
          Caption         =   "Código:"
          Height          =   225
          Left            =   120
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   270
          Width           =   1290
       End
@@ -230,7 +260,7 @@ Private Sub cmdPesquisar_Click()
          
          If Len(Trim(Me.vlrCod)) > 0 And Me.vlrCod <> 0 Then .SQL.Mais " AND " & strCod & " = " & .Vlr(Me.vlrCod)
          If Len(Trim(Me.txtDesc)) > 0 Then .SQL.Mais " AND " & strDesc & " Like " & .Txt(Me.txtDesc & "%")
-         If blnAtivo Then .SQL.Mais " AND Ativo = " & .Txt("S")
+         If blnAtivo Then .SQL.Mais " AND Situacao = " & .Txt("1")
       Else
       
          strAux = ""

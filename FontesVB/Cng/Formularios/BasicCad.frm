@@ -212,11 +212,11 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Enum EnForm
-   enMarca = 0
-   enModelo = 1
-   enUnidade = 2
-   enGrupo = 3
-   enSubGrupo = 4
+   enBasicCadMarca = 0
+   enBasicCadModelo = 1
+   enBasicCadUnidade = 2
+   enBasicCadGrupo = 3
+   enBasicCadSubGrupo = 4
 End Enum
 
 Private strTable As String
@@ -469,7 +469,7 @@ DestruirObjetos:
 End Sub
 
 Private Sub Form_Load()
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
    
    f1.FormCentralizar Me
    
@@ -491,23 +491,23 @@ End Sub
 Public Sub BaseForm(CodForm As EnForm)
 
    Select Case CodForm
-   Case EnForm.enMarca
+   Case EnForm.enBasicCadMarca
       strTable = "Marcas"
       Me.Tag = "020101"
    
-   Case EnForm.enModelo
+   Case EnForm.enBasicCadModelo
       strTable = "Modelos"
       Me.Tag = "020102"
    
-   Case EnForm.enUnidade
+   Case EnForm.enBasicCadUnidade
       strTable = "Unidades"
       Me.Tag = "020103"
    
-   Case EnForm.enGrupo
+   Case EnForm.enBasicCadGrupo
       strTable = "Grupos"
       Me.Tag = "020104"
 
-   Case EnForm.enSubGrupo
+   Case EnForm.enBasicCadSubGrupo
       strTable = "SubGrupos"
       Me.Tag = "020105"
    End Select

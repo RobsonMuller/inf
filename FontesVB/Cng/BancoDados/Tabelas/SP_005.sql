@@ -52,3 +52,10 @@ INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadas
 INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadastro de SubGrupos', 4)
 INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20105, 'Cadastro de SubGrupos', 6)
 GO
+
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20200, 'Cadastro de Produtos', 1)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20200, 'Cadastro de Produtos', 2)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20200, 'Cadastro de Produtos', 3)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20200, 'Cadastro de Produtos', 4)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20200, 'Cadastro de Produtos', 6)
+GO

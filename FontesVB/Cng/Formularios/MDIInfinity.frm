@@ -210,40 +210,40 @@ End Sub
 Private Sub ID_02_01_01_C_Click()
    Dim frmModal As New frmBasicCad
    
-   frmModal.BaseForm enMarca
+   frmModal.BaseForm enBasicCadMarca
    frmModal.Show
 End Sub
 
 Private Sub ID_02_01_02_C_Click()
    Dim frmModal As New frmBasicCad
    
-   frmModal.BaseForm enModelo
+   frmModal.BaseForm enBasicCadModelo
    frmModal.Show
 End Sub
 
 Private Sub ID_02_01_03_C_Click()
    Dim frmModal As New frmBasicCad
    
-   frmModal.BaseForm enUnidade
+   frmModal.BaseForm enBasicCadUnidade
    frmModal.Show
 End Sub
 
 Private Sub ID_02_01_04_C_Click()
    Dim frmModal As New frmBasicCad
    
-   frmModal.BaseForm enGrupo
+   frmModal.BaseForm enBasicCadGrupo
    frmModal.Show
 End Sub
 
 Private Sub ID_02_01_05_C_Click()
    Dim frmModal As New frmBasicCad
    
-   frmModal.BaseForm enSubGrupo
+   frmModal.BaseForm enBasicCadSubGrupo
    frmModal.Show
 End Sub
 
 Private Sub ID_02_02_00_C_Click()
-   'frmProdutos.Show
+   frmProdutos.Show
 End Sub
 
 Private Sub ID_02_02_01_C_Click()
