@@ -1664,7 +1664,7 @@ Private colFornecedores As Collection
 Private Const LST_COL_DSCFORN As Integer = 1
 Private Const LST_COL_TELFORN As Integer = 2
 Private Const LST_COL_LUCROFORN As Integer = 3
-Private Const LST_cOL_VALORCOMPRA As Integer = 4
+Private Const LST_COL_VALORCOMPRA As Integer = 4
 Private Const LST_COL_VALORLUCRO As Integer = 5
 
 Private Sub cmdAdicionar_Click()
@@ -1807,7 +1807,7 @@ Private Sub AtualizaLista()
       itemX.SubItems(LST_COL_DSCFORN) = clsContainer.DscFornecedor
       itemX.SubItems(LST_COL_TELFORN) = clsContainer.Telefone
       itemX.SubItems(LST_COL_LUCROFORN) = Format(clsContainer.Lucro, "000.00") & " %"
-      itemX.SubItems(LST_cOL_VALORCOMPRA) = Format(clsContainer.ValorCompra, "#.00")
+      itemX.SubItems(LST_COL_VALORCOMPRA) = Format(clsContainer.ValorCompra, "#.00")
       itemX.SubItems(LST_COL_VALORLUCRO) = Format(clsContainer.LucroValor, "#.00")
       
       Select Case clsContainer.Situacao
@@ -1911,7 +1911,151 @@ DestruirObjetos:
 End Sub
 
 Private Sub cmdConsultar_Click()
+   On Error GoTo cmdConsultar_Click_E
+   
+   Dim itemX As ListItem
+   Dim clsCursor As INF_Cursor.Cursor
+   Dim clsContainerForn As sContainerProdutosForn
+   
+   If Me.vlrCod = 0 Then
+      mMsgInfo "O código do produto deve ser informado! Verifique."
+      mFocus Me.vlrCod
+      GoTo DestruirObjetos
+   End If
+   
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   With clsCursor
+      .Inicializar clsConexao
+   
+      .SQL.Limpar
+      .SQL.Mais " SELECT "
+      .SQL.Mais "    Prod.Empresa, Prod.Codigo, Prod.DtCad, Prod.CodUsuarioCad, Prod.DtUltAlt, Usuarios.Nome, "
+      .SQL.Mais "    Prod.CodUsuarioAlt, TblUserAlt.Nome AS UserNameAlt, Prod.CodBarras, Prod.Descricao, Prod.Abreviatura,"
+      .SQL.Mais "    Prod.CodGrupo, Prod.CodSubGrupo, Prod.CodMarca, Prod.CodModelo, Prod.CodUnidade,"
+      .SQL.Mais "    Prod.Observacao, Prod.Situacao, Prod.LucroMinimo, Prod.TpLucroMinimo, Prod.ControlarEst,"
+      .SQL.Mais "    Prod.VenderSemEst, Prod.ICMS, Prod.TpICMS, Prod.PISCOFINS, Prod.TpPISCOFINS, Prod.IPIVenda,"
+      .SQL.Mais "    Prod.TpIPIVenda, Prod.Tributos, Prod.Frete, Prod.TpFrete, Prod.Comissao, Prod.TpComissao,"
+      .SQL.Mais "    Prod.Margem, Prod.TpMargem, Prod.Custos, Prod.TpCustos, Prod.ValorVenda, Prod.TpTributacao, Prod.EstMinimo "
+      .SQL.Mais " FROM Produtos Prod "
+      
+      'Nome do usuário de cadastro
+      .SQL.Mais " LEFT JOIN Usuarios ON (Usuarios.Empresa = Prod.Empresa AND Usuarios.Codigo = Prod.CodUsuarioCad)"
+      
+      'Nome do usuário de alteração
+      .SQL.Mais " LEFT JOIN ( "
+      .SQL.Mais "             SELECT Nome "
+      .SQL.Mais "             FROM Usuarios "
+      .SQL.Mais "             WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais "           ) TblUserAlt ON (TblUserAlt.Codigo = Prod.CodUsuarioAlt)"
+      
+      .SQL.Mais " WHERE Prod.Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND Prod.Codigo = " & .Vlr(Me.vlrCod)
+      
+      If Not .Abrir(.SQL.Texto) Then
+         clsErro.Transferir = .TransferirErro
+         Exibir clsErro, "cmdConsultar_Click"
+         GoTo DestruirObjetos
+      End If
+      
+      If .EOF Then
+         mMsgInfo "Registro não localizado! Verifique."
+         mFocus Me.vlrCod
+         GoTo DestruirObjetos
+      Else
+         Me.fraIdentificacao.Enabled = False
+         Me.fraParametros.Enabled = True
+         Me.fraFornecedor.Enabled = True
+         Me.fraImagem.Enabled = True
+         Me.fraCadastro.Enabled = True
+         Me.fraEstoque.Enabled = True
+         Me.fraTributacao.Enabled = True
+         Me.fraValores.Enabled = True
+         
+         Me.txtCodBarras = .Valor("CodBarras")
+         Me.txtDescricao = .Valor("Descricao")
+         Me.txtAbreviatura = .Valor("Abreviatura")
+         Me.vlrCodGrupo = .Valor("CodGrupo")
+         Me.vlrCodSubGrupo = .Valor("CodSubGrupo")
+         Me.vlrCodMarca = .Valor("CodMarca")
+         Me.vlrCodModelo = .Valor("CodModelo")
+         Me.vlrCodUnidade = .Valor("CodUnidade")
+         Me.txtObservacao = .Valor("Observacao")
+         Me.cmbSituacao.ListIndex = f1.CmbValor(Me.cmbSituacao, .Valor("Situacao"))
+         Me.vlrLucroMin = .Valor("LucroMinimo")
+         Me.cmbLucro.ListIndex = f1.CmbValor(Me.cmbLucro, .Valor("TpLucroMinimo"))
+         Me.datCad = .Valor("DtCad")
+         Me.txtUsuarioCad = .Valor("Nome")
+         Me.datUltCad = .Valor("DtUltAlt")
+         Me.txtUsuarioUltCad = .Valor("UserNameAlt")
+         Me.cmbControlaEst.ListIndex = f1.CmbValor(Me.cmbControlaEst, .Valor("ControlaEst"))
+         Me.cmbVenderSemEst.ListIndex = f1.CmbValor(Me.cmbVenderSemEst, .Valor("VendaSemEst"))
+         Me.vlrEstMin = .Valor("EstMinimo")
+         Me.cmbTributacao.ListIndex = f1.CmbValor(Me.cmbTributacao, .Valor("TpTributacao"))
+         Me.vlrICMS = .Valor("ICMS")
+         Me.cmbICMS.ListIndex = f1.CmbValor(Me.cmbICMS, .Valor("TpICMS"))
+         Me.vlrPISCOFINS = .Valor("PISCOFINS")
+         Me.cmbPISCOFINS.ListIndex = f1.CmbValor(Me.cmbPISCOFINS, .Valor("TpPISCOFINS"))
+         Me.vlrIPI = .Valor("IPI")
+         Me.cmbIPI.ListIndex = f1.CmbValor(Me.cmbIPI, .Valor("TpIPI"))
+         Me.vlrTributacao = .Valor("Tributos")
+         Me.vlrFrete = .Valor("Frete")
+         Me.cmbFrete.ListIndex = f1.CmbValor(Me.cmbFrete, .Valor("TpFrete"))
+         Me.vlrComissao = .Valor("Comissao")
+         Me.cmbComissao.ListIndex = f1.CmbValor(Me.cmbComissao, .Valor("TpComissao"))
+         Me.vlrMargem = .Valor("Margem")
+         Me.cmbMargem.ListIndex = f1.CmbValor(Me.cmbMargem, .Valor("TpMargem"))
+         Me.vlrCusto = .Valor("Custos")
+         Me.cmbCustos.ListIndex = f1.CmbValor(Me.cmbCustos, .Valor("TpCustos"))
+         Me.vlrVenda = .Valor("ValorVenda")
+         
+         mFocus Me.txtCodBarras
+      End If
+   
+      .Fechar
+   End With
+   
+   With clsCursor
+      .SQL.Limpar
+      .SQL.Mais " SELECT ProdForn.CodFornecedor, Fornecedores.RazaoSocial, "
+      .SQL.Mais "    ProdForn.ValorCompra, ProdForn.Lucro, ProdForn.ValorLucro "
+      .SQL.Mais " FROM ProdutosFornecedores ProdForn"
+      .SQL.Mais " LEFT JOIN Fornecedores ON (Fornecedores.Empresa = ProdForn.Empresa AND Fornecedores.Codigo = ProdForn.CodFornecedor)"
+      .SQL.Mais " WHERE ProdForn.Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND ProdForn.CodProduto = " & .Vlr(Me.vlrCod)
+      
+      If Not .Abrir(.SQL.Texto) Then
+         clsErro.Transferir = .TransferirErro
+         Exibir clsErro, "cmdConsultar_Click"
+         GoTo DestruirObjetos
+      End If
+      
+      Do Until .EOF
+         Set clsContainerForn = New sContainerProdutosForn
+         clsContainerForn.CodFornecedor = .Valor("CodFornecedor")
+         clsContainerForn.DscFornecedor = .Valor("RazaoSocial")
+         clsContainerForn.Telefone = .Valor("Telefone")
+         clsContainerForn.ValorCompra = .Valor("ValorCompra")
+         clsContainerForn.Lucro = .Valor("Lucro")
+         clsContainerForn.LucroValor = .Valor("LucroValor")
+         clsContainerForn.Situacao = "G"
+         colFornecedores.Add clsContainerForn, clsContainerForn.Key
+         
+         Set itemX = Me.lstFornecedor.ListItems.Add(, clsContainerForn.Key, clsContainerForn.CodFornecedor)
+         itemX.SubItems(LST_COL_DSCFORN) = clsContainerForn.DscFornecedor
+                  
+         .ProximoRegistro
+      Loop
+   End With
+   
+   GoTo DestruirObjetos
 
+cmdConsultar_Click_E:
+   clsErro.Salvar Err
+   Exibir clsErro, "cmdConsultar_Click"
+
+DestruirObjetos:
+   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
+   Set clsCursor = Nothing
 End Sub
 
 Private Sub cmdConsUnidade_Click()
@@ -1991,6 +2135,10 @@ Private Sub Form_Load()
 Form_Load_E:
    clsErro.Salvar Err
    Exibir clsErro, "Form_Load"
+End Sub
+
+Private Sub lstFornecedor_BeforeLabelEdit(Cancel As Integer)
+
 End Sub
 
 Private Sub vlrCodGrupo_LostFocus()

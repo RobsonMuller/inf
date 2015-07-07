@@ -39,8 +39,10 @@ CREATE TABLE dbo.Produtos (
 	Custos NUMERIC(13,2) NULL,
 	TpCustos CHAR(1) NOT NULL,
 	ValorVenda NUMERIC(13,2) NOT NULL,
-	TpTributacao CHAR(1) NOT NULL
+	TpTributacao CHAR(1) NOT NULL,
+	EstMinimo NUMERIC(5) NULL 
 )
 
 ALTER TABLE dbo.Produtos ADD CONSTRAINT PK_PRODUTOS PRIMARY KEY (Empresa, Codigo)
 GO
+
