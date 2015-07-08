@@ -2137,10 +2137,6 @@ Form_Load_E:
    Exibir clsErro, "Form_Load"
 End Sub
 
-Private Sub lstFornecedor_BeforeLabelEdit(Cancel As Integer)
-
-End Sub
-
 Private Sub vlrCodGrupo_LostFocus()
    If Me.vlrCodGrupo = 0 Then Exit Sub
    If Not VerificaGrupo(clsErro, Me.vlrCodGrupo, Me.txtDescGrupo, "1") Then
