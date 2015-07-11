@@ -1,1 +1,17 @@
 C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\bin\Debug\Frente_CXA.exe.config
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\bin\Debug\Frente_CXA.exe
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\bin\Debug\Frente_CXA.pdb
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.csprojResolveAssemblyReference.cache
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Interop.INF_Conexao.dll
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Interop.INF_Cursor.dll
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Interop.INF_Erro.dll
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Interop.INF_Print.dll
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Interop.VBA.dll
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.csproj.ResolveComReference.cache
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.frmFrenteCxa.resources
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.frmLogin.resources
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.frmMemu.resources
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.Properties.Resources.resources
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.csproj.GenerateResource.Cache
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.exe
+C:\_Infinity\Infinity\FontesVS\CXA\Frente_CXA\Frente_CXA\obj\Debug\Frente_CXA.pdb
