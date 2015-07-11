@@ -142,7 +142,7 @@ Begin VB.Form frmProdutos
       TabIndex        =   0
       Top             =   0
       Width           =   12990
-      Begin VB.CommandButton Command12 
+      Begin VB.CommandButton cmdPesProd 
          Caption         =   "..."
          Height          =   255
          Left            =   2115
@@ -234,9 +234,7 @@ Begin VB.Form frmProdutos
             Strikethrough   =   0   'False
          EndProperty
          MaxLength       =   10
-         TextMask        =   1
-         RawText         =   1
-         Mask            =   "##/##/####"
+         RawText         =   0
          FontName        =   "MS Sans Serif"
          FontSize        =   8,25
          Locked          =   -1  'True
@@ -260,9 +258,7 @@ Begin VB.Form frmProdutos
             Strikethrough   =   0   'False
          EndProperty
          MaxLength       =   10
-         TextMask        =   1
-         RawText         =   1
-         Mask            =   "##/##/####"
+         RawText         =   0
          FontName        =   "MS Sans Serif"
          FontSize        =   8,25
          Locked          =   -1  'True
@@ -1642,7 +1638,7 @@ Begin VB.Form frmProdutos
          Width           =   1065
       End
    End
-   Begin VB.Label Label7 
+   Begin VB.Label lblLegenda 
       Caption         =   "Legenda"
       Height          =   225
       Left            =   13110
@@ -1728,6 +1724,7 @@ Private Sub AtualizaLista()
    Dim clsCursor As INF_Cursor.Cursor
    Dim clsContainer As sContainerProdutosForn
    
+   Ampulheta True
    'Remove os itens da lista
    Me.lstFornecedor.ListItems.Clear
    
@@ -1746,7 +1743,7 @@ Private Sub AtualizaLista()
    Me.vlrVenda = ((clsContainer.ValorCompra * (IIf(Me.cmbLucro.Text = "%", (Me.vlrLucroMin / 100), Me.vlrLucroMin))) + clsContainer.ValorCompra)
    
    'Seta os valores para o fornecedor mais caro
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -1833,6 +1830,7 @@ VerificaFornecedor_E:
 DestruirObjetos:
    If Not (clsCursor Is Nothing) Then clsCursor.Fechar
    Set clsCursor = Nothing
+   Ampulheta False
 End Sub
 
 Private Sub cmdConsGrupo_Click()
@@ -1923,7 +1921,8 @@ Private Sub cmdConsultar_Click()
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Ampulheta True
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
    
@@ -1943,7 +1942,7 @@ Private Sub cmdConsultar_Click()
       
       'Nome do usuário de alteração
       .SQL.Mais " LEFT JOIN ( "
-      .SQL.Mais "             SELECT Nome "
+      .SQL.Mais "             SELECT Codigo, Nome "
       .SQL.Mais "             FROM Usuarios "
       .SQL.Mais "             WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
       .SQL.Mais "           ) TblUserAlt ON (TblUserAlt.Codigo = Prod.CodUsuarioAlt)"
@@ -1983,7 +1982,7 @@ Private Sub cmdConsultar_Click()
          Me.cmbSituacao.ListIndex = f1.CmbValor(Me.cmbSituacao, .Valor("Situacao"))
          Me.vlrLucroMin = .Valor("LucroMinimo")
          Me.cmbLucro.ListIndex = f1.CmbValor(Me.cmbLucro, .Valor("TpLucroMinimo"))
-         Me.datCad = .Valor("DtCad")
+         Me.datCad = Format(.Valor("DtCad"), "dd/MM/yyyy")
          Me.txtUsuarioCad = .Valor("Nome")
          Me.datUltCad = .Valor("DtUltAlt")
          Me.txtUsuarioUltCad = .Valor("UserNameAlt")
@@ -2017,7 +2016,7 @@ Private Sub cmdConsultar_Click()
    With clsCursor
       .SQL.Limpar
       .SQL.Mais " SELECT ProdForn.CodFornecedor, Fornecedores.RazaoSocial, "
-      .SQL.Mais "    ProdForn.ValorCompra, ProdForn.Lucro, ProdForn.ValorLucro "
+      .SQL.Mais "    ProdForn.ValorCompra, ProdForn.Lucro, ProdForn.ValorLucro, Fornecedores.Telefone "
       .SQL.Mais " FROM ProdutosFornecedores ProdForn"
       .SQL.Mais " LEFT JOIN Fornecedores ON (Fornecedores.Empresa = ProdForn.Empresa AND Fornecedores.Codigo = ProdForn.CodFornecedor)"
       .SQL.Mais " WHERE ProdForn.Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
@@ -2030,22 +2029,49 @@ Private Sub cmdConsultar_Click()
       End If
       
       Do Until .EOF
+         'carrega a collection
          Set clsContainerForn = New sContainerProdutosForn
          clsContainerForn.CodFornecedor = .Valor("CodFornecedor")
          clsContainerForn.DscFornecedor = .Valor("RazaoSocial")
          clsContainerForn.Telefone = .Valor("Telefone")
          clsContainerForn.ValorCompra = .Valor("ValorCompra")
          clsContainerForn.Lucro = .Valor("Lucro")
-         clsContainerForn.LucroValor = .Valor("LucroValor")
+         clsContainerForn.LucroValor = .Valor("ValorLucro")
          clsContainerForn.Situacao = "G"
          colFornecedores.Add clsContainerForn, clsContainerForn.Key
          
+         'carrega a lista
          Set itemX = Me.lstFornecedor.ListItems.Add(, clsContainerForn.Key, clsContainerForn.CodFornecedor)
          itemX.SubItems(LST_COL_DSCFORN) = clsContainerForn.DscFornecedor
-                  
+         itemX.SubItems(LST_COL_TELFORN) = clsContainerForn.Telefone
+         itemX.SubItems(LST_COL_VALORCOMPRA) = clsContainerForn.ValorCompra
+         itemX.SubItems(LST_COL_LUCROFORN) = clsContainerForn.Lucro
+         itemX.SubItems(LST_COL_VALORLUCRO) = clsContainerForn.LucroValor
+         itemX.SmallIcon = LST_ICO_GRAVADO
+         itemX.Selected = True
+         
          .ProximoRegistro
       Loop
    End With
+   
+'   'Dados de Estoque (view)
+'   With clsCursor
+'      .SQL.Limpar
+'      .SQL.Mais " SELECT "
+'      .SQL.Mais " FROM "
+'      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+'      .SQL.Mais " AND CodProduto = " & .Vlr(Me.vlrCod)
+'
+'      If Not .Abrir(.SQL.Texto) Then
+'         clsErro.Transferir = .TransferirErro
+'         Exibir clsErro, "cmdConsultar_Click"
+'         GoTo DestruirObjetos
+'      End If
+'
+'      If Not .EOF Then
+'      End If
+'      .Fechar
+'   End With
    
    GoTo DestruirObjetos
 
@@ -2056,6 +2082,7 @@ cmdConsultar_Click_E:
 DestruirObjetos:
    If Not (clsCursor Is Nothing) Then clsCursor.Fechar
    Set clsCursor = Nothing
+   Ampulheta False
 End Sub
 
 Private Sub cmdConsUnidade_Click()
@@ -2077,8 +2104,85 @@ DestruirObjetos:
    Set frmModal = Nothing
 End Sub
 
+Private Sub cmdExcluir_Click()
+   On Error GoTo cmdExcluir_Click_E
+
+   If vbNo = mMsgPerg("Você deseja realmente excluir este produto ?") Then Exit Sub
+
+   Ampulheta True
+   
+   With clsConexao
+      .Begin
+      
+      .SQL.Limpar
+      .SQL.Mais " DELETE FROM ProdutosFornecedores "
+      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND CodProduto = " & .Vlr(Me.vlrCod)
+      
+      If Not .Executar(.SQL.Texto) Then
+         clsErro.Transferir = .TransferirErro
+         clsConexao.RollBack
+         Exibir clsErro, "cmdExcluir_Click"
+         GoTo DestruirObjetos
+      End If
+   End With
+   
+   With clsConexao
+      .SQL.Limpar
+      .SQL.Mais " DELETE FROM Produtos "
+      .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+      .SQL.Mais " AND Codigo = " & .Vlr(Me.vlrCod)
+      
+      If Not .Executar(.SQL.Texto) Then
+         clsErro.Transferir = .TransferirErro
+         clsConexao.RollBack
+         Exibir clsErro, "cmdExcluir_Click"
+         GoTo DestruirObjetos
+      End If
+      .Commit
+   End With
+   
+   mMsgInfo "Registro excluido com sucesso!"
+   cmdLimpar_Click
+   
+   GoTo DestruirObjetos
+
+cmdExcluir_Click_E:
+   clsErro.Salvar Err
+   clsConexao.RollBack
+   Exibir clsErro, "cmdExcluir_Click"
+
+DestruirObjetos:
+   Ampulheta False
+End Sub
+
 Private Sub cmdFechar_Click()
    Unload Me
+End Sub
+
+Private Sub cmdLimpar_Click()
+   f1.Limpar Me
+   
+   Me.fraIdentificacao.Enabled = True
+   Me.fraParametros.Enabled = False
+   Me.fraFornecedor.Enabled = False
+   Me.fraImagem.Enabled = False
+   Me.fraCadastro.Enabled = False
+   Me.fraEstoque.Enabled = False
+   Me.fraTributacao.Enabled = False
+   Me.fraValores.Enabled = False
+   
+   f1.CollectionLimpar colFornecedores
+   Me.lstFornecedor.ListItems.Clear
+   
+   Me.cmdSalvar.Caption = "&Salvar"
+   Me.cmdSalvar.Enabled = False
+   Me.cmdExcluir.Enabled = False
+   
+   If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "cmdLimpar_Click"
+   If Not HabilitarBotao(clsErro, Me, Me.cmdConsultar) Then Exibir clsErro, "cmdLimpar_Click"
+   
+   mFocus Me.vlrCod
 End Sub
 
 Private Sub cmdNovo_Click()
@@ -2093,15 +2197,300 @@ Private Sub cmdNovo_Click()
    Me.fraTributacao.Enabled = True
    Me.fraValores.Enabled = True
    
+   Me.cmdNovo.Enabled = False
+   Me.cmdConsultar.Enabled = False
+   
+   Me.cmdSalvar.Caption = "&Inserir"
+   If Not HabilitarBotao(clsErro, Me, Me.cmdSalvar) Then Exibir clsErro, "cmdNovo_Click"
+   
    mFocus Me.txtCodBarras
+End Sub
+
+Private Sub cmdSalvar_Click()
+   On Error GoTo cmdSalvar_Click_E
+   
+   Dim lngNewSeq As Long
+   Dim strMsg As String
+   Dim clsCursor As INF_Cursor.Cursor
+   Dim clsContainer As sContainerProdutosForn
+
+   'Validações
+   If Not mCmpObrigatorio(clsErro, Me.txtCodBarras, "Código de Barras") Then GoTo MsgErr
+   If Not mCmpObrigatorio(clsErro, Me.txtDescricao, "Descrição") Then GoTo MsgErr
+   If Not mCmpObrigatorio(clsErro, Me.vlrCodUnidade, "Unidade") Then GoTo MsgErr
+   If Not mCmpObrigatorio(clsErro, Me.vlrLucroMin, "Lucro Mínimo") Then GoTo MsgErr
+   
+   If colFornecedores.Count = 0 Then
+      mMsgInfo "Nenhum fornecedor foi vinculado a este produto! Verifique."
+      mFocus Me.lstFornecedor
+      GoTo DestruirObjetos
+   End If
+   
+   'Se estiver marcado para controlar o estoque o campo Estoque Mínimo deve ser informado
+   If f1.CmbParametro(Me.cmbControlaEst) = 1 Then
+      If Not mCmpObrigatorio(clsErro, Me.vlrEstMin, "Estoque Mínimo") Then GoTo MsgErr
+   End If
+   '-=-=-=-'
+   lngNewSeq = 0
+   
+   Ampulheta True
+   
+   clsConexao.Begin
+   Set clsCursor = New INF_Cursor.Cursor
+   clsCursor.Inicializar clsConexao
+   
+   Select Case Me.cmdSalvar.Caption
+   Case "&Inserir"
+      
+      With clsCursor
+         .SQL.Limpar
+         .SQL.Mais " SELECT Codigo, Descricao, CodBarras "
+         .SQL.Mais " FROM Produtos "
+         .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+         .SQL.Mais " AND LTRIM(RTRIM(CodBarras)) = " & .Txt(Me.txtCodBarras)
+         .SQL.Mais " AND Situacao = " & .Txt("1") 'Ativo
+         
+         If Not .Abrir(.SQL.Texto) Then
+            clsErro.Transferir = .TransferirErro
+            clsConexao.RollBack
+            Exibir clsErro, "cmdSalvar_Click"
+            GoTo DestruirObjetos
+         End If
+         
+         If Not .EOF Then
+            clsConexao.RollBack
+            mMsgInfo "O código de barras informado está em uso, pelo produto: " & vbNewLine & .Valor("Codigo") & " - " & .Valor("Descricao")
+            mFocus Me.txtCodBarras
+            GoTo DestruirObjetos
+         End If
+         .Fechar
+      End With
+      
+      With clsCursor
+         .SQL.Limpar
+         .SQL.Mais " SELECT (ISNULL(MAX(Codigo), 0) + 1) As MaxQtd "
+         .SQL.Mais " FROM Produtos "
+         .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+         
+         If Not .Abrir(.SQL.Texto) Then
+            clsErro.Transferir = .TransferirErro
+            clsConexao.RollBack
+            Exibir clsErro, "cmdSalvar_Click"
+            GoTo DestruirObjetos
+         End If
+         
+         lngNewSeq = .Valor("MaxQtd")
+         
+         .Fechar
+      End With
+      
+      With clsConexao
+         .SQL.Limpar
+         .SQL.Mais " INSERT INTO Produtos (Empresa, Codigo, DtCad, CodUsuarioCad, CodBarras, Descricao, "
+         .SQL.Mais "    Abreviatura, CodGrupo, CodSubGrupo, CodMarca, CodModelo, CodUnidade, Observacao, "
+         .SQL.Mais "    Situacao, LucroMinimo, TpLucroMinimo, ControlarEst, VenderSemEst, ICMS, TpICMS, "
+         .SQL.Mais "    PISCOFINS, TpPISCOFINS, IPIVenda, TpIPIVenda, Tributos, Frete, TpFrete, Comissao, "
+         .SQL.Mais "    TpComissao, Margem, TpMargem, Custos, TpCustos, ValorVenda, TpTributacao, EstMinimo "
+         .SQL.Mais " ) VALUES ( "
+         .SQL.Mais .Txt(Prj.Sistema.IdEmpresa, True)
+         .SQL.Mais .Vlr(lngNewSeq, True)
+         .SQL.Mais .FB.DataServer, True
+         .SQL.Mais .Vlr(Prj.Sistema.IdUsuario, True)
+         .SQL.Mais .Txt(Me.txtCodBarras, True)
+         .SQL.Mais .Txt(Me.txtDescricao, True)
+         .SQL.Mais .Txt(Me.txtAbreviatura, True)
+         .SQL.Mais .Vlr(Me.vlrCodGrupo, True)
+         .SQL.Mais .Vlr(Me.vlrCodSubGrupo, True)
+         .SQL.Mais .Vlr(Me.vlrCodMarca, True)
+         .SQL.Mais .Vlr(Me.vlrCodModelo, True)
+         .SQL.Mais .Vlr(Me.vlrCodUnidade, True)
+         .SQL.Mais .Txt(Me.txtObservacao, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbSituacao), True)
+         .SQL.Mais .Vlr(Me.vlrLucroMin, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbLucro), True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbControlaEst), True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbVenderSemEst), True)
+         .SQL.Mais .Vlr(Me.vlrICMS, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbICMS), True)
+         .SQL.Mais .Vlr(Me.vlrPISCOFINS, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbPISCOFINS), True)
+         .SQL.Mais .Vlr(Me.vlrIPI, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbIPI), True)
+         .SQL.Mais .Vlr(Me.vlrTributacao, True)
+         .SQL.Mais .Vlr(Me.vlrFrete, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbFrete), True)
+         .SQL.Mais .Vlr(Me.vlrComissao, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbComissao), True)
+         .SQL.Mais .Vlr(Me.vlrMargem, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbMargem), True)
+         .SQL.Mais .Vlr(Me.vlrCusto, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbCustos), True)
+         .SQL.Mais .Vlr(Me.vlrVenda, True)
+         .SQL.Mais .Txt(f1.CmbParametro(Me.cmbTributacao), True)
+         .SQL.Mais .Vlr(Me.vlrEstMin)
+         .SQL.Mais ")"
+         
+         If Not .Executar(.SQL.Texto) Then
+            clsErro.Transferir = .TransferirErro
+            clsConexao.RollBack
+            Exibir clsErro, "cmdSalvar_Click"
+            GoTo DestruirObjetos
+         End If
+      End With
+      
+      strMsg = "Registro inserido com sucesso! Código: " & lngNewSeq
+      
+   Case "&Alterar"
+      lngNewSeq = Me.vlrCod
+      
+      With clsCursor
+         .SQL.Limpar
+         .SQL.Mais " SELECT Codigo, Descricao, CodBarras "
+         .SQL.Mais " FROM Produtos "
+         .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+         .SQL.Mais " AND LTRIM(RTRIM(CodBarras)) = " & .Txt(Me.txtCodBarras)
+         .SQL.Mais " AND Situacao = " & .Txt("1") 'Ativo
+         .SQL.Mais " AND Codigo <> " & .Vlr(lngNewSeq) 'Diferente do produto atual
+         
+         If Not .Abrir(.SQL.Texto) Then
+            clsErro.Transferir = .TransferirErro
+            clsConexao.RollBack
+            Exibir clsErro, "cmdSalvar_Click"
+            GoTo DestruirObjetos
+         End If
+         
+         If Not .EOF Then
+            clsConexao.RollBack
+            mMsgInfo "O código de barras informado está em uso, pelo produto: " & vbNewLine & .Valor("Codigo") & " - " & .Valor("Descricao")
+            mFocus Me.txtCodBarras
+            GoTo DestruirObjetos
+         End If
+         .Fechar
+      End With
+      
+      With clsConexao
+         .SQL.Limpar
+         .SQL.Mais " UPDATE Produtos SET "
+         .SQL.Mais "    DtUltAlt = " & .FB.DataServer, True
+         .SQL.Mais "    CodUsuarioAlt = " & .Vlr(Prj.Sistema.IdUsuario, True)
+         .SQL.Mais "    CodBarras = " & .Txt(Me.txtCodBarras, True)
+         .SQL.Mais "    Descricao = " & .Txt(Me.txtDescricao, True)
+         .SQL.Mais "    Abreviatura = " & .Txt(Me.txtAbreviatura, True)
+         .SQL.Mais "    CodGrupo = " & .Vlr(Me.vlrCodGrupo, True)
+         .SQL.Mais "    CodSubGrupo = " & .Vlr(Me.vlrCodSubGrupo, True)
+         .SQL.Mais "    CodMarca = " & .Vlr(Me.vlrCodMarca, True)
+         .SQL.Mais "    CodModelo = " & .Vlr(Me.vlrCodModelo, True)
+         .SQL.Mais "    CodUnidade = " & .Vlr(Me.vlrCodUnidade, True)
+         .SQL.Mais "    Observacao = " & .Txt(Me.txtObservacao, True)
+         .SQL.Mais "    Situacao = " & .Txt(f1.CmbParametro(Me.cmbSituacao), True)
+         .SQL.Mais "    LucroMinimo  = " & .Vlr(Me.vlrLucroMin, True)
+         .SQL.Mais "    TpLucroMinimo = " & .Txt(f1.CmbParametro(Me.cmbLucro), True)
+         .SQL.Mais "    ControlarEst = " & .Txt(f1.CmbParametro(Me.cmbControlaEst), True)
+         .SQL.Mais "    VenderSemEst = " & .Txt(f1.CmbParametro(Me.cmbVenderSemEst), True)
+         .SQL.Mais "    ICMS = " & .Vlr(Me.vlrICMS, True)
+         .SQL.Mais "    TpICMS = " & .Txt(f1.CmbParametro(Me.cmbICMS), True)
+         .SQL.Mais "    PISCOFINS = " & .Vlr(Me.vlrPISCOFINS, True)
+         .SQL.Mais "    TpPISCOFINS = " & .Txt(f1.CmbParametro(Me.cmbPISCOFINS), True)
+         .SQL.Mais "    IPIVenda = " & .Vlr(Me.vlrIPI, True)
+         .SQL.Mais "    TpIPIVenda = " & .Txt(f1.CmbParametro(Me.cmbIPI), True)
+         .SQL.Mais "    Tributos = " & .Vlr(Me.vlrTributacao, True)
+         .SQL.Mais "    Frete = " & .Vlr(Me.vlrFrete, True)
+         .SQL.Mais "    TpFrete = " & .Txt(f1.CmbParametro(Me.cmbFrete), True)
+         .SQL.Mais "    Comissao = " & .Vlr(Me.vlrComissao, True)
+         .SQL.Mais "    TpComissao = " & .Txt(f1.CmbParametro(Me.cmbComissao), True)
+         .SQL.Mais "    Margem = " & .Vlr(Me.vlrMargem, True)
+         .SQL.Mais "    TpMargem = " & .Txt(f1.CmbParametro(Me.cmbMargem), True)
+         .SQL.Mais "    Custos = " & .Vlr(Me.vlrCusto, True)
+         .SQL.Mais "    TpCustos = " & .Txt(f1.CmbParametro(Me.cmbCustos), True)
+         .SQL.Mais "    ValorVenda = " & .Vlr(Me.vlrVenda, True)
+         .SQL.Mais "    TpTributacao = " & .Txt(f1.CmbParametro(Me.cmbTributacao), True)
+         .SQL.Mais "    EstMinimo = " & .Vlr(Me.vlrEstMin)
+         .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+         .SQL.Mais " AND Codigo = " & .Vlr(lngNewSeq)
+         
+         If Not .Executar(.SQL.Texto) Then
+            clsErro.Transferir = .TransferirErro
+            clsConexao.RollBack
+            Exibir clsErro, "cmdSalvar_Click"
+            GoTo DestruirObjetos
+         End If
+      End With
+      
+      strMsg = "Registro atualizado com sucesso!"
+   End Select
+   
+   With clsConexao
+      For Each clsContainer In colFornecedores
+         .SQL.Limpar
+         
+         Select Case clsContainer.Situacao
+         Case "I"
+            .SQL.Mais " INSERT INTO ProdutosFornecedores (Empresa, CodProduto, CodFornecedor, ValorCompra, Lucro, ValorLucro "
+            .SQL.Mais " ) VALUES ( "
+            .SQL.Mais .Txt(Prj.Sistema.IdEmpresa, True)
+            .SQL.Mais .Vlr(lngNewSeq, True)
+            .SQL.Mais .Vlr(clsContainer.CodFornecedor, True)
+            .SQL.Mais .Vlr(clsContainer.ValorCompra, True)
+            .SQL.Mais .Vlr(clsContainer.Lucro, True)
+            .SQL.Mais .Vlr(clsContainer.LucroValor)
+            .SQL.Mais " )"
+         Case "A"
+            .SQL.Mais " UPDATE ProdutosFornecedores SET "
+            .SQL.Mais "    ValorCompra = " & .Vlr(clsContainer.ValorCompra, True)
+            .SQL.Mais "    Lucro = " & .Vlr(clsContainer.Lucro, True)
+            .SQL.Mais "    ValorLucro = " & .Vlr(clsContainer.LucroValor)
+            .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+            .SQL.Mais " AND CodProduto = " & .Vlr(lngNewSeq)
+            .SQL.Mais " AND CodFornecedor = " & .Vlr(clsContainer.CodFornecedor)
+         Case "E"
+            .SQL.Mais " DELETE FROM ProdutosFornecedores "
+            .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
+            .SQL.Mais " AND CodProduto = " & .Vlr(lngNewSeq)
+            .SQL.Mais " AND CodFornecedor = " & .Vlr(clsContainer.CodFornecedor)
+         Case "G"
+         End Select
+         
+         If .SQL.Tamanho > 0 Then
+            If Not .Executar(.SQL.Texto) Then
+               clsErro.Transferir = .TransferirErro
+               clsConexao.RollBack
+               Exibir clsErro, "cmdSalvar_Click"
+               GoTo DestruirObjetos
+            End If
+         End If
+      Next
+   End With
+   clsConexao.Commit
+   
+   mMsgInfo strMsg
+   cmdLimpar_Click
+   
+   GoTo DestruirObjetos
+   
+cmdSalvar_Click_E:
+   clsErro.Salvar Err
+   clsConexao.RollBack
+   Exibir clsErro, "cmdSalvar_Click"
+   GoTo DestruirObjetos
+
+MsgErr:
+   Exibir clsErro, "cmdSalvar_Click"
+
+DestruirObjetos:
+   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
+   Set clsCursor = Nothing
+   Ampulheta False
 End Sub
 
 Private Sub Form_Load()
    On Error GoTo Form_Load_E
    
-   f1.FormCentralizar Me
    Set colFornecedores = New Collection
-   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set clsErro = New INF_Erro.Funcoes
+   
+   Ampulheta True
+   
+   f1.FormCentralizar Me
    
    mCmbValorPerc Me.cmbLucro
    mCmbValorPerc Me.cmbICMS
@@ -2119,6 +2508,10 @@ Private Sub Form_Load()
    f1.CmbAdd Me.cmbSituacao, "Desativado", 2
    Me.cmbSituacao.ListIndex = f1.CmbValor(Me.cmbSituacao, 1)
    
+   f1.CmbAdd Me.cmbTributacao, "Isento", 0
+   f1.CmbAdd Me.cmbTributacao, "Tributado", 1
+   Me.cmbTributacao.ListIndex = f1.CmbValor(Me.cmbTributacao, 0)
+   
    Me.lstLegenda.ListItems.Clear
    Me.lstLegenda.ListItems.Add , "K_1", "Gravado", , LST_ICO_GRAVADO
    Me.lstLegenda.ListItems.Add , "K_2", "Inserido", , LST_ICO_INSERIDO
@@ -2130,11 +2523,14 @@ Private Sub Form_Load()
    
    mFocus Me.vlrCod
    
-   Exit Sub
+   GoTo DestruirObjetos
 
 Form_Load_E:
    clsErro.Salvar Err
    Exibir clsErro, "Form_Load"
+
+DestruirObjetos:
+   Ampulheta False
 End Sub
 
 Private Sub vlrCodGrupo_LostFocus()

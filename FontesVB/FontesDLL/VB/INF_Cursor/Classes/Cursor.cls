@@ -1,6 +1,10 @@
 VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
+  Persistable = 0  'NotPersistable
+  DataBindingBehavior = 0  'vbNone
+  DataSourceBehavior  = 0  'vbNone
+  MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "Cursor"
 Attribute VB_GlobalNameSpace = False
@@ -75,7 +79,19 @@ Public Sub ProximoRegistro()
 End Sub
 
 Public Property Get Valor(NmCmp As String) As String
+   On Error GoTo Valor_E
+   
    Valor = ADORst.Fields(NmCmp)
+   
+   Exit Property
+
+Valor_E:
+   'Erros tratados
+   Select Case Err.Number
+   Case 94 '(Invalid use of Null)
+      Valor = ""
+      Exit Property
+   End Select
 End Property
 
 Public Property Get Vlr(Valor As Variant, Optional ComVirgula As Boolean = False) As String

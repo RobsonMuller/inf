@@ -274,7 +274,7 @@ Private Sub cmdConsultar_Click()
    
    Ampulheta True
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -447,7 +447,7 @@ Private Sub cmdSalvar_Click()
    clsConexao.Begin
    Select Case Me.cmdSalvar.Caption
    Case "&Inserir"
-      Set clsCursor = CreateObject("INF_Cursor.Cursor")
+      Set clsCursor = New INF_Cursor.Cursor
       With clsCursor
          .Inicializar clsConexao
          
@@ -559,7 +559,7 @@ End Sub
 Private Sub Form_Load()
    On Error GoTo Form_Load_E
    
-   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set clsErro = New INF_Erro.Funcoes
    
    'Centralizar form
    f1.FormCentralizar Me

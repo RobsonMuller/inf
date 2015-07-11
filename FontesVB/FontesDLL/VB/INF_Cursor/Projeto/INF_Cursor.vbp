@@ -1,7 +1,7 @@
 Type=OleDll
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\WINDOWS\system32\stdole2.tlb#OLE Automation
-Reference=*\G{2A75196C-D9EB-4129-B803-931327F72D5C}#2.8#0#..\..\..\..\..\Arquivos de programas\Arquivos comuns\System\ado\msado15.dll#Microsoft ActiveX Data Objects 2.8 Library
-Reference=*\G{8F7F65B1-36D7-448F-BB8E-4C8AB9D30B54}#1.0#0#..\..\..\..\..\WINDOWS\system32\INF_Erro.dll#INF_Erro
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\..\..\..\..\..\Windows\SysWOW64\stdole2.tlb#OLE Automation
+Reference=*\G{2A75196C-D9EB-4129-B803-931327F72D5C}#2.8#0#..\..\..\..\..\..\..\..\..\..\Program Files (x86)\Common Files\System\ado\msado28.tlb#Microsoft ActiveX Data Objects 2.8 Library
+Reference=*\G{8F7F65B1-36D7-448F-BB8E-4C8AB9D30B54}#1.0#0#..\..\..\..\..\..\..\..\..\..\Windows\SysWow64\inf_erro.dll#INF_Erro
 Class=Cursor; ..\Classes\Cursor.cls
 Class=CmdSQL; ..\Classes\CmdSQL.cls
 Startup="(None)"

@@ -133,7 +133,7 @@ Public Sub CarregaMenu()
    Dim strCodMn As String
    Dim clsCursor As INF_Cursor.Cursor
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -279,7 +279,7 @@ Private Sub ID_04_01_00_C_Click()
 End Sub
 
 Private Sub MDIForm_Initialize()
-   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set clsErro = New INF_Erro.Funcoes
 End Sub
 
 Private Sub ObjMenu(strValor As String)

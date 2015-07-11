@@ -216,7 +216,7 @@ Private Sub cmdEntrar_Click()
    End If
    
    Prj.Sistema.ConexActive = True
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -335,7 +335,7 @@ DestruirObjetos:
 End Sub
 
 Private Sub Form_Load()
-   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set clsErro = New INF_Erro.Funcoes
    If ModoDesenvolvimento Then
       Me.txtNome = "master"
       Me.txtSenha = "master"

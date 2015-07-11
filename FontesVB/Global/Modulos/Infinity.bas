@@ -3,7 +3,7 @@ Option Explicit
 
 Sub Main()
    Set f1 = New sFuncoes
-   Set clsConexao = CreateObject("INF_Conexao.Conexao")
+   Set clsConexao = New INF_Conexao.Conexao
    
    InitCommonControls ' try Win9x version
    frmConnection.Show
@@ -65,7 +65,7 @@ Public Function HabilitarBotao(objErro As Object, objForm As Object, objButton A
    
    Dim clsCursor As INF_Cursor.Cursor
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       

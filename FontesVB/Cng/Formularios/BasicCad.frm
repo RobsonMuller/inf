@@ -233,7 +233,7 @@ Private Sub cmdConsultar_Click()
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -289,7 +289,7 @@ Private Sub cmdExcluir_Click()
    
    Dim clsCursor As INF_Cursor.Cursor
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -387,7 +387,7 @@ Private Sub cmdSalvar_Click()
    clsConexao.Begin
    Select Case Me.cmdSalvar.Caption
    Case "&Inserir"
-      Set clsCursor = CreateObject("INF_Cursor.Cursor")
+      Set clsCursor = New INF_Cursor.Cursor
       With clsCursor
          .Inicializar clsConexao
          
@@ -469,7 +469,7 @@ DestruirObjetos:
 End Sub
 
 Private Sub Form_Load()
-   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set clsErro = New INF_Erro.Funcoes
    
    f1.FormCentralizar Me
    

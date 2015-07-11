@@ -13,7 +13,7 @@ Public Function VerificaUsuario(objErro As Object, ID As ActiveText, Dsc As Acti
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -67,7 +67,7 @@ Public Function VerificaGrupo(objErro As Object, ID As ActiveText, Dsc As Active
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -121,7 +121,7 @@ Public Function VerificaSubGrupo(objErro As Object, ID As ActiveText, Dsc As Act
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -175,7 +175,7 @@ Public Function VerificaMarca(objErro As Object, ID As ActiveText, Dsc As Active
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -229,7 +229,7 @@ Public Function VerificaModelo(objErro As Object, ID As ActiveText, Dsc As Activ
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -283,7 +283,7 @@ Public Function VerificaUnidade(objErro As Object, ID As ActiveText, Dsc As Acti
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -337,7 +337,7 @@ Public Function VerificaFornecedor(objErro As Object, ID As ActiveText, Dsc As A
       GoTo DestruirObjetos
    End If
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       

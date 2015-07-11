@@ -216,7 +216,7 @@ Private Sub cmdConsultar_Click()
    
    f1.CollectionLimpar colPermissoes
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
@@ -367,7 +367,7 @@ End Sub
 
 Private Sub Form_Load()
    Set colPermissoes = New Collection
-   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set clsErro = New INF_Erro.Funcoes
    
    f1.FormCentralizar Me
 End Sub

@@ -64,7 +64,7 @@ Public Function CarregaMenu(objErr As Object, objTreeView As TreeView) As Boolea
          nodMn.Tag = strMn
          blnComando = False
          
-         Set clsCursor = CreateObject("INF_Cursor.Cursor")
+         Set clsCursor = New INF_Cursor.Cursor
          With clsCursor
             .Inicializar clsConexao
             
@@ -125,7 +125,7 @@ Public Function CarregaPermissoesUsuario(objErr As Object, CodUsuario As Long) A
    
    CarregaPermissoesUsuario = False
    
-   Set clsCursor = CreateObject("INF_Cursor.Cursor")
+   Set clsCursor = New INF_Cursor.Cursor
    With clsCursor
       .Inicializar clsConexao
       
