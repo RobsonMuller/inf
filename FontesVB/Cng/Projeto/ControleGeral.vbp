@@ -33,6 +33,7 @@ Form=..\Formularios\Fornecedores.frm
 Class=sContainerFornContato; ..\Classes\ContainerFornecedorContato.cls
 Form=..\Formularios\FornecedorContato.frm
 ResFile32="..\Resource\ControleGeral.RES"
+Form=..\Formularios\Entrada.frm
 Startup="Sub Main"
 HelpFile=""
 Title="ControleGeral"

@@ -66,3 +66,10 @@ INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20401, 'Cadas
 INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20401, 'Cadastro de Fornecedores', 4)
 INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20401, 'Cadastro de Fornecedores', 6)
 GO
+
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20301, 'Cadastro de Entrada de Estoque', 1)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20301, 'Cadastro de Entrada de Estoque', 2)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20301, 'Cadastro de Entrada de Estoque', 3)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20301, 'Cadastro de Entrada de Estoque', 4)
+INSERT INTO dbo.GlbInterface (Codigo, Descricao, IdButton) Values (20301, 'Cadastro de Entrada de Estoque', 6)
+GO

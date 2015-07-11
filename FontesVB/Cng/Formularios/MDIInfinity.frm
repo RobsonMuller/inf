@@ -251,7 +251,7 @@ Private Sub ID_02_02_01_C_Click()
 End Sub
 
 Private Sub ID_02_03_01_C_Click()
-   'frmEstEntrada.Show
+   frmEntrada.Show
 End Sub
 
 Private Sub ID_02_04_01_C_Click()
