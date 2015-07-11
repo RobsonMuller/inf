@@ -828,7 +828,7 @@ Private Sub cmdAdicionar_Click()
    
    Dim itemX As ListItem
    Dim frmModal As frmFornecedorContato
-   Dim clsContainerContatos As sContainerFornecedorContato
+   Dim clsContainerContatos As sContainerFornContato
       
    Set frmModal = New frmFornecedorContato
    With frmModal
@@ -837,7 +837,7 @@ Private Sub cmdAdicionar_Click()
       If Not .Cancelado Then
          lngSeqLst = lngSeqLst + 1
          
-         Set clsContainerContatos = New sContainerFornecedorContato
+         Set clsContainerContatos = New sContainerFornContato
          clsContainerContatos.Sequencia = lngSeqLst
          clsContainerContatos.Contato = .Contato
          clsContainerContatos.Telefone = .Telefone
@@ -869,7 +869,7 @@ Private Sub cmdConsultar_Click()
    
    Dim itemX As ListItem
    Dim clsCursor As INF_Cursor.Cursor
-   Dim clsContainerContatos As sContainerFornecedorContato
+   Dim clsContainerContatos As sContainerFornContato
    
    If Not mCmpObrigatorio(clsErro, Me.vlrCod, "Código") Then GoTo Erro_Msg
    
@@ -950,7 +950,7 @@ Private Sub cmdConsultar_Click()
       Do Until .EOF
          lngSeqLst = lngSeqLst + 1
          
-         Set clsContainerContatos = New sContainerFornecedorContato
+         Set clsContainerContatos = New sContainerFornContato
          clsContainerContatos.Sequencia = lngSeqLst
          clsContainerContatos.Codigo = .Valor("Codigo")
          clsContainerContatos.Contato = .Valor("Nome")
@@ -1174,7 +1174,7 @@ Private Sub cmdModificar_Click()
    
    Dim itemX As ListItem
    Dim frmModal As frmFornecedorContato
-   Dim clsContainerContatos As sContainerFornecedorContato
+   Dim clsContainerContatos As sContainerFornContato
    
    Set itemX = Me.lstContatos.SelectedItem
    If itemX Is Nothing Then Exit Sub
@@ -1273,7 +1273,7 @@ Private Sub cmdRemover_Click()
    Dim strKey As String
    Dim itemX As ListItem
    Dim frmModal As frmFornecedorContato
-   Dim clsContainerContatos As sContainerFornecedorContato
+   Dim clsContainerContatos As sContainerFornContato
    
    Set itemX = Me.lstContatos.SelectedItem
    If itemX Is Nothing Then Exit Sub
@@ -1303,7 +1303,7 @@ Private Sub cmdSalvar_Click()
    Dim lngSeq As Long
    Dim strMsg As String
    Dim clsCursor As INF_Cursor.Cursor
-   Dim clsContainerContatos As sContainerFornecedorContato
+   Dim clsContainerContatos As sContainerFornContato
    
    'Validações
    

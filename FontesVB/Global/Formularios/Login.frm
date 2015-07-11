@@ -1,26 +1,25 @@
 VERSION 5.00
 Object = "{4E6B00F6-69BE-11D2-885A-A1A33992992C}#2.5#0"; "InfinityControl.ocx"
 Begin VB.Form frmLogin 
-   BackColor       =   &H80000005&
-   BorderStyle     =   5  'Sizable ToolWindow
-   ClientHeight    =   4485
-   ClientLeft      =   120
-   ClientTop       =   150
-   ClientWidth     =   5175
+   BackColor       =   &H80000002&
+   BorderStyle     =   1  'Fixed Single
+   ClientHeight    =   8850
+   ClientLeft      =   15
+   ClientTop       =   45
+   ClientWidth     =   10395
    ControlBox      =   0   'False
    Icon            =   "Login.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4485
-   ScaleWidth      =   5175
-   ShowInTaskbar   =   0   'False
+   ScaleHeight     =   8850
+   ScaleWidth      =   10395
    StartUpPosition =   2  'CenterScreen
    Begin rdActiveText.ActiveText txtEmpresa 
       Height          =   315
-      Left            =   975
-      TabIndex        =   3
-      Top             =   3285
+      Left            =   6045
+      TabIndex        =   2
+      Top             =   7530
       Width           =   315
       _ExtentX        =   556
       _ExtentY        =   556
@@ -43,43 +42,21 @@ Begin VB.Form frmLogin
    Begin VB.CommandButton cmdEntrar 
       Caption         =   "&Entrar"
       Height          =   345
-      Left            =   2325
-      TabIndex        =   2
-      Top             =   3240
+      Left            =   7395
+      TabIndex        =   1
+      Top             =   7485
       Visible         =   0   'False
       Width           =   870
    End
-   Begin rdActiveText.ActiveText txtNome 
-      Height          =   315
-      Left            =   975
-      TabIndex        =   0
-      Top             =   3660
-      Width           =   4035
-      _ExtentX        =   7117
-      _ExtentY        =   556
-      ForeColor       =   -2147483642
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Times New Roman"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      MaxLength       =   20
-      RawText         =   0
-      FontName        =   "Times New Roman"
-      FontSize        =   9
-   End
    Begin rdActiveText.ActiveText txtSenha 
       Height          =   315
-      Left            =   975
-      TabIndex        =   1
-      Top             =   4035
-      Width           =   2880
-      _ExtentX        =   5080
+      Left            =   1080
+      TabIndex        =   0
+      Top             =   3600
+      Width           =   3375
+      _ExtentX        =   5953
       _ExtentY        =   556
+      Appearance      =   0
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   8.25
@@ -95,84 +72,89 @@ Begin VB.Form frmLogin
       FontName        =   "MS Sans Serif"
       FontSize        =   8,25
    End
-   Begin VB.Image Image1 
-      Height          =   2745
-      Left            =   465
-      Picture         =   "Login.frx":000C
-      Top             =   120
-      Width           =   4215
+   Begin rdActiveText.ActiveText txtNome 
+      Height          =   315
+      Left            =   1080
+      TabIndex        =   4
+      Top             =   2445
+      Width           =   3375
+      _ExtentX        =   5953
+      _ExtentY        =   556
+      Appearance      =   0
+      ForeColor       =   -2147483642
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      MaxLength       =   20
+      RawText         =   0
+      FontName        =   "Times New Roman"
+      FontSize        =   9
+   End
+   Begin VB.Label Label3 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      BackStyle       =   0  'Transparent
+      Caption         =   "Senha"
+      BeginProperty Font 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000008&
+      Height          =   225
+      Left            =   1095
+      TabIndex        =   5
+      Top             =   3240
+      Width           =   825
+   End
+   Begin VB.Shape Shape1 
+      BackStyle       =   1  'Opaque
+      Height          =   4215
+      Left            =   645
+      Top             =   855
+      Width           =   4230
    End
    Begin VB.Image ImgFechar 
       Height          =   240
-      Left            =   4800
-      Picture         =   "Login.frx":28C8
-      Top             =   105
+      Left            =   9870
+      Picture         =   "Login.frx":000C
+      Top             =   4350
       Width           =   240
    End
    Begin VB.Image Img_EntrarOn 
       Height          =   315
-      Left            =   3945
-      Picture         =   "Login.frx":2A12
+      Left            =   9015
+      Picture         =   "Login.frx":0156
       Stretch         =   -1  'True
-      Top             =   4035
+      Top             =   8280
       Visible         =   0   'False
       Width           =   1065
    End
    Begin VB.Image img_EntrarOff 
       Height          =   315
-      Left            =   3945
-      Picture         =   "Login.frx":3AA3
+      Left            =   9015
+      Picture         =   "Login.frx":11E7
       Stretch         =   -1  'True
-      Top             =   4035
+      Top             =   8280
       Width           =   1065
    End
    Begin VB.Line Line1 
       BorderColor     =   &H80000003&
       BorderStyle     =   6  'Inside Solid
-      X1              =   180
-      X2              =   5010
-      Y1              =   3150
-      Y2              =   3150
-   End
-   Begin VB.Label Label3 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      Caption         =   "Senha:"
-      BeginProperty Font 
-         Name            =   "Times New Roman"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   225
-      Left            =   180
-      TabIndex        =   6
-      Top             =   4050
-      Width           =   825
-   End
-   Begin VB.Label Label2 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      Caption         =   "Usuário:"
-      BeginProperty Font 
-         Name            =   "Times New Roman"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   225
-      Left            =   180
-      TabIndex        =   5
-      Top             =   3675
-      Width           =   825
+      X1              =   5250
+      X2              =   10080
+      Y1              =   7395
+      Y2              =   7395
    End
    Begin VB.Label Label1 
       Appearance      =   0  'Flat
@@ -189,9 +171,9 @@ Begin VB.Form frmLogin
       EndProperty
       ForeColor       =   &H80000008&
       Height          =   225
-      Left            =   180
-      TabIndex        =   4
-      Top             =   3300
+      Left            =   5250
+      TabIndex        =   3
+      Top             =   7545
       Width           =   825
    End
 End

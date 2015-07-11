@@ -48,3 +48,33 @@ Public Const LINK_EMAIL As String = "http://schemas.microsoft.com/cdo/configurat
 
 'RESOURCE
 Public Const ICO_SYSTEM As Integer = 101
+
+Public Type InitCommonControlsExStruct
+    lngSize As Long
+    lngICC As Long
+End Type
+
+'Public Declare Function LoadLibraryA Lib "kernel32.dll" (ByVal lpLibFileName As String) As Long
+'Public Declare Function FreeLibrary Lib "kernel32.dll" (ByVal hLibModule As Long) As Long
+'Public Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As InitCommonControlsExStruct) As Boolean
+Public Declare Sub InitCommonControls Lib "comctl32.dll" ()
+
+    ' constant descriptions: http://msdn.microsoft.com/en-us/library/bb775507%28VS.85%29.aspx
+'Public Const ICC_ANIMATE_CLASS As Long = &H80&
+'Public Const ICC_BAR_CLASSES As Long = &H4&
+'Public Const ICC_COOL_CLASSES As Long = &H400&
+'Public Const ICC_DATE_CLASSES As Long = &H100&
+'Public Const ICC_HOTKEY_CLASS As Long = &H40&
+'Public Const ICC_INTERNET_CLASSES As Long = &H800&
+'Public Const ICC_LINK_CLASS As Long = &H8000&
+'Public Const ICC_LISTVIEW_CLASSES As Long = &H1&
+'Public Const ICC_NATIVEFNTCTL_CLASS As Long = &H2000&
+'Public Const ICC_PAGESCROLLER_CLASS As Long = &H1000&
+'Public Const ICC_PROGRESS_CLASS As Long = &H20&
+'Public Const ICC_TAB_CLASSES As Long = &H8&
+'Public Const ICC_TREEVIEW_CLASSES As Long = &H2&
+'Public Const ICC_UPDOWN_CLASS As Long = &H10&
+'Public Const ICC_USEREX_CLASSES As Long = &H200&
+'Public Const ICC_STANDARD_CLASSES As Long = &H4000&
+'Public Const ICC_WIN95_CLASSES As Long = &HFF&
+'Public Const ICC_ALL_CLASSES As Long = &HFDFF&   ' combination of all values above

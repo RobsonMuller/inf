@@ -5,6 +5,7 @@ Sub Main()
    Set f1 = New sFuncoes
    Set clsConexao = CreateObject("INF_Conexao.Conexao")
    
+   InitCommonControls ' try Win9x version
    frmConnection.Show
 End Sub
 

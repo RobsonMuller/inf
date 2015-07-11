@@ -1674,7 +1674,7 @@ Private Sub cmdAdicionar_Click()
    Dim curLucroPerc As Currency
    Dim curLucroVlr As Currency
    Dim frmModal As frmProdutosFornMod
-   Dim ContainerProdForn As clsContainerProdutosForn
+   Dim ContainerProdForn As sContainerProdutosForn
    
    If Me.vlrLucroMin = 0 Then
       mMsgInfo "O valor do lucro mínimo deve ser informado! Verifique."
@@ -1696,7 +1696,7 @@ Private Sub cmdAdicionar_Click()
             End If
          Next
          
-         Set ContainerProdForn = New clsContainerProdutosForn
+         Set ContainerProdForn = New sContainerProdutosForn
          ContainerProdForn.CodFornecedor = .Codigo
          ContainerProdForn.DscFornecedor = .Descricao
          ContainerProdForn.Telefone = .Telefone
@@ -1726,7 +1726,7 @@ Private Sub AtualizaLista()
    Dim itemX As ListItem
    Dim curMaiorValor As Currency
    Dim clsCursor As INF_Cursor.Cursor
-   Dim clsContainer As clsContainerProdutosForn
+   Dim clsContainer As sContainerProdutosForn
    
    'Remove os itens da lista
    Me.lstFornecedor.ListItems.Clear

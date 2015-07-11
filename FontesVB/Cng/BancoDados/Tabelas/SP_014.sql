@@ -5,9 +5,9 @@ GO
 CREATE TABLE dbo.Produtos (
 	Empresa CHAR(2) NOT NULL,
 	Codigo NUMERIC(10) NOT NULL,
-	DtCad DATE NOT NULL,
+	DtCad DATETIME NOT NULL,
 	CodUsuarioCad NUMERIC(10) NOT NULL,
-	DtUltAlt DATE NULL,
+	DtUltAlt DATETIME NULL,
 	CodUsuarioAlt NUMERIC(10) NULL,
 	CodBarras CHAR(13) NOT NULL,
 	Descricao VARCHAR(80) NOT NULL,
