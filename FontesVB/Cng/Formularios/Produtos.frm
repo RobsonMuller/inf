@@ -1743,7 +1743,7 @@ Private Sub AtualizaLista()
    Me.vlrVenda = ((clsContainer.ValorCompra * (IIf(Me.cmbLucro.Text = "%", (Me.vlrLucroMin / 100), Me.vlrLucroMin))) + clsContainer.ValorCompra)
    
    'Seta os valores para o fornecedor mais caro
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       
@@ -1922,7 +1922,7 @@ Private Sub cmdConsultar_Click()
    End If
    
    Ampulheta True
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
    
@@ -2236,7 +2236,7 @@ Private Sub cmdSalvar_Click()
    Ampulheta True
    
    clsConexao.Begin
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    clsCursor.Inicializar clsConexao
    
    Select Case Me.cmdSalvar.Caption
@@ -2486,7 +2486,7 @@ Private Sub Form_Load()
    On Error GoTo Form_Load_E
    
    Set colFornecedores = New Collection
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
    
    Ampulheta True
    

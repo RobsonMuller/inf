@@ -218,7 +218,7 @@ Private Sub cmdConsultar_Click()
       Exit Sub
    End If
    
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       
@@ -333,8 +333,8 @@ Private Sub Form_Load()
    
    Dim clsCursor As INF_Cursor.Cursor
    
-   Set clsErro = New INF_Erro.Funcoes
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       

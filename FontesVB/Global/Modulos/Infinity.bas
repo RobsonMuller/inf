@@ -65,7 +65,7 @@ Public Function HabilitarBotao(objErro As Object, objForm As Object, objButton A
    
    Dim clsCursor As INF_Cursor.Cursor
    
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       

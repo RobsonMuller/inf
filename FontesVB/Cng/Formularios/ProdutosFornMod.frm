@@ -220,7 +220,7 @@ DestruirObjetos:
 End Sub
 
 Private Sub Form_Load()
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
 End Sub
 
 Public Property Get Cancelado() As Boolean
@@ -255,7 +255,7 @@ Private Sub vlrCod_LostFocus()
    
    If Me.vlrCod = 0 Then GoTo DestruirObjetos
    
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       

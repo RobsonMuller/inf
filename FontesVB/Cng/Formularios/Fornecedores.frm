@@ -873,7 +873,7 @@ Private Sub cmdConsultar_Click()
    
    If Not mCmpObrigatorio(clsErro, Me.vlrCod, "Código") Then GoTo Erro_Msg
    
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       
@@ -1024,7 +1024,7 @@ Private Sub cmdConsultarCEP_Click()
          End If
       Case "cidade"
          
-         Set clsCursor = New INF_Cursor.Cursor
+         Set clsCursor = CreateObject("INF_Cursor.Cursor")
          With clsCursor
             .Inicializar clsConexao
             
@@ -1312,7 +1312,7 @@ Private Sub cmdSalvar_Click()
    
    Select Case Me.cmdSalvar.Caption
    Case "&Inserir"
-      Set clsCursor = New INF_Cursor.Cursor
+      Set clsCursor = CreateObject("INF_Cursor.Cursor")
       With clsCursor
          .Inicializar clsConexao
          
@@ -1466,7 +1466,7 @@ End Sub
 
 Private Sub Form_Load()
    Set colContatos = New Collection
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
 
    f1.FormCentralizar Me
 

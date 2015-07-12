@@ -3,18 +3,158 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{4E6B00F6-69BE-11D2-885A-A1A33992992C}#2.5#0"; "InfinityControl.ocx"
 Begin VB.Form frmEntrada 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "Form1"
-   ClientHeight    =   7800
+   Caption         =   "Entrada de Estoque [Nota Fiscal]"
+   ClientHeight    =   7830
    ClientLeft      =   45
    ClientTop       =   390
    ClientWidth     =   16530
+   Icon            =   "Entrada.frx":0000
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
-   ScaleHeight     =   7800
+   ScaleHeight     =   7830
    ScaleWidth      =   16530
    Tag             =   "20301"
+   Begin VB.Frame fraNotaFiscal 
+      Caption         =   "Nota Fiscal"
+      Enabled         =   0   'False
+      Height          =   1770
+      Left            =   60
+      TabIndex        =   81
+      Top             =   660
+      Width           =   7980
+      Begin VB.CommandButton Command6 
+         Caption         =   "&Importar Dados XML NF-e [Entrada]"
+         Enabled         =   0   'False
+         Height          =   690
+         Left            =   6510
+         TabIndex        =   90
+         Top             =   195
+         Width           =   1320
+      End
+      Begin rdActiveText.ActiveText ActiveText19 
+         Height          =   315
+         Left            =   1200
+         TabIndex        =   82
+         Top             =   225
+         Width           =   1140
+         _ExtentX        =   2011
+         _ExtentY        =   556
+         Alignment       =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MaxLength       =   10
+         Text            =   "0"
+         TextMask        =   3
+         RawText         =   3
+         FontName        =   "MS Sans Serif"
+         FontSize        =   8,25
+      End
+      Begin rdActiveText.ActiveText ActiveText20 
+         Height          =   315
+         Left            =   1200
+         TabIndex        =   84
+         Top             =   975
+         Width           =   6585
+         _ExtentX        =   11615
+         _ExtentY        =   556
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         RawText         =   0
+         FontName        =   "MS Sans Serif"
+         FontSize        =   8,25
+      End
+      Begin rdActiveText.ActiveText ActiveText21 
+         Height          =   315
+         Left            =   1200
+         TabIndex        =   86
+         Top             =   1350
+         Width           =   6585
+         _ExtentX        =   11615
+         _ExtentY        =   556
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         RawText         =   0
+         FontName        =   "MS Sans Serif"
+         FontSize        =   8,25
+      End
+      Begin rdActiveText.ActiveText ActiveText22 
+         Height          =   315
+         Left            =   1200
+         TabIndex        =   88
+         Top             =   600
+         Width           =   1140
+         _ExtentX        =   2011
+         _ExtentY        =   556
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MaxLength       =   10
+         RawText         =   0
+         FontName        =   "MS Sans Serif"
+         FontSize        =   8,25
+      End
+      Begin VB.Label Label21 
+         Caption         =   "Data Entrada:"
+         Height          =   270
+         Left            =   120
+         TabIndex        =   89
+         Top             =   630
+         Width           =   1305
+      End
+      Begin VB.Label Label20 
+         Caption         =   "Protocolo:"
+         Height          =   285
+         Left            =   120
+         TabIndex        =   87
+         Top             =   1380
+         Width           =   1110
+      End
+      Begin VB.Label Label19 
+         Caption         =   "Chave:"
+         Height          =   285
+         Left            =   120
+         TabIndex        =   85
+         Top             =   1005
+         Width           =   1110
+      End
+      Begin VB.Label Label18 
+         Caption         =   "Número:"
+         Height          =   285
+         Left            =   120
+         TabIndex        =   83
+         Top             =   255
+         Width           =   1110
+      End
+   End
    Begin VB.CommandButton cmdNovo 
       Caption         =   "&Novo"
       Enabled         =   0   'False
@@ -69,8 +209,9 @@ Begin VB.Form frmEntrada
       Top             =   1980
       Width           =   1320
    End
-   Begin VB.Frame Frame4 
+   Begin VB.Frame fraCadastro 
       Caption         =   "Informações de Cadastro"
+      Enabled         =   0   'False
       Height          =   645
       Left            =   8130
       TabIndex        =   68
@@ -140,27 +281,29 @@ Begin VB.Form frmEntrada
          Width           =   1305
       End
    End
-   Begin VB.Frame Frame3 
+   Begin VB.Frame fraDadosAdicionais 
       Caption         =   "Dados Adicionais"
+      Enabled         =   0   'False
       Height          =   1320
       Left            =   8130
       TabIndex        =   66
-      Top             =   6390
+      Top             =   6435
       Width           =   6900
       Begin VB.TextBox Text1 
          Height          =   900
          Left            =   120
+         MaxLength       =   255
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   67
-         Text            =   "Entrada.frx":0000
          Top             =   270
          Width           =   6630
       End
    End
-   Begin VB.Frame Frame2 
+   Begin VB.Frame fraCalculo 
       Caption         =   "Cálculo do ISSQN"
-      Height          =   1035
+      Enabled         =   0   'False
+      Height          =   1050
       Left            =   8130
       TabIndex        =   57
       Top             =   5370
@@ -298,12 +441,12 @@ Begin VB.Form frmEntrada
          Width           =   1110
       End
    End
-   Begin VB.Frame Frame1 
+   Begin VB.Frame fraProdutos 
       Caption         =   "Produtos / Serviços"
-      Height          =   4680
+      Height          =   3615
       Left            =   8115
       TabIndex        =   52
-      Top             =   690
+      Top             =   1755
       Width           =   6915
       Begin VB.CommandButton Command5 
          Caption         =   "="
@@ -333,13 +476,13 @@ Begin VB.Form frmEntrada
          Width           =   345
       End
       Begin MSComctlLib.ListView lstProdutos 
-         Height          =   4290
+         Height          =   3240
          Left            =   120
          TabIndex        =   53
          Top             =   270
          Width           =   6285
          _ExtentX        =   11086
-         _ExtentY        =   7567
+         _ExtentY        =   5715
          View            =   3
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -429,16 +572,17 @@ Begin VB.Form frmEntrada
    End
    Begin VB.Frame fraTransportadora 
       Caption         =   "Tranportadora"
-      Height          =   1035
-      Left            =   60
+      Enabled         =   0   'False
+      Height          =   1050
+      Left            =   8130
       TabIndex        =   43
-      Top             =   6660
-      Width           =   7965
-      Begin VB.ComboBox Combo1 
+      Top             =   675
+      Width           =   6900
+      Begin VB.ComboBox cmbFrete 
          Height          =   315
          Left            =   1350
+         Style           =   2  'Dropdown List
          TabIndex        =   49
-         Text            =   "Combo1"
          Top             =   615
          Width           =   1830
       End
@@ -456,8 +600,8 @@ Begin VB.Form frmEntrada
          Left            =   2880
          TabIndex        =   44
          Top             =   240
-         Width           =   4950
-         _ExtentX        =   8731
+         Width           =   3885
+         _ExtentX        =   6853
          _ExtentY        =   556
          BackColor       =   -2147483644
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -501,7 +645,7 @@ Begin VB.Form frmEntrada
       End
       Begin rdActiveText.ActiveText ActiveText14 
          Height          =   315
-         Left            =   7020
+         Left            =   5955
          TabIndex        =   51
          Top             =   615
          Width           =   810
@@ -517,7 +661,6 @@ Begin VB.Form frmEntrada
             Strikethrough   =   0   'False
          EndProperty
          MaxLength       =   7
-         Text            =   "AAA9999"
          RawText         =   0
          FontName        =   "MS Sans Serif"
          FontSize        =   8,25
@@ -525,7 +668,7 @@ Begin VB.Form frmEntrada
       Begin VB.Label Label13 
          Caption         =   "Placa do Veículo:"
          Height          =   270
-         Left            =   5460
+         Left            =   4545
          TabIndex        =   50
          Top             =   645
          Width           =   1530
@@ -549,10 +692,11 @@ Begin VB.Form frmEntrada
    End
    Begin VB.Frame fraImpostos 
       Caption         =   "Impostos"
-      Height          =   2535
+      Enabled         =   0   'False
+      Height          =   2520
       Left            =   60
       TabIndex        =   20
-      Top             =   4125
+      Top             =   5235
       Width           =   7965
       Begin rdActiveText.ActiveText vlrICMS 
          Height          =   315
@@ -920,10 +1064,11 @@ Begin VB.Form frmEntrada
    End
    Begin VB.Frame fraFaturasDuplicatas 
       Caption         =   "Faturas/Duplicatas"
-      Height          =   2400
+      Enabled         =   0   'False
+      Height          =   1755
       Left            =   60
       TabIndex        =   13
-      Top             =   1725
+      Top             =   3465
       Width           =   7980
       Begin VB.CommandButton cmdModificar 
          Caption         =   "="
@@ -937,7 +1082,7 @@ Begin VB.Form frmEntrada
       Begin VB.CommandButton cmdRemover 
          Caption         =   ">>"
          Height          =   315
-         Left            =   7485
+         Left            =   7500
          TabIndex        =   18
          ToolTipText     =   "Remover Fornecedor."
          Top             =   1305
@@ -953,13 +1098,13 @@ Begin VB.Form frmEntrada
          Width           =   345
       End
       Begin MSComctlLib.ListView lstFaturasDuplicatas 
-         Height          =   1665
+         Height          =   1050
          Left            =   120
          TabIndex        =   16
          Top             =   615
          Width           =   7335
          _ExtentX        =   12938
-         _ExtentY        =   2937
+         _ExtentY        =   1852
          View            =   3
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -988,27 +1133,28 @@ Begin VB.Form frmEntrada
       End
       Begin VB.ComboBox cmbDefinicao 
          Height          =   315
-         Left            =   1230
+         Left            =   3255
+         Style           =   2  'Dropdown List
          TabIndex        =   15
-         Text            =   "Combo1"
          Top             =   240
-         Width           =   2625
+         Width           =   4620
       End
       Begin VB.Label lblDefinicao 
-         Caption         =   "Definição:"
+         Caption         =   "Definição de Tipo de Fatura / Duplicata:"
          Height          =   270
          Left            =   120
          TabIndex        =   14
          Top             =   300
-         Width           =   1140
+         Width           =   3045
       End
    End
    Begin VB.Frame fraFornecedor 
       Caption         =   "Fornecedor"
-      Height          =   1050
+      Enabled         =   0   'False
+      Height          =   1035
       Left            =   60
       TabIndex        =   4
-      Top             =   675
+      Top             =   2430
       Width           =   7980
       Begin VB.CommandButton Command1 
          Caption         =   "..."
@@ -1204,19 +1350,19 @@ Begin VB.Form frmEntrada
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   4
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Entrada.frx":0006
+            Picture         =   "Entrada.frx":000C
             Key             =   "Inserido"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Entrada.frx":0160
+            Picture         =   "Entrada.frx":0166
             Key             =   "Gravado"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Entrada.frx":02BA
+            Picture         =   "Entrada.frx":02C0
             Key             =   "Alterado"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Entrada.frx":0414
+            Picture         =   "Entrada.frx":041A
             Key             =   "Removido"
          EndProperty
       EndProperty
@@ -1264,6 +1410,50 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private colProdutos As Collection
+Private colFaturas As Collection
+Private clsErro As INF_Erro.Funcoes
+
 Private Sub cmdFechar_Click()
    Unload Me
+End Sub
+
+Private Sub Form_Load()
+   On Error GoTo Form_Load_E
+      
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
+   Set colProdutos = New Collection
+   Set colFaturas = New Collection
+   
+   Ampulheta True
+   
+   f1.FormCentralizar Me
+   
+   Me.cmbDefinicao.Clear
+   f1.CmbAdd Me.cmbDefinicao, "Pagamento à vista", 0
+   f1.CmbAdd Me.cmbDefinicao, "Pagamento parcelado", 1
+   Me.cmbDefinicao.ListIndex = f1.CmbValor(Me.cmbDefinicao, 0)
+   
+   Me.cmbFrete.Clear
+   f1.CmbAdd Me.cmbFrete, "Emitente", 1
+   f1.CmbAdd Me.cmbFrete, "Destinatário", 2
+   Me.cmbFrete.ListIndex = f1.CmbValor(Me.cmbFrete, 1)
+   
+   Me.lstLegenda.ListItems.Clear
+   Me.lstLegenda.ListItems.Add , "K_1", "Gravado", , LST_ICO_GRAVADO
+   Me.lstLegenda.ListItems.Add , "K_2", "Inserido", , LST_ICO_INSERIDO
+   Me.lstLegenda.ListItems.Add , "K_3", "Alterado", , LST_ICO_ALTERADO
+   Me.lstLegenda.ListItems.Add , "K_4", "Removido", , LST_ICO_REMOVIDO
+   
+   If Not HabilitarBotao(clsErro, Me, Me.cmdNovo) Then Exibir clsErro, "Form_Load"
+   If Not HabilitarBotao(clsErro, Me, Me.cmdConsultar) Then Exibir clsErro, "Form_Load"
+   
+   GoTo DestruirObjetos
+
+Form_Load_E:
+   clsErro.Salvar Err
+   Exibir clsErro, "Form_Load"
+
+DestruirObjetos:
+   Ampulheta False
 End Sub

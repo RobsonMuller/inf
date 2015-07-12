@@ -202,7 +202,7 @@ Private Sub cmdPesquisar_Click()
    f1.CollectionLimpar colCG
    Me.lstConsulta.ListItems.Clear
    
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       
@@ -332,7 +332,7 @@ End Sub
 
 Private Sub Form_Initialize()
    Set colCG = New Collection
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
 End Sub
 
 Private Sub Form_Terminate()

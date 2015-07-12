@@ -1,29 +1,31 @@
 VERSION 5.00
 Object = "{4E6B00F6-69BE-11D2-885A-A1A33992992C}#2.5#0"; "InfinityControl.ocx"
 Begin VB.Form frmLogin 
-   BackColor       =   &H80000002&
-   BorderStyle     =   1  'Fixed Single
-   ClientHeight    =   8850
+   Appearance      =   0  'Flat
+   BackColor       =   &H80000005&
+   BorderStyle     =   4  'Fixed ToolWindow
+   ClientHeight    =   4620
    ClientLeft      =   15
    ClientTop       =   45
-   ClientWidth     =   10395
+   ClientWidth     =   5685
    ControlBox      =   0   'False
    Icon            =   "Login.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   8850
-   ScaleWidth      =   10395
+   ScaleHeight     =   4620
+   ScaleWidth      =   5685
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin rdActiveText.ActiveText txtEmpresa 
       Height          =   315
-      Left            =   6045
+      Left            =   1200
       TabIndex        =   2
-      Top             =   7530
-      Width           =   315
-      _ExtentX        =   556
+      Top             =   915
+      Width           =   3375
+      _ExtentX        =   5953
       _ExtentY        =   556
-      Alignment       =   1
+      Appearance      =   0
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Times New Roman"
          Size            =   9
@@ -42,17 +44,17 @@ Begin VB.Form frmLogin
    Begin VB.CommandButton cmdEntrar 
       Caption         =   "&Entrar"
       Height          =   345
-      Left            =   7395
+      Left            =   4725
       TabIndex        =   1
-      Top             =   7485
+      Top             =   105
       Visible         =   0   'False
       Width           =   870
    End
    Begin rdActiveText.ActiveText txtSenha 
       Height          =   315
-      Left            =   1080
+      Left            =   1200
       TabIndex        =   0
-      Top             =   3600
+      Top             =   1245
       Width           =   3375
       _ExtentX        =   5953
       _ExtentY        =   556
@@ -74,9 +76,9 @@ Begin VB.Form frmLogin
    End
    Begin rdActiveText.ActiveText txtNome 
       Height          =   315
-      Left            =   1080
-      TabIndex        =   4
-      Top             =   2445
+      Left            =   1200
+      TabIndex        =   3
+      Top             =   1575
       Width           =   3375
       _ExtentX        =   5953
       _ExtentY        =   556
@@ -97,84 +99,86 @@ Begin VB.Form frmLogin
       FontSize        =   9
    End
    Begin VB.Label Label3 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
+      Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Senha"
+      Caption         =   "Infinity Sistemas de Informação v.1.1.0"
       BeginProperty Font 
-         Name            =   "Times New Roman"
-         Size            =   9
+         Name            =   "Verdana"
+         Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   225
-      Left            =   1095
+      ForeColor       =   &H00000000&
+      Height          =   300
+      Left            =   90
+      TabIndex        =   6
+      Top             =   90
+      Width           =   5505
+   End
+   Begin VB.Label Label2 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "infinity.gerencia@gmail.com"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   -1  'True
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0C000&
+      Height          =   300
+      Left            =   105
       TabIndex        =   5
-      Top             =   3240
-      Width           =   825
-   End
-   Begin VB.Shape Shape1 
-      BackStyle       =   1  'Opaque
-      Height          =   4215
-      Left            =   645
-      Top             =   855
-      Width           =   4230
-   End
-   Begin VB.Image ImgFechar 
-      Height          =   240
-      Left            =   9870
-      Picture         =   "Login.frx":000C
-      Top             =   4350
-      Width           =   240
+      Top             =   4320
+      Width           =   5505
    End
    Begin VB.Image Img_EntrarOn 
-      Height          =   315
-      Left            =   9015
-      Picture         =   "Login.frx":0156
-      Stretch         =   -1  'True
-      Top             =   8280
-      Visible         =   0   'False
-      Width           =   1065
+      Height          =   510
+      Left            =   1290
+      Picture         =   "Login.frx":000C
+      Top             =   2595
+      Width           =   3165
    End
    Begin VB.Image img_EntrarOff 
-      Height          =   315
-      Left            =   9015
-      Picture         =   "Login.frx":11E7
-      Stretch         =   -1  'True
-      Top             =   8280
-      Width           =   1065
-   End
-   Begin VB.Line Line1 
-      BorderColor     =   &H80000003&
-      BorderStyle     =   6  'Inside Solid
-      X1              =   5250
-      X2              =   10080
-      Y1              =   7395
-      Y2              =   7395
+      Height          =   510
+      Left            =   1290
+      Picture         =   "Login.frx":54C6
+      Top             =   2595
+      Width           =   3165
    End
    Begin VB.Label Label1 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      Caption         =   "Empresa:"
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "Infinity Sistemas de Informação v.1.1.0"
       BeginProperty Font 
-         Name            =   "Times New Roman"
-         Size            =   9
+         Name            =   "Verdana"
+         Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   225
-      Left            =   5250
-      TabIndex        =   3
-      Top             =   7545
-      Width           =   825
+      ForeColor       =   &H00C0C000&
+      Height          =   300
+      Left            =   105
+      TabIndex        =   4
+      Top             =   90
+      Width           =   5505
+   End
+   Begin VB.Image Image1 
+      Height          =   4665
+      Left            =   -15
+      Picture         =   "Login.frx":A980
+      Stretch         =   -1  'True
+      Top             =   -30
+      Width           =   5700
    End
 End
 Attribute VB_Name = "frmLogin"
@@ -216,7 +220,7 @@ Private Sub cmdEntrar_Click()
    End If
    
    Prj.Sistema.ConexActive = True
-   Set clsCursor = New INF_Cursor.Cursor
+   Set clsCursor = CreateObject("INF_Cursor.Cursor")
    With clsCursor
       .Inicializar clsConexao
       
@@ -335,7 +339,7 @@ DestruirObjetos:
 End Sub
 
 Private Sub Form_Load()
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
    If ModoDesenvolvimento Then
       Me.txtNome = "master"
       Me.txtSenha = "master"
@@ -343,7 +347,7 @@ Private Sub Form_Load()
    End If
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
    img_EntrarOff.Visible = True
    Img_EntrarOn.Visible = False
 End Sub
@@ -361,7 +365,12 @@ Private Sub ImgFechar_Click()
    Unload Me
 End Sub
 
-Private Sub img_EntrarOff_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
+Private Sub Image1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   img_EntrarOff.Visible = True
+   Img_EntrarOn.Visible = False
+End Sub
+
+Private Sub img_EntrarOff_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
    img_EntrarOff.Visible = False
    Img_EntrarOn.Visible = True
 End Sub

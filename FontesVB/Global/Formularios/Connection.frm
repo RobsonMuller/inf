@@ -1,12 +1,13 @@
 VERSION 5.00
-Object = "{4E6B00F6-69BE-11D2-885A-A1A33992992C}#2.5#0"; "InfinityControl.ocx"
 Begin VB.Form frmConnection 
-   BorderStyle     =   0  'None
-   Caption         =   "Connection SQL Server"
+   Appearance      =   0  'Flat
+   BackColor       =   &H80000005&
+   BorderStyle     =   4  'Fixed ToolWindow
    ClientHeight    =   3750
-   ClientLeft      =   0
-   ClientTop       =   0
+   ClientLeft      =   15
+   ClientTop       =   15
    ClientWidth     =   10305
+   ControlBox      =   0   'False
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
    MaxButton       =   0   'False
@@ -15,66 +16,92 @@ Begin VB.Form frmConnection
    ScaleWidth      =   10305
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox txtSenha 
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   1065
+      TabIndex        =   4
+      Top             =   1470
+      Width           =   2070
+   End
+   Begin VB.TextBox txtUsuario 
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   1065
+      TabIndex        =   3
+      Top             =   1095
+      Width           =   2070
+   End
+   Begin VB.TextBox txtBanco 
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   1065
+      TabIndex        =   2
+      Top             =   720
+      Width           =   2070
+   End
+   Begin VB.TextBox txtServidor 
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   1065
+      TabIndex        =   1
+      Top             =   345
+      Width           =   2070
+   End
    Begin VB.ComboBox cmbSalvarSenha 
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   315
       Left            =   2175
-      TabIndex        =   9
-      Top             =   1905
-      Width           =   855
-   End
-   Begin rdActiveText.ActiveText txtServidor 
-      Height          =   315
-      Left            =   900
-      TabIndex        =   4
-      Top             =   345
-      Width           =   2130
-      _ExtentX        =   3757
-      _ExtentY        =   556
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      TextCase        =   1
-      RawText         =   0
-      FontName        =   "MS Sans Serif"
-      FontSize        =   8,25
-   End
-   Begin rdActiveText.ActiveText txtBanco 
-      Height          =   315
-      Left            =   900
       TabIndex        =   5
-      Top             =   735
-      Width           =   2130
-      _ExtentX        =   3757
-      _ExtentY        =   556
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      RawText         =   0
-      FontName        =   "MS Sans Serif"
-      FontSize        =   8,25
+      Top             =   1860
+      Width           =   960
    End
-   Begin rdActiveText.ActiveText txtUsuario 
-      Height          =   315
-      Left            =   900
-      TabIndex        =   6
-      Top             =   1125
-      Width           =   2130
-      _ExtentX        =   3757
-      _ExtentY        =   556
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
+   Begin VB.Label Label5 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   "Infinity Sistemas de Informação"
+      BeginProperty Font 
+         Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -82,31 +109,12 @@ Begin VB.Form frmConnection
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      RawText         =   0
-      FontName        =   "MS Sans Serif"
-      FontSize        =   8,25
-   End
-   Begin rdActiveText.ActiveText txtSenha 
-      Height          =   315
-      Left            =   900
-      TabIndex        =   7
-      Top             =   1515
-      Width           =   2130
-      _ExtentX        =   3757
-      _ExtentY        =   556
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      PasswordChar    =   "*"
-      RawText         =   0
-      FontName        =   "MS Sans Serif"
-      FontSize        =   8,25
+      ForeColor       =   &H00C0C000&
+      Height          =   240
+      Left            =   75
+      TabIndex        =   10
+      Top             =   3255
+      Width           =   3120
    End
    Begin VB.Image cmdEntrar 
       Height          =   240
@@ -126,10 +134,19 @@ Begin VB.Form frmConnection
    Begin VB.Label lblSalvarSenha 
       BackStyle       =   0  'Transparent
       Caption         =   "Salvar Senha Acesso:"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   225
       Left            =   120
-      TabIndex        =   8
-      Top             =   1935
+      TabIndex        =   9
+      Top             =   1890
       Width           =   2055
    End
    Begin VB.Line Line1 
@@ -142,38 +159,74 @@ Begin VB.Form frmConnection
    Begin VB.Label Label4 
       BackStyle       =   0  'Transparent
       Caption         =   "Senha:"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   240
       Left            =   120
-      TabIndex        =   3
-      Top             =   1545
-      Width           =   780
+      TabIndex        =   8
+      Top             =   1500
+      Width           =   945
    End
    Begin VB.Label Label3 
       BackStyle       =   0  'Transparent
       Caption         =   "Usuário:"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   240
       Left            =   120
-      TabIndex        =   2
-      Top             =   1155
-      Width           =   780
+      TabIndex        =   7
+      Top             =   1125
+      Width           =   1035
    End
    Begin VB.Label Label2 
       BackStyle       =   0  'Transparent
       Caption         =   "Servidor:"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   225
       Left            =   120
-      TabIndex        =   1
+      TabIndex        =   6
       Top             =   375
-      Width           =   810
+      Width           =   1365
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
       Caption         =   "Banco:"
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       Height          =   240
       Left            =   120
       TabIndex        =   0
-      Top             =   765
-      Width           =   780
+      Top             =   750
+      Width           =   1575
    End
    Begin VB.Image img 
       Height          =   3750
@@ -241,7 +294,7 @@ End Sub
 Private Sub Form_Load()
    On Error GoTo Form_Load_E
    
-   Set clsErro = New INF_Erro.Funcoes
+   Set clsErro = CreateObject("INF_Erro.Funcoes")
    
    mCmbSimNao Me.cmbSalvarSenha
    
