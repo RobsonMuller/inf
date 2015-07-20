@@ -22,4 +22,5 @@ clsBasicCad = 52, 52, 887, 478, C
 frmFornecedores = 208, 208, 1043, 660, C, 0, 0, 835, 452, C
 sContainerFornContato = 0, 0, 0, 0, C
 frmFornecedorContato = 0, 0, 0, 0, C, 0, 0, 835, 452, C
-frmEntrada = 156, 156, 1027, 582, , 156, 156, 991, 582, C
+frmEntrada = 156, 156, 1027, 582, C, 156, 156, 991, 582, C
+frmOrdemServico = 0, 0, 0, 0, C, 26, 26, 795, 452, C

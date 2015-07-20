@@ -4,7 +4,7 @@ Begin VB.Form frmLogin
    Appearance      =   0  'Flat
    BackColor       =   &H80000005&
    BorderStyle     =   4  'Fixed ToolWindow
-   ClientHeight    =   4620
+   ClientHeight    =   5325
    ClientLeft      =   15
    ClientTop       =   45
    ClientWidth     =   5685
@@ -13,19 +13,20 @@ Begin VB.Form frmLogin
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4620
+   ScaleHeight     =   5325
    ScaleWidth      =   5685
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin rdActiveText.ActiveText txtEmpresa 
       Height          =   315
       Left            =   1200
-      TabIndex        =   2
+      TabIndex        =   0
       Top             =   915
       Width           =   3375
       _ExtentX        =   5953
       _ExtentY        =   556
       Appearance      =   0
+      ForeColor       =   -2147483638
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Times New Roman"
          Size            =   9
@@ -35,8 +36,7 @@ Begin VB.Form frmLogin
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      MaxLength       =   2
-      Text            =   "01"
+      Text            =   "Código da empresa..."
       RawText         =   0
       FontName        =   "Times New Roman"
       FontSize        =   9
@@ -44,17 +44,17 @@ Begin VB.Form frmLogin
    Begin VB.CommandButton cmdEntrar 
       Caption         =   "&Entrar"
       Height          =   345
-      Left            =   4725
-      TabIndex        =   1
-      Top             =   105
+      Left            =   1200
+      TabIndex        =   2
+      Top             =   525
       Visible         =   0   'False
       Width           =   870
    End
    Begin rdActiveText.ActiveText txtSenha 
       Height          =   315
       Left            =   1200
-      TabIndex        =   0
-      Top             =   1245
+      TabIndex        =   3
+      Top             =   1635
       Width           =   3375
       _ExtentX        =   5953
       _ExtentY        =   556
@@ -69,7 +69,7 @@ Begin VB.Form frmLogin
          Strikethrough   =   0   'False
       EndProperty
       MaxLength       =   20
-      PasswordChar    =   "*"
+      Text            =   "Senha de Acesso"
       RawText         =   0
       FontName        =   "MS Sans Serif"
       FontSize        =   8,25
@@ -77,13 +77,12 @@ Begin VB.Form frmLogin
    Begin rdActiveText.ActiveText txtNome 
       Height          =   315
       Left            =   1200
-      TabIndex        =   3
-      Top             =   1575
+      TabIndex        =   1
+      Top             =   1275
       Width           =   3375
       _ExtentX        =   5953
       _ExtentY        =   556
       Appearance      =   0
-      ForeColor       =   -2147483642
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Times New Roman"
          Size            =   9
@@ -94,29 +93,45 @@ Begin VB.Form frmLogin
          Strikethrough   =   0   'False
       EndProperty
       MaxLength       =   20
+      Text            =   "Nome do Usuário"
       RawText         =   0
       FontName        =   "Times New Roman"
       FontSize        =   9
    End
-   Begin VB.Label Label3 
-      Alignment       =   2  'Center
+   Begin VB.Label Label1 
+      Alignment       =   1  'Right Justify
       BackStyle       =   0  'Transparent
-      Caption         =   "Infinity Sistemas de Informação v.1.1.0"
+      Caption         =   "v.1.001.0000"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
-         Italic          =   0   'False
+         Italic          =   -1  'True
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00000000&
-      Height          =   300
-      Left            =   90
-      TabIndex        =   6
-      Top             =   90
-      Width           =   5505
+      ForeColor       =   &H00800000&
+      Height          =   270
+      Left            =   2820
+      TabIndex        =   5
+      Top             =   660
+      Width           =   1755
+   End
+   Begin VB.Image img_fecharOff 
+      Height          =   240
+      Left            =   5385
+      Picture         =   "Login.frx":000C
+      Top             =   45
+      Width           =   240
+   End
+   Begin VB.Image img_fecharOn 
+      Height          =   240
+      Left            =   5385
+      Picture         =   "Login.frx":034E
+      Top             =   45
+      Visible         =   0   'False
+      Width           =   240
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
@@ -133,49 +148,30 @@ Begin VB.Form frmLogin
       EndProperty
       ForeColor       =   &H00C0C000&
       Height          =   300
-      Left            =   105
-      TabIndex        =   5
-      Top             =   4320
+      Left            =   150
+      TabIndex        =   4
+      Top             =   4950
       Width           =   5505
    End
    Begin VB.Image Img_EntrarOn 
       Height          =   510
       Left            =   1290
-      Picture         =   "Login.frx":000C
+      Picture         =   "Login.frx":0690
       Top             =   2595
+      Visible         =   0   'False
       Width           =   3165
    End
    Begin VB.Image img_EntrarOff 
       Height          =   510
       Left            =   1290
-      Picture         =   "Login.frx":54C6
+      Picture         =   "Login.frx":5B4A
       Top             =   2595
       Width           =   3165
    End
-   Begin VB.Label Label1 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      Caption         =   "Infinity Sistemas de Informação v.1.1.0"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00C0C000&
-      Height          =   300
-      Left            =   105
-      TabIndex        =   4
-      Top             =   90
-      Width           =   5505
-   End
    Begin VB.Image Image1 
-      Height          =   4665
+      Height          =   5370
       Left            =   -15
-      Picture         =   "Login.frx":A980
+      Picture         =   "Login.frx":B004
       Stretch         =   -1  'True
       Top             =   -30
       Width           =   5700
@@ -197,6 +193,12 @@ Private Sub cmdEntrar_Click()
    Dim strSenha As String
    Dim strConnect As String
    Dim clsCursor As INF_Cursor.Cursor
+   
+   If ModoDesenvolvimento Then
+      Me.txtEmpresa = "01"
+      Me.txtNome = "master"
+      Me.txtSenha = "master"
+   End If
    
    Prj.Sistema.IdEmpresa = Me.txtEmpresa
    
@@ -340,14 +342,22 @@ End Sub
 
 Private Sub Form_Load()
    Set clsErro = CreateObject("INF_Erro.Funcoes")
-   If ModoDesenvolvimento Then
-      Me.txtNome = "master"
-      Me.txtSenha = "master"
-      mFocus Me.cmdEntrar
-   End If
+   
+   Me.txtEmpresa.MaxLength = 0
+   Me.txtEmpresa.ForeColor = &H8000000A
+   Me.txtEmpresa = "Código da Empresa ..."
+   
+   Me.txtNome.MaxLength = 0
+   Me.txtNome.ForeColor = &H8000000A
+   Me.txtNome = "Nome do Usuário ..."
+   
+   Me.txtSenha.MaxLength = 0
+   Me.txtSenha.ForeColor = &H8000000A
+   Me.txtSenha.PasswordChar = ""
+   Me.txtSenha = "Senha de Acesso ..."
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
    img_EntrarOff.Visible = True
    Img_EntrarOn.Visible = False
 End Sub
@@ -360,17 +370,14 @@ Private Sub Image2_Click()
    frmAlterarSenha.Show
 End Sub
 
-Private Sub ImgFechar_Click()
-   If GetSetting(NM_APP, "Connect", "SavePassword") = "N" Then DeleteSetting NM_APP, "Connect", "Password"
-   Unload Me
-End Sub
-
-Private Sub Image1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Image1_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
    img_EntrarOff.Visible = True
    Img_EntrarOn.Visible = False
+   img_fecharOff.Visible = True
+   img_fecharOn.Visible = False
 End Sub
 
-Private Sub img_EntrarOff_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub img_EntrarOff_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
    img_EntrarOff.Visible = False
    Img_EntrarOn.Visible = True
 End Sub
@@ -379,14 +386,74 @@ Private Sub Img_EntrarOn_Click()
     cmdEntrar_Click
 End Sub
 
+Private Sub img_fecharOff_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
+   Me.img_fecharOff.Visible = False
+   Me.img_fecharOn.Visible = True
+End Sub
+
+Private Sub img_fecharOn_Click()
+   If GetSetting(NM_APP, "Connect", "SavePassword") = "N" Then DeleteSetting NM_APP, "Connect", "Password"
+   Unload Me
+End Sub
+
+Private Sub txtEmpresa_GotFocus()
+   If Me.txtEmpresa.MaxLength = 0 Then
+      Me.txtEmpresa = ""
+      Me.txtEmpresa.MaxLength = 2
+      Me.txtEmpresa.ForeColor = &H80000008
+   End If
+End Sub
+
 Private Sub txtEmpresa_KeyPress(KeyAscii As Integer)
    If KeyAscii = vbKeyReturn Then cmdEntrar_Click
+End Sub
+
+Private Sub txtEmpresa_LostFocus()
+   If Len(Trim(Me.txtEmpresa)) = 0 Then
+      Me.txtEmpresa.MaxLength = 0
+      Me.txtEmpresa.ForeColor = &H8000000A
+      Me.txtEmpresa = "Código da Empresa ..."
+   End If
+End Sub
+
+Private Sub txtNome_GotFocus()
+   If Me.txtNome.MaxLength = 0 Then
+      Me.txtNome = ""
+      Me.txtNome.MaxLength = 40
+      Me.txtNome.ForeColor = &H80000008
+   End If
 End Sub
 
 Private Sub txtNome_KeyPress(KeyAscii As Integer)
    If KeyAscii = vbKeyReturn Then cmdEntrar_Click
 End Sub
 
+Private Sub txtNome_LostFocus()
+   If Len(Trim(Me.txtNome)) = 0 Then
+      Me.txtNome.MaxLength = 0
+      Me.txtNome.ForeColor = &H8000000A
+      Me.txtNome = "Nome do Usuário ..."
+   End If
+End Sub
+
+Private Sub txtSenha_GotFocus()
+   If Me.txtSenha.MaxLength = 0 Then
+      Me.txtSenha = ""
+      Me.txtSenha.MaxLength = 40
+      Me.txtSenha.ForeColor = &H80000008
+      Me.txtSenha.PasswordChar = "*"
+   End If
+End Sub
+
 Private Sub txtSenha_KeyPress(KeyAscii As Integer)
    If KeyAscii = vbKeyReturn Then cmdEntrar_Click
+End Sub
+
+Private Sub txtSenha_LostFocus()
+   If Len(Trim(Me.txtSenha)) = 0 Then
+      Me.txtSenha.MaxLength = 0
+      Me.txtSenha.ForeColor = &H8000000A
+      Me.txtSenha.PasswordChar = ""
+      Me.txtSenha = "Senha de Acesso ..."
+   End If
 End Sub
