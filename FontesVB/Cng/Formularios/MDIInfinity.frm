@@ -271,7 +271,7 @@ Private Sub ID_02_05_02_C_Click()
 End Sub
 
 Private Sub ID_03_01_01_C_Click()
-   'frmRelMarcas.Show
+   frmRelMarcas.Show
 End Sub
 
 Private Sub ID_04_01_00_C_Click()

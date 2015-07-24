@@ -16,7 +16,8 @@ CREATE TABLE dbo.Empresas (
 	Email VARCHAR(255),
 	WebSite VARCHAR(255),
 	Obs VARCHAR(255),
-	Situacao CHAR(1)
+	Situacao CHAR(1),
+	PathReport VARCHAR(500)
 )
 
 ALTER TABLE dbo.Empresas ADD CONSTRAINT PK_EMPRESAS PRIMARY KEY (Codigo)

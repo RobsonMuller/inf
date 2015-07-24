@@ -20,6 +20,8 @@ Private objFormReportCrystal As Object
 Private clsErro As INF_Erro.Funcoes
 Private clsConexao As INF_Conexao.Conexao
 
+Private Declare Function GetComputerName Lib "kernel32" Alias "GetComputerNameA" (ByVal lpBuffer As String, nSize As Long) As Long
+
 Public Property Get TransferirErro() As Object
    Set TransferirErro = clsErro.Transferir
 End Property
@@ -53,18 +55,28 @@ End Function
 Public Function Imprimir() As Boolean
    On Error GoTo Imprimir_E
    
+   'DLLs
+   ' OLE DB - PDSOLEDB.DLL
+   ' ODBC - PDSODBC.DLL
+   
    Dim strSQL As String
    Dim ADOCon As ADODB.Connection
    Dim ADORst As ADODB.Recordset
    Dim ADOCommand As ADODB.Command
    
    Dim strPathReport As String
-   'Dim clsCursor As INF_Cursor.Cursor
-   Dim CryRpt As CRAXDDRT.Report
-   Dim CryApp As CRAXDDRT.Application
+   Dim CryRpt As CRAXDRT.Report
+   Dim CryApp As CRAXDRT.Application
+   
+   Dim strServer As String
+   Dim strBase As String
+   Dim strID As String
+   Dim strPass As String
    
    Imprimir = False
    
+   'Carrega Temporaria
+   '--------------------------------------------------------------------------'
    Set ADOCon = New ADODB.Connection
    ADOCon.ConnectionString = clsConexao.ConnectionString
    ADOCon.Open
@@ -78,106 +90,56 @@ Public Function Imprimir() As Boolean
    ADOCommand.CommandText = strSQL
    ADOCommand.Execute
    
-   strSQL = "CREATE VIEW VW_Rel AS " & .SQL.Texto
+   strSQL = "CREATE VIEW VW_Rel AS " & SQL.Texto
    Set ADOCommand = New ADODB.Command
    ADOCommand.ActiveConnection = ADOCon
    ADOCommand.Prepared = True
    ADOCommand.CommandText = strSQL
    ADOCommand.Execute
    ADOCon.CommitTrans
+      
+   'Verifica caminho de relatórios
+   strSQL = ""
+   strSQL = strSQL & " SELECT PathReport "
+   strSQL = strSQL & " FROM Empresas "
+   strSQL = strSQL & " WHERE Codigo = '" & strEmpresa & "'"
    
+   Set ADORst = New ADODB.Recordset
+   ADORst.CursorLocation = adUseClient
+   ADORst.CursorType = adOpenDynamic
+   ADORst.ActiveConnection = ADOCon
+   ADORst.Open strSQL
    
-   strSQL = "SELECT * FROM VW_REL"
-   Set ADORst = ADOCon.Execute(strSQL)
+   If ADORst.EOF Then GoTo DestruirObjetos
+   strPathReport = ADORst.Fields("PathReport")
+   ADORst.Close
    
+   Set CryApp = New CRAXDRT.Application
+   Set CryRpt = CryApp.OpenReport("C:\Users\Robson\Desktop\_Desenv\Infinity\FontesVB\Cng\Relatorios\" & strNmReport, 1) '
    
+   strID = GetSetting("Infinity", "Connect", "User")
+   strPass = GetSetting("Infinity", "Connect", "Password")
+   strBase = GetSetting("Infinity", "Connect", "Base")
+   strServer = NmComp & "\" & GetSetting("Infinity", "Connect", "Server")
    
+   CryRpt.Database.Tables(1).SetLogOnInfo strServer, strBase, strID, strPass
+   CryRpt.DiscardSavedData
    
-'   clsConexao.Begin
-'   With clsConexao
-'      .SQL.Limpar
-'      .SQL.Mais " IF (OBJECT_ID('dbo.VW_Rel') IS NOT NULL) "
-'      .SQL.Mais "    DROP VIEW dbo.VW_Rel "
-'
-'      If Not .Executar(.SQL.Texto) Then
-'         clsErro.Transferir = .TransferirErro
-'         clsErro.ModRotina = "Imprimir"
-'         .RollBack
-'         Exit Function
-'      End If
-'   End With
-'
-'   With clsConexao
-'      .SQL.Limpar
-'      .SQL.Mais " CREATE VIEW VW_Rel AS "
-'      .SQL.Mais SQL.Texto
-'
-'      If Not .Executar(.SQL.Texto) Then
-'         clsErro.Transferir = .TransferirErro
-'         clsErro.ModRotina = "Imprimir"
-'         .RollBack
-'         Exit Function
-'      End If
-'   End With
-'   clsConexao.Commit
-   
-'   Set clsCursor = CreateObject("INF_Cursor.Cursor")
-'   With clsCursor
-'      .Inicializar clsConexao
-'
-'      .SQL.Limpar
-'      .SQL.Mais " SELECT PathReport "
-'      .SQL.Mais " FROM GlbParametros "
-'      .SQL.Mais " WHERE Empresa = " & .Txt(strEmpresa)
-'
-'      If Not .Abrir(.SQL.Texto) Then
-'         clsErro.Transferir = .TransferirErro
-'         clsErro.ModRotina = "Imprimir"
-'         GoTo DestruirObjetos
-'      End If
-'
-'      If Not .EOF Then
-'         strPathReport = .Valor("PathReport")
-'      Else
-'         clsErro.Salvar Err, 1, "Origem do Relatório não especificado nos parâmetros do sistema! Verifique."
-'         clsErro.ModRotina = "Imprimir"
-'         GoTo DestruirObjetos
-'      End If
-'      .Fechar
-'   End With
-'
-'   With clsCursor
-'      .SQL.Limpar
-'      .SQL.Mais " SELECT * FROM VW_Rel "
-'
-'      If Not .Abrir(.SQL.Texto) Then
-'         clsErro.Transferir = .TransferirErro
-'         clsErro.ModRotina = "Imprimir"
-'         GoTo DestruirObjetos
-'      End If
-'   End With
-'
-'   Set CryApp = New CRAXDDRT.Application
-   Set CryRpt = CryApp.OpenReport("C:" & "\" & strNmReport, 1)
-   CryRpt.Database.SetDataSource ADORst
    objFormReportCrystal.CRViewer.ReportSource = CryRpt
    objFormReportCrystal.CRViewer.Zoom 100
    objFormReportCrystal.CRViewer.ViewReport
    objFormReportCrystal.Show
-   
   
-'
-'   clsCursor.Fechar
-'
    Imprimir = True
+   
+   GoTo DestruirObjetos
    
 Imprimir_E:
    clsErro.Salvar Err
    clsErro.ModRotina = "Imprimir"
-'
-'DestruirObjetos:
-'   If Not (clsCursor Is Nothing) Then clsCursor.Fechar
-'   Set clsCursor = Nothing
+
+DestruirObjetos:
+   Set ADORst = Nothing
 End Function
 
 Private Sub Class_Terminate()
@@ -245,3 +207,13 @@ Private Function Replace(Source As String, Find As String, ReplaceStr As String,
    If Start > 1 Then Replace = Mid$(Replace, Start)
 End Function
 
+Public Function NmComp() As String
+   Dim strNome As String
+   Dim lretorno As Long
+
+   strNome = String(255, Chr$(0))
+   lretorno = GetComputerName(strNome, 255)
+   strNome = Left$(strNome, InStr(1, strNome, Chr$(0)) - 1)
+   NmComp = strNome
+   Exit Function
+End Function

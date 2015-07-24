@@ -134,12 +134,12 @@ Private Sub cmdImprimir_Click()
       
       .SQL.Limpar
       .SQL.Mais " SELECT Empresa, Codigo, Descricao, Abreviatura, "
-      .SQL.Mais "    (CASE WHEN Ativo = 'S' THEN 'Ativado' ELSE 'Desativado' END) AS Ativo "
+      .SQL.Mais "    (CASE WHEN Situacao = 'S' THEN 'Ativado' ELSE 'Desativado' END) AS Situacao "
       .SQL.Mais " FROM Marcas "
       .SQL.Mais " WHERE Empresa = " & .Txt(Prj.Sistema.IdEmpresa)
       
       If Me.vlrCod > 0 Then .SQL.Mais " AND Codigo = " & .Vlr(Me.vlrCod)
-      If f1.CmbValor(Me.cmbAtivo, Me.cmbAtivo.Text, enDescricao) <> 99 Then .SQL.Mais " AND Ativo = " & .Txt(Left(Me.cmbAtivo.Text, 1))
+      If f1.CmbParametro(Me.cmbAtivo) <> 99 Then .SQL.Mais " AND Situacao = " & .Txt(Left(Me.cmbAtivo.Text, 1))
       
       If Not .Imprimir() Then
          clsErro.Transferir = .TransferirErro
