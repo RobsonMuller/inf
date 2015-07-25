@@ -17,13 +17,32 @@ Begin VB.Form frmLogin
    ScaleWidth      =   5685
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdFechar 
+      Height          =   315
+      Left            =   5220
+      Picture         =   "Login.frx":000C
+      Style           =   1  'Graphical
+      TabIndex        =   5
+      Top             =   4140
+      Width           =   405
+   End
+   Begin VB.CommandButton cmdAcesso 
+      Default         =   -1  'True
+      Height          =   315
+      Left            =   5220
+      Picture         =   "Login.frx":0156
+      Style           =   1  'Graphical
+      TabIndex        =   4
+      Top             =   4605
+      Width           =   405
+   End
    Begin rdActiveText.ActiveText txtEmpresa 
       Height          =   315
-      Left            =   1200
+      Left            =   60
       TabIndex        =   0
-      Top             =   915
-      Width           =   3375
-      _ExtentX        =   5953
+      Top             =   4140
+      Width           =   1665
+      _ExtentX        =   2937
       _ExtentY        =   556
       Appearance      =   0
       ForeColor       =   -2147483638
@@ -44,17 +63,17 @@ Begin VB.Form frmLogin
    Begin VB.CommandButton cmdEntrar 
       Caption         =   "&Entrar"
       Height          =   345
-      Left            =   1200
+      Left            =   75
       TabIndex        =   2
-      Top             =   525
+      Top             =   3600
       Visible         =   0   'False
       Width           =   870
    End
    Begin rdActiveText.ActiveText txtSenha 
       Height          =   315
-      Left            =   1200
+      Left            =   1785
       TabIndex        =   3
-      Top             =   1635
+      Top             =   4605
       Width           =   3375
       _ExtentX        =   5953
       _ExtentY        =   556
@@ -76,9 +95,9 @@ Begin VB.Form frmLogin
    End
    Begin rdActiveText.ActiveText txtNome 
       Height          =   315
-      Left            =   1200
+      Left            =   1800
       TabIndex        =   1
-      Top             =   1275
+      Top             =   4140
       Width           =   3375
       _ExtentX        =   5953
       _ExtentY        =   556
@@ -99,79 +118,28 @@ Begin VB.Form frmLogin
       FontSize        =   9
    End
    Begin VB.Label Label1 
-      Alignment       =   1  'Right Justify
-      BackStyle       =   0  'Transparent
-      Caption         =   "v.1.001.0000"
-      BeginProperty Font 
-         Name            =   "Verdana"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   -1  'True
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00800000&
-      Height          =   270
-      Left            =   2820
-      TabIndex        =   5
-      Top             =   660
-      Width           =   1755
-   End
-   Begin VB.Image img_fecharOff 
-      Height          =   240
-      Left            =   5385
-      Picture         =   "Login.frx":000C
-      Top             =   45
-      Width           =   240
-   End
-   Begin VB.Image img_fecharOn 
-      Height          =   240
-      Left            =   5385
-      Picture         =   "Login.frx":034E
-      Top             =   45
-      Visible         =   0   'False
-      Width           =   240
-   End
-   Begin VB.Label Label2 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "infinity.gerencia@gmail.com"
+      Caption         =   "v1.001.0000"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
          Charset         =   0
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
-         Italic          =   -1  'True
+         Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00C0C000&
-      Height          =   300
-      Left            =   150
-      TabIndex        =   4
-      Top             =   4950
-      Width           =   5505
-   End
-   Begin VB.Image Img_EntrarOn 
-      Height          =   510
-      Left            =   1290
-      Picture         =   "Login.frx":0690
-      Top             =   2595
-      Visible         =   0   'False
-      Width           =   3165
-   End
-   Begin VB.Image img_EntrarOff 
-      Height          =   510
-      Left            =   1290
-      Picture         =   "Login.frx":5B4A
-      Top             =   2595
-      Width           =   3165
+      Height          =   240
+      Left            =   90
+      TabIndex        =   6
+      Top             =   4635
+      Width           =   1575
    End
    Begin VB.Image Image1 
       Height          =   5370
       Left            =   -15
-      Picture         =   "Login.frx":B004
+      Picture         =   "Login.frx":02A0
       Stretch         =   -1  'True
       Top             =   -30
       Width           =   5700
@@ -185,6 +153,10 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private clsErro As INF_Erro.Funcoes
+
+Private Sub cmdAcesso_Click()
+   cmdEntrar_Click
+End Sub
 
 Private Sub cmdEntrar_Click()
    On Error GoTo cmdEntrar_Click_E
@@ -340,6 +312,11 @@ DestruirObjetos:
    Set clsCursor = Nothing
 End Sub
 
+Private Sub cmdFechar_Click()
+   If GetSetting(NM_APP, "Connect", "SavePassword") = "N" Then DeleteSetting NM_APP, "Connect", "Password"
+   Unload Me
+End Sub
+
 Private Sub Form_Load()
    Set clsErro = CreateObject("INF_Erro.Funcoes")
    
@@ -357,11 +334,6 @@ Private Sub Form_Load()
    Me.txtSenha = "Senha de Acesso ..."
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
-   img_EntrarOff.Visible = True
-   Img_EntrarOn.Visible = False
-End Sub
-
 Private Sub Form_Unload(Cancel As Integer)
    Set clsErro = Nothing
 End Sub
@@ -370,30 +342,15 @@ Private Sub Image2_Click()
    frmAlterarSenha.Show
 End Sub
 
-Private Sub Image1_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
-   img_EntrarOff.Visible = True
-   Img_EntrarOn.Visible = False
-   img_fecharOff.Visible = True
-   img_fecharOn.Visible = False
-End Sub
-
-Private Sub img_EntrarOff_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
-   img_EntrarOff.Visible = False
-   Img_EntrarOn.Visible = True
-End Sub
-
 Private Sub Img_EntrarOn_Click()
     cmdEntrar_Click
 End Sub
 
-Private Sub img_fecharOff_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
-   Me.img_fecharOff.Visible = False
-   Me.img_fecharOn.Visible = True
+Private Sub img_fecharOff_Click()
+
 End Sub
 
 Private Sub img_fecharOn_Click()
-   If GetSetting(NM_APP, "Connect", "SavePassword") = "N" Then DeleteSetting NM_APP, "Connect", "Password"
-   Unload Me
 End Sub
 
 Private Sub txtEmpresa_GotFocus()
